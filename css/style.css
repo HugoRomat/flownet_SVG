@@ -1,0 +1,71 @@
+
+.leftContainer{
+  float:left;
+  width:400px;
+  height: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.parametersPanel {
+  background-color: #eeeeee;
+  padding: 20px;
+  border-radius: 10px 10px 10px 10px;
+  margin-bottom: 10px;
+}
+
+.mainDiv {
+  width: 98%;
+  height: 98%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rightContainer{
+  float:left;
+  width:1500px;
+  height: 1000px;
+}
+
+input[type=text] {
+  width: 100px;
+}
+
+select {
+  width: 104px;
+}
+
+.importantText {
+  font-weight: bold;
+  text-align: center;
+  margin-left: -0px;
+}
+
+span {
+  margin-bottom: 3px;
+  font-family: arial;
+}
+
+.leftSpan {
+  margin-left: 25px;
+  display: inline-block;
+  width: 85px;
+}
+
+.rightSpan {
+  margin-left: 5px;
+}
+
+svg {
+  background-color: #ffffff;
+}
+
+body, html {
+  min-height: 98%;
+  width: 98%;
+  height: 98%;
+  background-color: white
+}

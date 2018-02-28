@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="lib/d3.v4.js"></script>
+    <script src="lib/flownet_svg.js"></script>
+</head>
+  <body>
+    <div class="mainDiv">
+      <div class="leftContainer">
+        <div>
+          <div class="parametersPanel">
+            <div class="importantText" ><span>Nodes parameters:</span></div></br>
+            <div>
+              <span class="leftSpan">Size:</span><input type="text" onchange="sizeNodeChange(this)" value="10"><span> px</span></br>
+              <span class="leftSpan">Color:</span><input type="text" onchange="colorNodeChange(this)" value="black"></br>
+            </div>
+          </div>
+
+          <div class="parametersPanel">
+            <div class="importantText"><span>Link parameters:</span></div></br>
+            <div>
+              <span class="leftSpan">Size:</span><input type="text" onchange="sizeEdgeChange(this)" value="12"><span> px</span></br>
+              <span class="leftSpan">Color:</span><input type="text" onchange="colorEdgeChange(this)" value="lightGrey"></br>
+              <span class="leftSpan">Interpolate:</span><select onchange="interpolationChange(this)">
+                  <option value="cardinal">cardinal</option>
+                  <option value="linear">linear</option>
+                  <option value="basis">basis</option>
+                  <option value="stepBefore">stepBefore</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="parametersPanel">
+            <div class="importantText"><span>Particules parameters:</span></div></br>
+            <form name="modelSelection">
+              <input type="radio"  name="dmc" value="none" onchange="modelParticuleChange(this)"><span>Basic</span>
+              <input type="radio" name="dmc" value="frequencyToWidth" onchange="modelParticuleChange(this)"><span>Auto Width</span>
+              <input type="radio" name="dmc" value="widthToFrequency" onchange="modelParticuleChange(this)"><span>Auto Freq</span>
+              <input type="radio" name="dmc" checked="true" value="physical" onchange="modelParticuleChange(this)"><span>Physical</span>
+
+            </form></br>
+            <span class="leftSpan">Height:</span><input type="text" onchange="heightParticuleChange(this)" value="3"><span> px</span></br>
+            <span class="leftSpan">Width:</span><input id="width" type="text" onchange="widthParticuleChange(this)" value="20"><span> px</span></br>
+            <span class="leftSpan">Color:</span><input type="text" onchange="colorParticuleChange(this)" value="black"></br></br>
+            <span class="leftSpan">Speed:</span><input type="text" onchange="speedParticuleChange(this)" value="150"><span> px/s</span></br>
+            <span class="leftSpan" style="margin-top: 8px;">Frequency:</span><input id="frequency" type="text" onchange="frequencyParticuleChange(this)" value="1"><span id="unit"> Hz</span></br>
+            <i class="fa fa-warning" style="font-size:20px"></i><span id="warningFreq"> number of particules that are fired each second! </span></br></br>
+
+            <span class="leftSpan" style="font-weight: bold;">Pattern:</span></br>
+            <span class="leftSpan">Template:</span><input type="text" value="[10,10]" onchange="patternParticuleChange(this)"></br>
+            <form name="modelSelection"><span> Distribution:</span>
+              <input type="radio" name="dmc" value="weight" onchange="modelPatternChange(this)"><span>Weight</span>
+              <input type="radio" name="dmc" value="absolute" checked="true" onchange="modelPatternChange(this)"><span>Absolute</span>
+            </form>
+          </div>
+
+
+          <div class="parametersPanel">
+            <div class="importantText"><span>Animation parameters:</span></div></br>
+            <span style="margin-left: 25px; margin-right: 5px;">FPS limitation:</span><input type="text" value="auto" onchange="fpsLimitation(this)"></br></br>
+            <input style="margin-left: 50px;" type="button" onclick="startAnimation(this)" value="start"></input>
+            <input type="button" onclick="stopAnimation(this)" value="stop"></input>
+            <input type="button" onclick="resetAnimation(this)" value="reset"></input>
+          </div>
+
+        </div>
+      </div>
+      <svg id=canvas class="rightContainer"></svg>
+    </div>
+  </body>
+
+	<script>
+
+  function sizeNodeChange(d){
+    flownetGraph.nodes_properties('size', Number(d.value))
+  }
+  function colorNodeChange(d){
+    flownetGraph.nodes_properties('color', d.value)
+  }
+
+
+  function sizeEdgeChange(d){
+      flownetGraph.links_properties("size", d.value)
+  }
+  function colorEdgeChange(d){
+    flownetGraph.links_properties('color', d.value)
+  }
+  function interpolationChange(d){
+    flownetGraph.links_properties("interpolation", d.value)
+  }
+
+
+  function colorParticuleChange(d){
+    flownetGraph.particule_properties('color', d.value)
+  }
+  function heightParticuleChange(d){
+    flownetGraph.particule_properties("height", d.value)
+  }
+  function widthParticuleChange(d){
+    flownetGraph.particule_properties("width", d.value)
+  }
+  function modelParticuleChange(d){
+    switch (d.value) {
+      case "frequencyToWidth":
+        document.getElementById("width").disabled = true
+        document.getElementById("frequency").disabled = false
+        document.getElementById("unit").innerHTML = " px"
+        document.getElementById("warningFreq").innerHTML = " distance between two patterns of particules (px) "
+        break;
+      case "widthToFrequency":
+        document.getElementById("width").disabled = false
+        document.getElementById("frequency").disabled = true
+        document.getElementById("unit").innerHTML = " px"
+        document.getElementById("warningFreq").innerHTML = " distance between two patterns of particules (px) "
+        break;
+      case "none":
+        document.getElementById("width").disabled = false
+        document.getElementById("frequency").disabled = false
+        document.getElementById("unit").innerHTML = " px"
+        document.getElementById("warningFreq").innerHTML = " distance between two patterns of particules (px) "
+        break;
+      case "physical":
+        document.getElementById("width").disabled = false
+        document.getElementById("frequency").disabled = false
+        document.getElementById("unit").innerHTML = " Hz"
+        document.getElementById("warningFreq").innerHTML = " number of particules that are fired each second! "
+        break;
+      default:
+
+    }
+    flownetGraph.particule_properties("frequencyModele", d.value)
+  }
+  function patternParticuleChange(d){
+    flownetGraph.particule_properties("pattern", JSON.parse(d.value))
+  }
+  function modelPatternChange(d){
+    flownetGraph.particule_properties("patternType", d.value)
+  }
+  function frequencyParticuleChange(d){
+    flownetGraph.particule_properties("frequency",d.value)
+  }
+  function speedParticuleChange(d){
+    flownetGraph.particule_properties("speed", d.value)
+  }
+  function fpsLimitation(d){
+    if ( d.value === "auto") flownetGraph.fps(d.value)
+    else flownetGraph.fps(Number(d.value))
+  }
+  function startAnimation(d){
+    flownetGraph.start()
+  }
+  function stopAnimation(d){
+    flownetGraph.stop()
+  }
+  function resetAnimation(d){
+    flownetGraph.reset()
+  }
+
+var graph = {id:"showGraph",
+  nodes:[
+    {x:250-100 , y:200+300, color:"black", size:10, id:0},
+    {x:1050-100 , y:200+300, color:"black", size:10, id:1},
+    {x:1050+150 , y:200, color:"black", size:10, id:2},
+    {x:1050+350 , y:200+300, color:"black", size:10, id:3},
+    {x:1050+150 , y:200+600, color:"black", size:10, id:4}
+  ],
+  links:[
+    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:0,
+    points:[{x:250-100,y:200+300},{x:450-100,y:50+300},{x:650-100,y:400+300},{x:850-100,y:50+300},{x:1050-100,y:200+300}], interpolation:"cardinal", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black", widthParticule:20, heightParticule:3,
+    patternParticule:[10,10], patternType:"absolute", frequencyParticule:1, speedParticule:150},
+
+    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:1,
+    points:[{x:1050-100,y:200+300},{x:1050+150,y:200}], interpolation:"cardinal", colorLink:"lightGrey", sizeLink:12, colorParticule:"black",
+    widthParticule:20, heightParticule:3,
+    patternParticule:[10,10], patternType:"absolute", frequencyParticule:1, speedParticule:150},
+
+    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:2,
+    points:[{x:1050-100,y:200+300},{x:1050+350,y:200+300}], interpolation:"cardinal", colorLink:"lightGrey", sizeLink:12, colorParticule:"black",
+    widthParticule:20, heightParticule:3,
+    patternParticule:[10,10], patternType:"absolute", frequencyParticule:1, speedParticule:150},
+
+    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:3,
+    points:[{x:1050-100,y:200+300},{x:1050+150,y:200+600}], interpolation:"cardinal", colorLink:"lightGrey", sizeLink:12, colorParticule:"black",
+    widthParticule:20, heightParticule:3,
+    patternParticule:[10,10], patternType:"absolute", frequencyParticule:1, speedParticule:150}
+  ]
+}
+
+
+  flownetGraph = new flownet_svg_graph("test", document.getElementById('canvas'))
+    //.graph(graph)
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .nodes_properties('x', function(d, i){  return d.x})
+    .nodes_properties('y', function(d, i){  return d.y})
+    .nodes_properties('color', function(d, i){ return d.color})
+    //.nodes_properties('color', function(d, i){ return "red"}, function(d,i){ return (i%2 === 0)})
+    .nodes_properties('size', function(d, i){  return d.size})
+    //.nodes_properties('class', function(d, i){ return d.cssClass})
+    /*.nodes_behaviors('mouseover', function(d1,i){
+      flownetGraph.nodes_properties('color', "blue", function(d2,i){
+        return d1.id === d2.id
+      })
+    })*/
+    //.nodes_properties('shape', "circle") //rectangle, src=img/house
+    //.nodes_properties('visibility', "hidden")
+
+    .links_properties("points", function(d,i){ return d.points})
+    .links_properties("interpolation", function(d,i){ return d.interpolation})
+    .links_properties("color", function(d,i){ return d.colorLink})
+    .links_properties("size", function(d,i){ return d.sizeLink})
+    /*.links_behaviors('mouseover', function(d1,i){
+      flownetGraph.links_properties('color', "blue", function(d2,i){
+        return d1.id === d2.id
+      })
+    })*/
+    //.links_properties("visibility", "hidden")
+
+    .particule_properties("color", function(d,i){ return d.colorParticule})
+    .particule_properties("width", function(d,i){ return d.widthParticule})
+    .particule_properties("height", function(d,i){ return d.heightParticule})
+    .particule_properties("frequency",function(d,i){ return d.frequencyParticule})
+    .particule_properties("frequencyModele", function(d,i){ return d.modele})
+    .particule_properties("pattern", function(d,i){ return d.patternParticule})
+    .particule_properties("patternType", function(d,i){ return d.patternType})
+    .particule_properties("speed", function(d,i){ return d.speedParticule})
+    /*.particule_behaviors('mouseover', function(d1,i){
+      console.log(this);
+      flownetGraph.particule_properties('color', "blue", function(d2,i){
+        return d1.id === d2.id
+      })
+    })
+    */
+
+
+    //.link_add_gate("color", function(d){ return d.colorGate2.color}, function(d){ return d.colorGate2.position} )
+    //.link_add_gate("height", function(d){ return d.heightGate.height}, function(d){ return d.heightGate.position} )
+    //.link_add_gate("color", function(d){ return d.colorGate1.color}, function(d){ return d.colorGate1.position} )
+    //.fps("auto")
+    //.start()
+    //.stop()
+    //console.log(flownetGraph.selectAll('g'))
+
+  d3.select('svg').append('g').selectAll('circle')
+    .data([{x:450-100,y:50+300},{x:650-100,y:400+300},{x:850-100,y:50+300}])
+    .enter()
+    .append('circle')
+    .attr('id', function(d,i){ return "circle"+i})
+    .attr('cx', function(d){ console.log(d.x);return d.x})
+    .attr('cy', function(d){ return d.y})
+    .attr('r', 8)
+    .attr('fill', "black" )
+    .attr("opacity", "0.5")
+    .call(d3.drag()
+      .on("start", function(){
+        this.setAttribute('ex', d3.event.x)
+        this.setAttribute('ey', d3.event.y)
+      })
+      .on("drag", function(d,i){
+        this.setAttribute('cx', Number(this.getAttribute('cx'))+d3.event.x-Number(this.getAttribute('ex')))
+        this.setAttribute('cy', Number(this.getAttribute('cy'))+d3.event.y-Number(this.getAttribute('ey')))
+        this.setAttribute('ex', d3.event.x)
+        this.setAttribute('ey', d3.event.y)
+        graph.links[0].points.splice(i+1, 1, {x:this.getAttribute('cx'), y:this.getAttribute('cy')})
+        flownetGraph.links_properties("points", function(d){ return d.points})
+      })
+      .on("end", function(){}));
+
+	</script>
+
+
+
+</html>
