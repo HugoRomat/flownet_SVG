@@ -11,17 +11,17 @@ flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
     .nodes(data.nodes)
     .links(data.links)
 ```
-flownet_SVG.**graph(id,svg)**
+*flownet_SVG.**graph(id,svg)**
 
 Construct a new graph tag by an "id" in the specified svg using flownet_SVG.
 
-flownetGraph.**nodes(data_Nodes)** data_Nodes=[ { }, { } ]
+*flownetGraph.**nodes(data_Nodes)**
 
-Fill the graph previously created with **nodes** according to the number of Object in the array (It will be two for the example above).
+Fill the graph previously created with **nodes** according to the number of Object in the array (data_Nodes=[ { }, { } ]).
 
-flownetGraph.**links(data_Links)** data_Links=[ { }, { } ]
+*flownetGraph.**links(data_Links)**
 
-Fill the graph previously created with **links** according to the number of Object in the array (It will be two for the example above).
+Fill the graph previously created with **links** according to the number of Object in the array (data_Links=[ { }, { } ]).
 
 
 ### Nodes
