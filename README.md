@@ -5,9 +5,8 @@
 
 ## Resources
 
-* [API Reference](https://github.com/HugoRomat/flownet_SVG/API.md)
+* [API Reference](https://github.com/HugoRomat/flownet_SVG/blob/master/API.md)
 * [Examples]()
 
 ## Installing
 
-```
