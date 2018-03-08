@@ -11,7 +11,7 @@ flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
     .nodes(data.nodes)
     .links(data.links)
 ```
-* flownet_SVG.**graph(id,svg)**
+<a></a> flownet_SVG.**graph(id,svg)**
 
 Construct a new graph tag by an "id" in the specified svg using flownet_SVG.
 
