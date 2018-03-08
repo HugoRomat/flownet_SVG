@@ -24,7 +24,7 @@ Fill the graph previously created with **nodes** according to the number of Obje
 Fill the graph previously created with **links** according to the number of Object in the array (data_Links= [ {  }, {  } ] ).
 
 
-### Nodes
+## Nodes
 
 ```js
 flownetGraph.nodes_properties("property", "value")
@@ -38,26 +38,35 @@ it is possible to pass a constant value or a function taking for parameters: **d
 position of the nodes in the nested selection (like d3).
 
 #### Properties
-* x: the position of the node on the horizontal axis of the canvas ( (0,0) => top left corner).
-* y: the position of the node on the vertical axis of the canvas ( (0,0) => top left corner).
-* color: the color of the node supporting several color encoding (hsl, rgb...)
-* size: the size of the node coresponding to its radius.
+* x: The position of the node on the horizontal axis of the canvas ( (0,0) => top left corner).
+* y: The position of the node on the vertical axis of the canvas ( (0,0) => top left corner).
+* color: The color of the node supporting several color encoding (hsl, rgb...)
+* size: The size of the node coresponding to its radius.
 
-### Links
+## Links
 
 ```js
 flownetGraph.links_properties("property", function(d,i){ return d.value})
 flownetGraph.links_properties("property", function(d,i){ return d.value})
 flownetGraph.links_properties("property", function(d,i){ return d.value})
 ```
+#### flownetGraph.links_properties("property", "value")
+
+Set-up the specified property for each link in the graph according to the specified value. Like shown in the example above,
+it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
+position of the nodes in the nested selection (like d3).
 
 #### Properties
-* points
-* interpolation
-* color
-* size
+* points: The collection of points that will be used to create the link. This must be an array of of two or more objects like: { x:n, y:m } .
+* interpolation: The interpolation that will be used to modify the visual aspect of the link.
+  <img src="" width="250" height="250">
+  <img src="" width="250" height="250">
+  <img src="" width="250" height="250">
+  <img src="" width="250" height="250">
+* color: The color of the link supporting several color encoding (hsl, rgb...)
+* size: The size of the link.
 
-### Particules
+## Particules
 
 ```js
 flownetGraph.particule_properties("property", "value")
