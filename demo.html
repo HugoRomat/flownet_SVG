@@ -4,8 +4,7 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="lib/d3.v4.js"></script>
-    <script src="lib/flownet_svg.js"></script>
+    <script src="lib/flownet_SVG.js"></script>
 </head>
   <body>
     <div class="mainDiv">
@@ -35,26 +34,16 @@
 
           <div class="parametersPanel">
             <div class="importantText"><span>Particules parameters:</span></div></br>
-            <form name="modelSelection">
-              <input type="radio"  name="dmc" value="none" onchange="modelParticuleChange(this)"><span>Basic</span>
-              <input type="radio" name="dmc" value="frequencyToWidth" onchange="modelParticuleChange(this)"><span>Auto Width</span>
-              <input type="radio" name="dmc" value="widthToFrequency" onchange="modelParticuleChange(this)"><span>Auto Freq</span>
-              <input type="radio" name="dmc" checked="true" value="physical" onchange="modelParticuleChange(this)"><span>Physical</span>
 
-            </form></br>
             <span class="leftSpan">Height:</span><input type="text" onchange="heightParticuleChange(this)" value="3"><span> px</span></br>
-            <span class="leftSpan">Width:</span><input id="width" type="text" onchange="widthParticuleChange(this)" value="20"><span> px</span></br>
-            <span class="leftSpan">Color:</span><input type="text" onchange="colorParticuleChange(this)" value="black"></br></br>
+            <span class="leftSpan">Color:</span><input type="text" onchange="colorParticuleChange(this)" value="black"></br>
             <span class="leftSpan">Speed:</span><input type="text" onchange="speedParticuleChange(this)" value="150"><span> px/s</span></br>
-            <span class="leftSpan" style="margin-top: 8px;">Frequency:</span><input id="frequency" type="text" onchange="frequencyParticuleChange(this)" value="1"><span id="unit"> Hz</span></br>
+            <span class="leftSpan" style="margin-top: 30px;">Frequency:</span><input id="frequency" type="text" onchange="frequencyParticuleChange(this)" value="1"><span id="unit"> Hz</span></br>
             <i class="fa fa-warning" style="font-size:20px"></i><span id="warningFreq"> number of particules that are fired each second! </span></br></br>
+            <span class="leftSpan" style="margin-bottom: 8px;">Spacing:</span><input id="spacing" type="text" onchange="spacingParticuleChange(this)" value="100"><span> px</span></br>
+            <i class="fa fa-warning" style="font-size:20px"></i><span id="warningFreq"> space between two particules </span></br></br></br>
 
-            <span class="leftSpan" style="font-weight: bold;">Pattern:</span></br>
-            <span class="leftSpan">Template:</span><input type="text" value="[10,10]" onchange="patternParticuleChange(this)"></br>
-            <form name="modelSelection"><span> Distribution:</span>
-              <input type="radio" name="dmc" value="weight" onchange="modelPatternChange(this)"><span>Weight</span>
-              <input type="radio" name="dmc" value="absolute" checked="true" onchange="modelPatternChange(this)"><span>Absolute</span>
-            </form>
+            <span class="leftSpan">Pattern:</span><input type="text" value="[10,10]" onchange="patternParticuleChange(this)"></br>
           </div>
 
 
@@ -73,6 +62,38 @@
   </body>
 
 	<script>
+
+  function fire1(){
+    launcher = flownetGraph.particule_launcher("0")
+    .prepare_particule()
+    .particule_properties("id","toast")
+    .particule_properties("height",10)
+    .particule_properties("color","blue")
+    .particule_properties("pattern",[20,3,20])
+    .particule_properties("speed",200)
+    .particule_properties("delay",0)
+    .load_particule()
+    .fire_particule()
+
+    console.log(launcher);
+  }
+
+  function fire2(){
+    launcher = flownetGraph.particule_launcher("0")
+    .prepare_particule([{id:"f1",delay:0,speed:50},{id:"f2",delay:2000, speed:250}])
+    .particule_properties("id",function(d,i){return d.id})
+    .particule_properties("height",10)
+    .particule_properties("color","blue")
+    .particule_properties("pattern",[20,3,20])
+    .particule_properties("speed",function(d,i){return d.speed})
+    .particule_properties("delay",function(d,i){return d.delay})
+    .on_start(function(d,i){ console.log(d.id,i);})
+    .on_end(function(d,i){ console.log(d.id,i);})
+    .load_particule()
+    .fire_particule()
+
+    console.log(launcher);
+  }
 
   function sizeNodeChange(d){
     flownetGraph.nodes_properties('size', Number(d.value))
@@ -131,7 +152,7 @@
       default:
 
     }
-    flownetGraph.particule_properties("frequencyModele", d.value)
+    flownetGraph.particule_properties("computationalMethod", d.value)
   }
   function patternParticuleChange(d){
     flownetGraph.particule_properties("pattern", JSON.parse(d.value))
@@ -141,6 +162,9 @@
   }
   function frequencyParticuleChange(d){
     flownetGraph.particule_properties("frequency",d.value)
+  }
+  function spacingParticuleChange(d){
+    flownetGraph.particule_properties("spacing",d.value)
   }
   function speedParticuleChange(d){
     flownetGraph.particule_properties("speed", d.value)
@@ -186,19 +210,19 @@ var graph = {id:"showGraph",
     {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:3,
     points:[{x:1050-100,y:200+300},{x:1050+150,y:200+600}], interpolation:"cardinal", colorLink:"lightGrey", sizeLink:12, colorParticule:"black",
     widthParticule:20, heightParticule:3,
-    patternParticule:[10,10], patternType:"absolute", frequencyParticule:1, speedParticule:150}
+    patternParticule:[10,2,20], patternType:"absolute", frequencyParticule:1, speedParticule:150}
   ]
 }
 
 
-  flownetGraph = new flownet_svg_graph("test", document.getElementById('canvas'))
+  flownetGraph = flownet_SVG.graph("test", document.getElementById('canvas'))
     //.graph(graph)
     .nodes(graph.nodes)
     .links(graph.links)
     .nodes_properties('x', function(d, i){  return d.x})
     .nodes_properties('y', function(d, i){  return d.y})
     .nodes_properties('color', function(d, i){ return d.color})
-    //.nodes_properties('color', function(d, i){ return "red"}, function(d,i){ return (i%2 === 0)})
+
     .nodes_properties('size', function(d, i){  return d.size})
     //.nodes_properties('class', function(d, i){ return d.cssClass})
     /*.nodes_behaviors('mouseover', function(d1,i){
@@ -224,9 +248,9 @@ var graph = {id:"showGraph",
     .particule_properties("width", function(d,i){ return d.widthParticule})
     .particule_properties("height", function(d,i){ return d.heightParticule})
     .particule_properties("frequency",function(d,i){ return d.frequencyParticule})
-    .particule_properties("frequencyModele", function(d,i){ return d.modele})
+  //  .particule_properties("computationalMethod", function(d,i){ return d.modele})
     .particule_properties("pattern", function(d,i){ return d.patternParticule})
-    .particule_properties("patternType", function(d,i){ return d.patternType})
+//    .particule_properties("patternType", function(d,i){ return d.patternType})
     .particule_properties("speed", function(d,i){ return d.speedParticule})
     /*.particule_behaviors('mouseover', function(d1,i){
       console.log(this);
@@ -235,8 +259,6 @@ var graph = {id:"showGraph",
       })
     })
     */
-
-
     //.link_add_gate("color", function(d){ return d.colorGate2.color}, function(d){ return d.colorGate2.position} )
     //.link_add_gate("height", function(d){ return d.heightGate.height}, function(d){ return d.heightGate.position} )
     //.link_add_gate("color", function(d){ return d.colorGate1.color}, function(d){ return d.colorGate1.position} )
