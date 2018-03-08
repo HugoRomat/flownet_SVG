@@ -9,50 +9,99 @@ flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
 ### Nodes
 
 ```js
-var graph = { nodes:[ {"property":"value"} ] }
-var flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
-    .nodes(graph.nodes)
-    .nodes_properties('property', function(d, i){ return d.property })
+flownetGraph.nodes([{...},{...}...])
 ```
+```js
+flownetGraph.nodes_properties('property', function(d, i){ return d.property })
+```
+#### Properties
+* x
+* y
+* color
+* size
 
 ### Links
 
 ```js
-var graph = { links:[ {"property":"value"} ]}
-var flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
-    .links_properties('property', function(d, i){ return d.property })
+flownetGraph.links([{...},{...}...])
 ```
+
+```js
+flownetGraph.links_properties('property', function(d, i){ return d.property })
+```
+
+#### Properties
+* points
+* interpolation
+* color
+* size
 
 ### Particules
 
 ```js
-var graph = {links:[ {"property":"value"} ]}
-var flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
-    .particule_properties("property", function(d,i){ return d.property})
+flownetGraph.particule_properties("property", "value")
+flownetGraph.particule_properties("property", function(d,i){ return "value"})
+flownetGraph.particule_properties("property", function(d,i){ return d.value})
 ```
+
+#### Basic properties
+* color
+* height
+* pattern
+#### Motion properties
+* frequency
+* speed
 
 ## Graph animation
 
 ```js
-var flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
-    .start()
-    .stop()
-    .reset()
+flownetGraph.delay("value")
+```
+
+```js
+flownetGraph.fps("value")
+```
+
+```js
+flownetGraph.start()
+```
+
+```js
+flownetGraph.stop()
+```
+
+```js
+flownetGraph.reset()
 ```
 
 ## Particles launcher
 
 ```js
 launcher = flownetGraph.particule_launcher("id_link")
-    .prepare_particule()
-    .particule_properties("property","value")
-    .load_particule()
-    .fire_particule()
 ```
-### Prepare
+### Prepare and properties
+```js
+launcher.prepare_particule()
+```
 
-#### Properties
+```js
+launcher.particule_properties("property","value")
+```
+```js
+launcher.on_start(function(){})
+```
+```js
+launcher.on_end(function(){})
+```
 
 ### Load
 
+```js
+launcher.load_particule()
+```
+
 ### Fire
+
+```js
+launcher.fire_particule()
+```
