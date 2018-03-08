@@ -2,13 +2,13 @@
 
 ## Graph creation
 
-```
+```js
 flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
 ```
 
 ### Nodes
 
-```
+```js
 flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
     .nodes(graph.nodes)
     .nodes_properties('x', 0)
