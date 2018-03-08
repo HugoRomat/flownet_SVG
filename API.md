@@ -3,16 +3,28 @@
 ## Graph creation
 
 ```js
+data = {
+  nodes:[{id:0},{id:1}],
+  links:[{id:0}]
+}
 flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
+    .nodes(data.nodes)
+    .links(data.links)
 ```
+flownet_SVG.graph(id,svg)
+  Construct a new graph tag by an "id" in the specified svg using flownet_SVG.
+flownetGraph.nodes(data_Nodes) data_Nodes=[{},{}]
+  Fill the graph previously created with **nodes** according to the number of Object in the array (It will be two for the example above).
+flownetGraph.links(data_Links) data_Links=[{},{}]
+  Fill the graph previously created with **links** according to the number of Object in the array (It will be two for the example above).
+
 
 ### Nodes
 
 ```js
-flownetGraph.nodes([{...},{...}...])
-```
-```js
-flownetGraph.nodes_properties('property', function(d, i){ return d.property })
+flownetGraph.nodes_properties("property", "value")
+flownetGraph.nodes_properties("property", function(d,i){ return "value"})
+flownetGraph.nodes_properties("property", function(d,i){ return d.value})
 ```
 #### Properties
 * x
@@ -23,11 +35,9 @@ flownetGraph.nodes_properties('property', function(d, i){ return d.property })
 ### Links
 
 ```js
-flownetGraph.links([{...},{...}...])
-```
-
-```js
-flownetGraph.links_properties('property', function(d, i){ return d.property })
+flownetGraph.links_properties("property", function(d,i){ return d.value})
+flownetGraph.links_properties("property", function(d,i){ return d.value})
+flownetGraph.links_properties("property", function(d,i){ return d.value})
 ```
 
 #### Properties
@@ -50,6 +60,7 @@ flownetGraph.particule_properties("property", function(d,i){ return d.value})
 * pattern
 #### Motion properties
 * frequency
+* spacing
 * speed
 
 ## Graph animation
@@ -79,7 +90,7 @@ flownetGraph.reset()
 ```js
 launcher = flownetGraph.particule_launcher("id_link")
 ```
-### Prepare and properties
+### Prepare and set-up properties
 ```js
 launcher.prepare_particule()
 ```
