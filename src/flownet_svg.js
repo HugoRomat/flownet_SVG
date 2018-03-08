@@ -1,11 +1,12 @@
 import * as d3 from 'd3';
-/** ********************************************************************************************/
-/** *************************************************  CREATE AND SELECTION  *******************/
 
 function graph(id, svg){
   let newGraph = new flownet_svg_graph(id, svg)
   return newGraph;
 }
+
+/** ********************************************************************************************/
+/** *************************************************  CREATE AND SELECTION  *******************/
 
 function flownet_svg_graph(id, svg) {
   if (!id) console.warn('flowet graph have no id, some function may have unexpected behavior');
