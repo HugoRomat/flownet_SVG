@@ -91,15 +91,15 @@ position of the nodes in the nested selection (like d3).
 #### Basic properties
 * color: The color of the particles supported by several color encoding (hsl, rgb...).
 * height: The height of the particule inside the link.
-<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/particule_height/height.png" width="900" height="100">
+<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/particule_height/height.png" width="900" height="120">
 * pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element.
-<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/pattern/pattern.png" width="900" height="100">
+<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/pattern/pattern.png" width="900" height="120">
 #### Motion properties
 * speed: The speed at which particles move, it is expressed in px/s.
 * frequency: Represent the number of pattern of paticles that are fire each seconds. This is used with the speed in order to compute the space between two pattern and so the frequency is concurent with the spacing and automatically update this last using the rules: spacing = speed/frequency.
-<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/frequency_speed/frequencySpeed.png" width="900" height="150">
+<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/frequency_speed/frequencySpeed.png" width="900" height="250">
 * spacing: Represent the space between two patterns of paticles that are fire each seconds. This value is concurent with the frequency and automatically update the frequency value using the rules: frequency = speed/spacing. Contrary to the frequency the spacing is independent of speed.
-<img src="" width="800" height="50">
+<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/spacing/spacing.png" width="800" height="120">
 
 ## Graph animation
 
