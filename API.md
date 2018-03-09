@@ -94,6 +94,7 @@ position of the nodes in the nested selection (like d3).
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/particule_height/height.png" width="900" height="120">
 * pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element.
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/pattern/pattern.png" width="900" height="120">
+
 #### Motion properties
 * speed: The speed at which particles move, it is expressed in px/s.
 * frequency: Represent the number of pattern of paticles that are fire each seconds. This is used with the speed in order to compute the space between two pattern and so the frequency is concurent with the spacing and automatically update this last using the rules: spacing = speed/frequency.
@@ -106,28 +107,45 @@ position of the nodes in the nested selection (like d3).
 ```js
 flownetGraph.delay("value")
 ```
+#### flownetGraph.delay("value")
+Set a delay to the animation that will be take into account when calling "flownetGraph.start()"
 
 ```js
 flownetGraph.fps("value")
 ```
+#### flownetGraph.fps("value")
+Change the fps of the animation in order to ease CPU loading, there are two possible value:
+* "auto": choice by default, let d3.js the control of the animation.
+* Integer: the fps of the animation will be fix at the integer value, for a good fluidity/CPU loading ratio it is recommended to fix it at 40.
 
 ```js
 flownetGraph.start()
 ```
+#### flownetGraph.start()
+Launch all the particles that are in the graph, the algorithm used by flownet depends of the fps setting. This does not take into account particles in launcher<a></a>, for a better comprehension of the animation: <a></a>
 
 ```js
 flownetGraph.stop()
 ```
+#### flownetGraph.stop()
+Stop all the transition in the graph. This does not take into account particles in launcher<a></a>, for a better comprehension of the animation: <a></a>
 
 ```js
 flownetGraph.reset()
 ```
+#### flownetGraph.reset()
+Reset all the transition in the graph. This does not take into account particles in launcher<a></a>, for a better comprehension of the animation: <a></a>
+
 
 ## Particles launcher
+A launcher is used to fire several particules manually. can be load with several particles 
 
 ```js
 launcher = flownetGraph.particule_launcher("id_link")
 ```
+#### flownetGraph.particule_launcher("id_link")
+Create a particles launcher on the link that possess the specified id.
+
 ### Prepare and set-up properties
 ```js
 launcher.prepare_particule()
