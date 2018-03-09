@@ -1,5 +1,12 @@
 # flownet_SVG: API Reference
 
+## Summary
+#### flownet_SVG.graph(id,svg)
+#### flownetGraph.nodes(data_Nodes)
+#### flownetGraph.links(data_Links)
+#### flownetGraph.nodes_properties("property", "value")
+#### flownetGraph.links_properties("property", "value")
+
 ## Graph creation
 
 ```js
@@ -40,7 +47,7 @@ position of the nodes in the nested selection (like d3).
 #### Properties
 * x: The position of the node on the horizontal axis of the canvas ( (0,0) => top left corner).
 * y: The position of the node on the vertical axis of the canvas ( (0,0) => top left corner).
-* color: The color of the node supporting several color encoding (hsl, rgb...)
+* color: The color of the node supported by several color encoding (hsl, rgb...)
 * size: The size of the node coresponding to its radius.
 
 ## Links
@@ -59,10 +66,10 @@ position of the nodes in the nested selection (like d3).
 #### Properties
 * points: The collection of points that will be used to create the link. This must be an array of of two or more objects like: { x:n, y:m } .
 * interpolation: The interpolation that will be used to modify the visual aspect of the link.
-  <img src="" width="250" height="250">
-  <img src="" width="250" height="250">
-  <img src="" width="250" height="250">
-  <img src="" width="250" height="250">
+  <img src="" width="450" height="270">
+  <img src="" width="450" height="270">
+  <img src="" width="450" height="270">
+  <img src="" width="450" height="270">
 * color: The color of the link supporting several color encoding (hsl, rgb...)
 * size: The size of the link.
 
@@ -73,6 +80,11 @@ flownetGraph.particule_properties("property", "value")
 flownetGraph.particule_properties("property", function(d,i){ return "value"})
 flownetGraph.particule_properties("property", function(d,i){ return d.value})
 ```
+#### flownetGraph.particule_properties("property", "value")
+
+Set-up the specified property for each link in the graph according to the specified value. Like shown in the example above,
+it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
+position of the nodes in the nested selection (like d3).
 
 #### Basic properties
 * color
