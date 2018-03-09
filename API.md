@@ -66,10 +66,10 @@ position of the nodes in the nested selection (like d3).
 #### Properties
 * points: The collection of points that will be used to create the link. This must be an array of of two or more objects like: { x:n, y:m } .
 * interpolation: The interpolation that will be used to modify the visual aspect of the link.
-  <img src="" width="450" height="270">
-  <img src="" width="450" height="270">
-  <img src="" width="450" height="270">
-  <img src="" width="450" height="270">
+  <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/curveLinear.png" width="380" height="200">
+  <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/curveBasis.png" width="380" height="200">
+  <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/curveCardinal.png" width="380" height="200">
+  <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/curveStepBefore.png" width="380" height="200">
 * color: The color of the link supporting several color encoding (hsl, rgb...)
 * size: The size of the link.
 
