@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <script src="../../lib/flownet_SVG.js"></script>
+</head>
+  <body>
+      <svg id=canvas width=1000 height=500 >
+        <text x="200" y="240" font-family="arial" font-size="16px" fill="black" text-anchor="middle">Frequency:1Hz Speed:30px/s</text>
+        <text x="500" y="140" font-family="arial" font-size="16px" fill="black" text-anchor="middle">Frequency:2Hz Speed:30px/s</text>
+        <text x="800" y="140" font-family="arial" font-size="16px" fill="black" text-anchor="middle">Frequency:0.5Hz Speed:30px/s</text>
+        <text x="500" y="260" font-family="arial" font-size="16px" fill="black" text-anchor="middle">Frequency:1Hz Speed:60px/s</text>
+        <text x="800" y="260" font-family="arial" font-size="16px" fill="black" text-anchor="middle">Frequency:1Hz Speed:15px/s</text>
+      </svg>
+  </body>
+
+	<script>
+
+var graph = {id:"showGraph",
+  nodes:[
+    {x:100 , y:200, color:"black", size:10, id:0},
+    {x:300 , y:200, color:"black", size:10, id:1},
+    {x:400 , y:100, color:"black", size:10, id:3},
+    {x:600 , y:100, color:"black", size:10, id:4},
+    {x:700 , y:100, color:"black", size:10, id:5},
+    {x:900 , y:100, color:"black", size:10, id:6},
+    {x:400 , y:300, color:"black", size:10, id:7},
+    {x:600 , y:300, color:"black", size:10, id:8},
+    {x:700 , y:300, color:"black", size:10, id:9},
+    {x:900 , y:300, color:"black", size:10, id:10},
+  ],
+  links:[
+    {id:0, points:[{x:100,y:200},{x:300,y:200}], interpolation:"linear", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black",heightParticule:3,
+    patternParticule:[10], frequencyParticule:1, speedParticule:30},
+
+    {id:1, points:[{x:400,y:100},{x:600,y:100}], interpolation:"linear", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black",heightParticule:3,
+    patternParticule:[10], frequencyParticule:2, speedParticule:30},
+
+    {id:2, points:[{x:700,y:100},{x:900,y:100}], interpolation:"linear", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black",heightParticule:3,
+    patternParticule:[10], frequencyParticule:0.5, speedParticule:30},
+
+    {id:3, points:[{x:400,y:300},{x:600,y:300}], interpolation:"linear", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black",heightParticule:3,
+    patternParticule:[10], frequencyParticule:1, speedParticule:60},
+
+    {id:4, points:[{x:700,y:300},{x:900,y:300}], interpolation:"linear", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black",heightParticule:3,
+    patternParticule:[10], frequencyParticule:1, speedParticule:15}
+  ]
+}
+
+
+
+  flownetGraph = flownet_SVG.graph("test", document.getElementById('canvas'))
+    //.graph(graph)
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .nodes_properties('x', function(d, i){  return d.x})
+    .nodes_properties('y', function(d, i){  return d.y})
+    .nodes_properties('color', function(d, i){ return d.color})
+    .nodes_properties('size', function(d, i){  return d.size})
+
+
+    .links_properties("points", function(d,i){ return d.points})
+    .links_properties("interpolation", function(d,i){ return d.interpolation})
+    .links_properties("color", function(d,i){ return d.colorLink})
+    .links_properties("size", function(d,i){ return d.sizeLink})
+
+
+    .particule_properties("color", function(d,i){ return d.colorParticule})
+    .particule_properties("width", function(d,i){ return d.widthParticule})
+    .particule_properties("height", function(d,i){ return d.heightParticule})
+    .particule_properties("frequency",function(d,i){ return d.frequencyParticule})
+    .particule_properties("pattern", function(d,i){ return d.patternParticule})
+    .particule_properties("speed", function(d,i){ return d.speedParticule})
+
+
+	</script>
+
+
+
+</html>

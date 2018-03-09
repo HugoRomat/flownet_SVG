@@ -1,4 +1,4 @@
-# flownet_SVG: API Reference
+# flownet_SVG: API
 
 ## Summary
 #### flownet_SVG.graph(id,svg)
@@ -65,12 +65,13 @@ position of the nodes in the nested selection (like d3).
 
 #### Properties
 * points: The collection of points that will be used to create the link. This must be an array of of two or more objects like: { x:n, y:m } .
-* interpolation: The interpolation that will be used to modify the visual aspect of the link.
+* interpolation: The interpolation that will be used to modify the visual aspect of the link. Users can feed the function one of the following value: basis,
+ cardinal, stepBefore, linear or can feed the function with a custom interpolation function taking an array of points as arguments.
   <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/curveLinear.png" width="380" height="200">
   <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/curveBasis.png" width="380" height="200">
   <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/curveCardinal.png" width="380" height="200">
   <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/curveStepBefore.png" width="380" height="200">
-* color: The color of the link supporting several color encoding (hsl, rgb...)
+* color: The color of the particles supported by several color encoding (hsl, rgb...)
 * size: The size of the link.
 
 ## Particules
@@ -87,13 +88,17 @@ it is possible to pass a constant value or a function taking for parameters: **d
 position of the nodes in the nested selection (like d3).
 
 #### Basic properties
-* color
-* height
-* pattern
+* color: The color of the particles supported by several color encoding (hsl, rgb...).
+* height: The height of the particule inside the link.
+<img src="" width="800" height="50">
+* pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element. 
+<img src="" width="800" height="50">
 #### Motion properties
-* frequency
-* spacing
-* speed
+* speed: The speed at which particles move, it is expressed in px/s.
+* frequency: Represent the number of pattern of paticles that are fire each seconds. This is used with the speed in order to compute the space between two pattern and so the frequency is concurent with the spacing and automatically update this last using the rules: spacing = speed/frequency.
+<img src="" width="800" height="50">
+* spacing: Represent the space between two patterns of paticles that are fire each seconds. This value is concurent with the frequency and automatically update the frequency value using the rules: frequency = speed/spacing. Contrary to the frequency the spacing is independent of speed.
+<img src="" width="800" height="50">
 
 ## Graph animation
 
