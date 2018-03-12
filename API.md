@@ -2,12 +2,7 @@
 
 ## Summary
 
-* flownetGraph.select(id)
-* flownetGraph.filter(fun)
-* flownetGraph.addLinks(data_Links)
-* flownetGraph.removeLinks(data_Links)
-* flownetGraph.addData(data_Links)
-* flownetGraph.removeData(data_Links)
+### Graph creation
 
 * <a href="#graph"> flownet_SVG.graph(id,svg)</a>
 * <a href="#nodes"> flownetGraph.nodes(data_Nodes)</a>
@@ -34,6 +29,15 @@
 * <a href="#launcher_load"> launcher.load()</a>
 * <a href="#launcher_unload" > launcher.unload("id_particle")</a>
 * <a href="#launcher_fire_particule"> launcher.fire_particule()</a>
+
+### In progress
+
+* flownetGraph.select(id)
+* flownetGraph.filter(fun)
+* flownetGraph.addLinks(data_Links)
+* flownetGraph.removeLinks(data_Links)
+* flownetGraph.addData(data_Links)
+* flownetGraph.removeData(data_Links)
 
 ## Graph creation
 
@@ -167,12 +171,12 @@ A launcher is used to fire several particules manually, it is based on three ste
 
 ```js
 launcher = flownetGraph.particule_launcher("id_link")
-launcher.prepare_particule() // Create one new particle
-launcher.particule_properties("property","value")
-launcher.on_start(function(){})
-launcher.on_end(function(){})
-launcher.load_particule()
-launcher.fire_particule()
+            .prepare_particule() // Create one new particle
+            .particule_properties("property","value")
+            .on_start(function(){})
+            .on_end(function(){})
+            .load_particule()
+            .fire_particule()
 ```
 #### launcher.particule_launcher("id_link")
 Create a particles launcher on the link that possess the specified id. Particles fired by the launcher will follow the link in the same direction as the basic particles.
