@@ -9,7 +9,13 @@
 #### flownetGraph.addData(data_Links)
 #### flownetGraph.removeData(data_Links)
 
-<a href="#launcher_fire_particule">launcher.fire_particule()</a>
+<a href="#launcher_prepare_particule"> launcher.prepare_particule()</a>
+<a href="#launcher_particule_properties"> launcher.particule_properties("property","value")</a>
+<a href="#launcher_onStart"> launcher.on_start(function(){})</a>
+<a href="#launcher_onEnd"> launcher.on_end(function(){})</a>
+<a href="#launcher_load"> launcher.load()</a>
+<a href="#launcher_unload" > unloaded_particle = launcher.unload("id_particle")</a>
+<a href="#launcher_fire_particule"> launcher.fire_particule()</a>
 
 ## Graph creation
 
@@ -147,7 +153,7 @@ A launcher is used to fire several particules manually, it is based on three ste
 ```js
 launcher = flownetGraph.particule_launcher("id_link")
 launcher.prepare_particule() // Create one new particle
-launcher.particule_properties("property","value", "id")
+launcher.particule_properties("property","value")
 launcher.on_start(function(){})
 launcher.on_end(function(){})
 launcher.load_particule()
@@ -158,10 +164,12 @@ Create a particles launcher on the link that possess the specified id. Particles
 
 ### Prepare and set-up properties
 
-#### launcher.prepare_particule()
+<a href="#launcher_prepare_particule" name="launcher_prepare_particule">#</a> launcher.**prepare_particule()**
+
 Create "empty" particles waiting to be set up. Without argument only one "empty" particle will be created, but by passing an array of object to the function this will create several "empty" particles with their respective data bind to them.
 
-#### launcher.particule_properties("property","value")
+<a href="#launcher_particule_properties" name="launcher_particule_properties">#</a> launcher.**particule_properties("property","value")**
+
 Set up the different properties of the <a>"empty" particule</a> that will be take into account when they will be launched.
 * id: Set an id to the particle, important in order to interact with it with some function.
 * pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element.
@@ -170,23 +178,28 @@ Set up the different properties of the <a>"empty" particule</a> that will be tak
 * color: The color of the particles supported by several color encoding (hsl, rgb...).
 * height: The height of the particule.
 
-#### launcher.on_start(function(){})
+<a href="#launcher_onStart" name="launcher_onStart">#</a> launcher**.on_start(function(){})**
+
 Bind a function to the particle that will be invoke when the particle is shot, so when the delay is elapdes if the particle got one.
 
-#### launcher.on_end(function(){})
+<a href="#launcher_onEnd" name="launcher_onEnd">#</a> launcher.**on_end(function(){})**
+
 Bind a function to the particle that will be invoke when the particle is destroyed, so when the particle has reached the end of the link and has fully disapear.
 
 ### Load
 
-#### launcher.load()
+<a href="#launcher_load" name="launcher_load">#</a> launcher.**load()**
+
 Load the particles that were being prepared in the launcher, when the "fire_particule()" command is invoke only the particles that are load are shot.
 
-#### unloaded_particle = launcher.unload("id_particle")
+<a href="#launcher_unload" name="launcher_unload">#</a> unloaded_particle = launcher.**unload("id_particle")**
+
 Remove from the launcher the particle that have the specified "id". Return an object containing:
 * The data that were bind to the particle (null if none).
 * The properties that were associated to the particle.
 
 ### Fire
 
-<a href="#launcher_fire_particule" name="launcher_fire_particule">#</a> launcher.fire_particule()
+<a href="#launcher_fire_particule" name="launcher_fire_particule">#</a> launcher.**fire_particule()**
+
 Start the animation of all the particle that were loaded using ".load()". Once invoke all the particles shot are stock until another "fire_particule()" is invoke.
