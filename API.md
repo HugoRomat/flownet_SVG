@@ -9,11 +9,16 @@
 * flownetGraph.addData(data_Links)
 * flownetGraph.removeData(data_Links)
 
+### Graph animation
+
 * <a href="#animation_delay"> flownetGraph.delay("value")</a>
 * <a href="#animation_fps"> flownetGraph.fps("value")</a>
 * <a href="#animation_start"> flownetGraph.start()</a>
 * <a href="#animation_stop"> flownetGraph.stop()</a>
 * <a href="#animation_reset"> flownetGraph.reset()</a>
+
+
+### Particles launcher
 
 * <a href="#launcher_prepare_particule"> launcher.prepare_particule()</a>
 * <a href="#launcher_particule_properties"> launcher.particule_properties("property","value")</a>
