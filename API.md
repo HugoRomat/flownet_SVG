@@ -4,6 +4,14 @@
 #### flownet_SVG.graph(id,svg)
 #### flownetGraph.nodes(data_Nodes)
 #### flownetGraph.links(data_Links)
+
+#### flownetGraph.select(id)
+#### flownetGraph.filter(fun)
+#### flownetGraph.addLinks(data_Links)
+#### flownetGraph.removeLinks(data_Links)
+#### flownetGraph.addData(data_Links)
+#### flownetGraph.removeData(data_Links)
+
 #### flownetGraph.nodes_properties("property", "value")
 #### flownetGraph.links_properties("property", "value")
 
@@ -138,37 +146,51 @@ Reset all the transition in the graph. This does not take into account particles
 
 
 ## Particles launcher
-A launcher is used to fire several particules manually. can be load with several particles 
+A launcher is used to fire several particules manually, it is based on three steps: Prepare/Load/Fire that are describe below. It can be load with several particles, each of them having their own properties.
 
 ```js
 launcher = flownetGraph.particule_launcher("id_link")
+launcher.prepare_particule() // Create one new particle
+launcher.particule_properties("property","value", "id")
+launcher.on_start(function(){})
+launcher.on_end(function(){})
+launcher.load_particule()
+launcher.fire_particule()
 ```
-#### flownetGraph.particule_launcher("id_link")
-Create a particles launcher on the link that possess the specified id.
+#### launcher.particule_launcher("id_link")
+Create a particles launcher on the link that possess the specified id. Particles fired by the launcher will follow the link in the same direction as the basic particles.
 
 ### Prepare and set-up properties
-```js
-launcher.prepare_particule()
-```
 
-```js
-launcher.particule_properties("property","value")
-```
-```js
-launcher.on_start(function(){})
-```
-```js
-launcher.on_end(function(){})
-```
+#### launcher.prepare_particule()
+Create "empty" particles waiting to be set up. Without argument only one "empty" particle will be created, but by passing an array of object to the function this will create several "empty" particles with their respective data bind to them.
+
+#### launcher.particule_properties("property","value")
+Set up the different properties of the <a>"empty" particule</a> that will be take into account when they will be launched.
+* id: Set an id to the particle, important in order to interact with it with some function.
+* pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element.
+* speed: The speed at which particles move, it is expressed in px/s.
+* delay: The time that must elapse between the "fire_particule()" invoke and the beginning of the motion of the particle.
+* color: The color of the particles supported by several color encoding (hsl, rgb...).
+* height: The height of the particule.
+
+#### launcher.on_start(function(){})
+Bind a function to the particle that will be invoke when the particle is shot, so when the delay is elapdes if the particle got one.
+
+#### launcher.on_end(function(){})
+Bind a function to the particle that will be invoke when the particle is destroyed, so when the particle has reached the end of the link and has fully disapear.
 
 ### Load
 
-```js
-launcher.load_particule()
-```
+#### launcher.load()
+Load the particles that were being prepared in the launcher, when the "fire_particule()" command is invoke only the particles that are load are shot.
+
+#### unloaded_particle = launcher.unload("id_particle")
+Remove from the launcher the particle that have the specified "id". Return an object containing:
+* The data that were bind to the particle (null if none).
+* The properties that were associated to the particle.
 
 ### Fire
 
-```js
-launcher.fire_particule()
-```
+#### launcher.fire_particule()
+Start the animation of all the particle that were loaded using ".load()". Once invoke all the particles shot are stock until another "fire_particule()" is invoke.
