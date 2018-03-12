@@ -22,6 +22,7 @@
 
 ### Particles launcher
 
+* <a href="#particule_launcher"> flownetGraph.particule_launcher("id_link")</a>
 * <a href="#launcher_prepare_particule"> launcher.prepare_particule()</a>
 * <a href="#launcher_particule_properties"> launcher.particule_properties("property","value")</a>
 * <a href="#launcher_onStart"> launcher.on_start(function(){})</a>
@@ -124,6 +125,7 @@ position of the nodes in the nested selection (like d3).
 * color: The color of the particles supported by several color encoding (hsl, rgb...).
 * height: The height of the particule inside the link.
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/particule_height/height.png" width="900" height="120">
+
 * pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element.
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/pattern/pattern.png" width="900" height="120">
 
@@ -131,6 +133,7 @@ position of the nodes in the nested selection (like d3).
 * speed: The speed at which particles move, it is expressed in px/s.
 * frequency: Represent the number of pattern of paticles that are fire each seconds. This is used with the speed in order to compute the space between two pattern and so the frequency is concurent with the spacing and automatically update this last using the rules: spacing = speed/frequency.
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/frequency_speed/frequencySpeed.png" width="900" height="250">
+
 * spacing: Represent the space between two patterns of paticles that are fire each seconds. This value is concurent with the frequency and automatically update the frequency value using the rules: frequency = speed/spacing. Contrary to the frequency the spacing is independent of speed.
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/spacing/spacing.png" width="800" height="120">
 
@@ -178,7 +181,7 @@ launcher = flownetGraph.particule_launcher("id_link")
             .load_particule()
             .fire_particule()
 ```
-#### launcher.particule_launcher("id_link")
+<a href="#particule_launcher" name="particule_launcher">#</a> flownetGraph.**particule_launcher("id_link")**
 Create a particles launcher on the link that possess the specified id. Particles fired by the launcher will follow the link in the same direction as the basic particles.
 
 ### Prepare and set-up properties
@@ -197,7 +200,7 @@ Set up the different properties of the <a>"empty" particule</a> that will be tak
 * color: The color of the particles supported by several color encoding (hsl, rgb...).
 * height: The height of the particule.
 
-<a href="#launcher_onStart" name="launcher_onStart">#</a> launcher**.on_start(function(){})**
+<a href="#launcher_onStart" name="launcher_onStart">#</a> launcher.**on_start(function(){})**
 
 Bind a function to the particle that will be invoke when the particle is shot, so when the delay is elapdes if the particle got one.
 
