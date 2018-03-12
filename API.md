@@ -4,32 +4,32 @@
 
 ### Graph creation
 
-* <a href="#graph"> flownet_SVG.graph(id,svg)</a>
-* <a href="#nodes"> flownetGraph.nodes(data_Nodes)</a>
-* <a href="#links"> flownetGraph.links(data_Links)</a>
-* <a href="#node_property"> flownetGraph.nodes_properties("property", "value")</a>
-* <a href="#link_property"> flownetGraph.links_properties("property", "value")</a>
-* <a href="#particule_property"> flownetGraph.particule_properties("property", "value")</a>
+* <a href="#graph"> flownet_SVG.graph( id, svg )</a>
+* <a href="#nodes"> flownetGraph.nodes( data_Nodes )</a>
+* <a href="#links"> flownetGraph.links( data_Links )</a>
+* <a href="#node_property"> flownetGraph.nodes_properties( property, value )</a>
+* <a href="#link_property"> flownetGraph.links_properties( property, value )</a>
+* <a href="#particule_property"> flownetGraph.particule_properties( property, value )</a>
 
 ### Graph animation
 
-* <a href="#animation_delay"> flownetGraph.delay("value")</a>
-* <a href="#animation_fps"> flownetGraph.fps("value")</a>
-* <a href="#animation_start"> flownetGraph.start()</a>
-* <a href="#animation_stop"> flownetGraph.stop()</a>
-* <a href="#animation_reset"> flownetGraph.reset()</a>
+* <a href="#animation_delay"> flownetGraph.delay( value )</a>
+* <a href="#animation_fps"> flownetGraph.fps( value )</a>
+* <a href="#animation_start"> flownetGraph.start( )</a>
+* <a href="#animation_stop"> flownetGraph.stop( )</a>
+* <a href="#animation_reset"> flownetGraph.reset( )</a>
 
 
 ### Particles launcher
 
-* <a href="#particule_launcher"> flownetGraph.particule_launcher("id_link")</a>
-* <a href="#launcher_prepare_particule"> launcher.prepare_particule()</a>
-* <a href="#launcher_particule_properties"> launcher.particule_properties("property","value")</a>
-* <a href="#launcher_onStart"> launcher.on_start(function(){})</a>
-* <a href="#launcher_onEnd"> launcher.on_end(function(){})</a>
-* <a href="#launcher_load"> launcher.load()</a>
-* <a href="#launcher_unload" > launcher.unload("id_particle")</a>
-* <a href="#launcher_fire_particule"> launcher.fire_particule()</a>
+* <a href="#particule_launcher"> flownetGraph.particule_launcher( id_link )</a>
+* <a href="#launcher_prepare_particule"> launcher.prepare_particule( )</a>
+* <a href="#launcher_particule_properties"> launcher.particule_properties( property, value )</a>
+* <a href="#launcher_onStart"> launcher.on_start( function( ){ } )</a>
+* <a href="#launcher_onEnd"> launcher.on_end( function( ){ } )</a>
+* <a href="#launcher_load"> launcher.load( )</a>
+* <a href="#launcher_unload" > launcher.unload( id_particle )</a>
+* <a href="#launcher_fire_particule"> launcher.fire_particule( )</a>
 
 ### In progress
 
@@ -37,8 +37,8 @@
 * flownetGraph.filter(fun)
 * flownetGraph.addLinks(data_Links)
 * flownetGraph.removeLinks(data_Links)
-* flownetGraph.addData(data_Links)
-* flownetGraph.removeData(data_Links)
+* flownetGraph.addNode(data_Nodes)
+* flownetGraph.removeNode(data_Nodes)
 
 ## Graph creation
 
