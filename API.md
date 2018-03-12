@@ -188,5 +188,5 @@ Remove from the launcher the particle that have the specified "id". Return an ob
 
 ### Fire
 
-#### launcher.fire_particule()
+#### [launcher.fire_particule()]
 Start the animation of all the particle that were loaded using ".load()". Once invoke all the particles shot are stock until another "fire_particule()" is invoke.
