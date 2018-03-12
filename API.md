@@ -2,12 +2,12 @@
 
 ## Summary
 
-#### flownetGraph.select(id)
-#### flownetGraph.filter(fun)
-#### flownetGraph.addLinks(data_Links)
-#### flownetGraph.removeLinks(data_Links)
-#### flownetGraph.addData(data_Links)
-#### flownetGraph.removeData(data_Links)
+* flownetGraph.select(id)
+* flownetGraph.filter(fun)
+* flownetGraph.addLinks(data_Links)
+* flownetGraph.removeLinks(data_Links)
+* flownetGraph.addData(data_Links)
+* flownetGraph.removeData(data_Links)
 
 * <a href="#animation_delay"> flownetGraph.delay("value")</a>
 * <a href="#animation_fps"> flownetGraph.fps("value")</a>
