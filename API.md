@@ -9,6 +9,13 @@
 * flownetGraph.addData(data_Links)
 * flownetGraph.removeData(data_Links)
 
+* <a href="#graph"> flownet_SVG.graph(id,svg)</a>
+* <a href="#nodes"> flownetGraph.nodes(data_Nodes)</a>
+* <a href="#links"> flownetGraph.links(data_Links)</a>
+* <a href="#node_property"> flownetGraph.nodes_properties("property", "value")</a>
+* <a href="#link_property"> flownetGraph.links_properties("property", "value")</a>
+* <a href="#particule_property"> flownetGraph.particule_properties("property", "value")</a>
+
 ### Graph animation
 
 * <a href="#animation_delay"> flownetGraph.delay("value")</a>
@@ -39,15 +46,15 @@ flownetGraph = flownet_SVG.graph("name_of_graph", SVG)
     .nodes(data.nodes)
     .links(data.links)
 ```
-#### flownet_SVG.graph(id,svg)
+<a href="#graph" name="graph">#</a> flownet_SVG.**graph(id,svg)**
 
 Construct a new graph tag by an "id" in the specified svg using flownet_SVG.
 
-#### flownetGraph.nodes(data_Nodes)
+<a href="#nodes" name="nodes">#</a> flownetGraph.**nodes(data_Nodes)**
 
 Fill the graph previously created with **nodes** according to the number of Object in the array (data_Nodes= [ {  }, {  } ] ).
 
-#### flownetGraph.links(data_Links)
+<a href="#links" name="links">#</a> flownetGraph.**links(data_Links)**
 
 Fill the graph previously created with **links** according to the number of Object in the array (data_Links= [ {  }, {  } ] ).
 
@@ -59,7 +66,7 @@ flownetGraph.nodes_properties("property", "value")
 flownetGraph.nodes_properties("property", function(d,i){ return "value"})
 flownetGraph.nodes_properties("property", function(d,i){ return d.value})
 ```
-#### flownetGraph.nodes_properties("property", "value")
+<a href="#node_property" name="node_property">#</a> flownetGraph.**nodes_properties("property", "value")**
 
 Set-up the specified property for each node in the graph according to the specified value. Like shown in the example above,
 it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
@@ -78,7 +85,7 @@ flownetGraph.links_properties("property", function(d,i){ return d.value})
 flownetGraph.links_properties("property", function(d,i){ return d.value})
 flownetGraph.links_properties("property", function(d,i){ return d.value})
 ```
-#### flownetGraph.links_properties("property", "value")
+<a href="#link_property" name="link_property">#</a> flownetGraph.**links_properties("property", "value")**
 
 Set-up the specified property for each link in the graph according to the specified value. Like shown in the example above,
 it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
@@ -103,7 +110,7 @@ flownetGraph.particule_properties("property", "value")
 flownetGraph.particule_properties("property", function(d,i){ return "value"})
 flownetGraph.particule_properties("property", function(d,i){ return d.value})
 ```
-#### flownetGraph.particule_properties("property", "value")
+<a href="#particule_property" name="particule_property">#</a> flownetGraph.**particule_properties("property", "value")**
 
 Set-up the specified property for each link in the graph according to the specified value. Like shown in the example above,
 it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
@@ -127,37 +134,29 @@ position of the nodes in the nested selection (like d3).
 
 ```js
 flownetGraph.delay("value")
+flownetGraph.fps("value")
+flownetGraph.start()
+flownetGraph.stop()
+flownetGraph.reset()
 ```
 <a href="#animation_delay" name="animation_delay">#</a> flownetGraph.**delay("value")**
 
 Set a delay to the animation that will be take into account when calling "flownetGraph.start()"
 
-```js
-flownetGraph.fps("value")
-```
 <a href="#animation_fps" name="animation_fps">#</a> flownetGraph.**fps("value")**
 
 Change the fps of the animation in order to ease CPU loading, there are two possible value:
 * "auto": choice by default, let d3.js the control of the animation.
 * Integer: the fps of the animation will be fix at the integer value, for a good fluidity/CPU loading ratio it is recommended to fix it at 40.
 
-```js
-flownetGraph.start()
-```
 <a href="#animation_start" name="animation_start">#</a> flownetGraph.**start()**
 
 Launch all the particles that are in the graph, the algorithm used by flownet depends of the fps setting. This does not take into account particles in launcher<a></a>, for a better comprehension of the animation: <a></a>
 
-```js
-flownetGraph.stop()
-```
 <a href="#animation_stop" name="animation_stop">#</a> flownetGraph.**stop()**
 
 Stop all the transition in the graph. This does not take into account particles in launcher<a></a>, for a better comprehension of the animation: <a></a>
 
-```js
-flownetGraph.reset()
-```
 <a href="#animation_reset" name="animation_reset">#</a> flownetGraph.**reset()**
 
 Reset all the transition in the graph. This does not take into account particles in launcher<a></a>, for a better comprehension of the animation: <a></a>
