@@ -9,7 +9,7 @@
 #### flownetGraph.addData(data_Links)
 #### flownetGraph.removeData(data_Links)
 
-<a href="#launcher.fire_particule()">launcher.fire_particule()</a>
+<a href="#launcher_fire_particule">launcher.fire_particule()</a>
 
 ## Graph creation
 
@@ -188,5 +188,5 @@ Remove from the launcher the particle that have the specified "id". Return an ob
 
 ### Fire
 
-#### [launcher.fire_particule()]
+<a href="#launcher_fire_particule" name="launcher_fire_particule">#</a> launcher.fire_particule()
 Start the animation of all the particle that were loaded using ".load()". Once invoke all the particles shot are stock until another "fire_particule()" is invoke.
