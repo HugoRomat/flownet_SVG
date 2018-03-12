@@ -9,13 +9,13 @@
 #### flownetGraph.addData(data_Links)
 #### flownetGraph.removeData(data_Links)
 
-<a href="#launcher_prepare_particule"> launcher.prepare_particule()</a>
-<a href="#launcher_particule_properties"> launcher.particule_properties("property","value")</a>
-<a href="#launcher_onStart"> launcher.on_start(function(){})</a>
-<a href="#launcher_onEnd"> launcher.on_end(function(){})</a>
-<a href="#launcher_load"> launcher.load()</a>
-<a href="#launcher_unload" > unloaded_particle = launcher.unload("id_particle")</a>
-<a href="#launcher_fire_particule"> launcher.fire_particule()</a>
+* <a href="#launcher_prepare_particule"> launcher.prepare_particule()</a>
+* <a href="#launcher_particule_properties"> launcher.particule_properties("property","value")</a>
+* <a href="#launcher_onStart"> launcher.on_start(function(){})</a>
+* <a href="#launcher_onEnd"> launcher.on_end(function(){})</a>
+* <a href="#launcher_load"> launcher.load()</a>
+* <a href="#launcher_unload" > unloaded_particle = launcher.unload("id_particle")</a>
+* <a href="#launcher_fire_particule"> launcher.fire_particule()</a>
 
 ## Graph creation
 
