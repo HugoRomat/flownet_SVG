@@ -86,8 +86,8 @@ position of the nodes in the nested selection (like d3).
 ## Links
 
 ```js
-flownetGraph.links_properties("property", function(d,i){ return d.value})
-flownetGraph.links_properties("property", function(d,i){ return d.value})
+flownetGraph.links_properties("property", "value")
+flownetGraph.links_properties("property", function(d,i){ return "value"})
 flownetGraph.links_properties("property", function(d,i){ return d.value})
 ```
 <a href="#link_property" name="link_property">#</a> flownetGraph.**links_properties("property", "value")**
