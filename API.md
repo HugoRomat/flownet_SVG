@@ -9,12 +9,18 @@
 #### flownetGraph.addData(data_Links)
 #### flownetGraph.removeData(data_Links)
 
+* <a href="#animation_delay"> flownetGraph.delay("value")</a>
+* <a href="#animation_fps"> flownetGraph.fps("value")</a>
+* <a href="#animation_start"> flownetGraph.start()</a>
+* <a href="#animation_stop"> flownetGraph.stop()</a>
+* <a href="#animation_reset"> flownetGraph.reset()</a>
+
 * <a href="#launcher_prepare_particule"> launcher.prepare_particule()</a>
 * <a href="#launcher_particule_properties"> launcher.particule_properties("property","value")</a>
 * <a href="#launcher_onStart"> launcher.on_start(function(){})</a>
 * <a href="#launcher_onEnd"> launcher.on_end(function(){})</a>
 * <a href="#launcher_load"> launcher.load()</a>
-* <a href="#launcher_unload" > unloaded_particle = launcher.unload("id_particle")</a>
+* <a href="#launcher_unload" > launcher.unload("id_particle")</a>
 * <a href="#launcher_fire_particule"> launcher.fire_particule()</a>
 
 ## Graph creation
@@ -117,13 +123,15 @@ position of the nodes in the nested selection (like d3).
 ```js
 flownetGraph.delay("value")
 ```
-#### flownetGraph.delay("value")
+<a href="#animation_delay" name="animation_delay">#</a> flownetGraph.**delay("value")**
+
 Set a delay to the animation that will be take into account when calling "flownetGraph.start()"
 
 ```js
 flownetGraph.fps("value")
 ```
-#### flownetGraph.fps("value")
+<a href="#animation_fps" name="animation_fps">#</a> flownetGraph.**fps("value")**
+
 Change the fps of the animation in order to ease CPU loading, there are two possible value:
 * "auto": choice by default, let d3.js the control of the animation.
 * Integer: the fps of the animation will be fix at the integer value, for a good fluidity/CPU loading ratio it is recommended to fix it at 40.
@@ -131,19 +139,22 @@ Change the fps of the animation in order to ease CPU loading, there are two poss
 ```js
 flownetGraph.start()
 ```
-#### flownetGraph.start()
+<a href="#animation_start" name="animation_start">#</a> flownetGraph.**start()**
+
 Launch all the particles that are in the graph, the algorithm used by flownet depends of the fps setting. This does not take into account particles in launcher<a></a>, for a better comprehension of the animation: <a></a>
 
 ```js
 flownetGraph.stop()
 ```
-#### flownetGraph.stop()
+<a href="#animation_stop" name="animation_stop">#</a> flownetGraph.**stop()**
+
 Stop all the transition in the graph. This does not take into account particles in launcher<a></a>, for a better comprehension of the animation: <a></a>
 
 ```js
 flownetGraph.reset()
 ```
-#### flownetGraph.reset()
+<a href="#animation_reset" name="animation_reset">#</a> flownetGraph.**reset()**
+
 Reset all the transition in the graph. This does not take into account particles in launcher<a></a>, for a better comprehension of the animation: <a></a>
 
 
