@@ -1,9 +1,6 @@
 # flownet_SVG: API
 
 ## Summary
-#### flownet_SVG.graph(id,svg)
-#### flownetGraph.nodes(data_Nodes)
-#### flownetGraph.links(data_Links)
 
 #### flownetGraph.select(id)
 #### flownetGraph.filter(fun)
@@ -12,8 +9,7 @@
 #### flownetGraph.addData(data_Links)
 #### flownetGraph.removeData(data_Links)
 
-#### flownetGraph.nodes_properties("property", "value")
-#### flownetGraph.links_properties("property", "value")
+<a href="#launcher.fire_particule()">launcher.fire_particule()</a>
 
 ## Graph creation
 
