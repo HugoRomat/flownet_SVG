@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <script src="../../lib/flownet_SVG.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+  <body>
+      <svg id=canvas width=1000 height=1000 ></svg>
+  </body>
+
+	<script>
+
+var numberCenter = 15
+
+var graph = {id:"showGraph",
+  nodes:[ ],
+  links:[ ]
+}
+
+for (var i = 0; i < numberCenter; i++) {
+  angle = ((2*Math.PI)/numberCenter) * i
+  let cx = 500 + 300 * Math.cos(angle)
+  let cy = 500 + 300 * Math.sin(angle)
+  graph.nodes.push({center:{x:cx, y:cy}})
+}
+
+var innerCircle = []
+for (var i = 0; i < numberCenter; i++) {
+  angle = ((2*Math.PI)/numberCenter) * i
+  let cx = 500 + 400 * Math.cos(angle)
+  let cy = 500 + 400 * Math.sin(angle)
+  innerCircle.push({x:cx, y:cy})
+}
+
+for (var i = 0; i < numberCenter; i++) {
+  for (var j = 0; j < numberCenter; j++) {
+    if ( i !== j ) graph.links.push({points:[graph.nodes[i].center, innerCircle[i], innerCircle[j], graph.nodes[j].center]})
+  }
+}
+
+
+  flownetGraph = flownet_SVG.graph("test", document.getElementById('canvas'))
+    //.graph(graph)
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .nodes_properties('x', function(d, i){  return d.center.x})
+    .nodes_properties('y', function(d, i){  return d.center.y})
+    .nodes_properties('color', "black")
+    .nodes_properties('size', 10)
+
+
+    .links_properties("points", function(d,i){ return d.points})
+    .links_properties("interpolation", "basis")
+    .links_properties("size", 1)
+    .links_properties("color", "silver")
+
+    .particule_properties("color", "black")
+    .particule_properties("height", 3)
+    .particule_properties("frequency",0.5)
+    .particule_properties("pattern", [3])
+    .particule_properties("speed", 200)
+
+    //.start()
+/*
+function fire( canon ){
+  console.log(canon);
+        canon.canon.prepare_particule()
+        .particule_properties("height",3)
+        .particule_properties("color","black")
+        .particule_properties("pattern",[6])
+        .particule_properties("speed",400)
+        .particule_properties("delay", Math.floor(Math.random() * 200))
+        .on_start(function(d,i){
+          graph.nodes[canon.source].count -= 1
+          flownetGraph.selectNode(canon.source)
+            .transition()
+            .duration(200)
+            .attr('r', Math.max(graph.nodes[canon.source].count/2,0))
+        })
+        .on_end(function(d,i){
+          graph.nodes[canon.target].count += 1
+          flownetGraph.selectNode(canon.target)
+            .transition()
+            .duration(200)
+            .attr('r', Math.max(graph.nodes[canon.target].count/2,0))
+        })
+        .load_particule()
+        .fire_particule()max(graph.nodes[canon.source].count/2,0))
+        })
+        .on_end(function(d,i){
+          graph.nodes[canon.target].count += 1
+          flownetGraph.selectNode(canon.target)
+            .transition()
+            .duration(200)
+            .attr('r', Math.max(graph.nodes[canon.target].count/2,0))
+        })
+        .load_particule()
+        .fire_particule()
+}
+*/
+
+	</script>
+
+
+
+</html>

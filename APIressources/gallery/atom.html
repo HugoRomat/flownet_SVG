@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <script src="../../lib/flownet_SVG.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+  <body>
+      <svg id=canvas width=1000 height=1000 ></svg>
+  </body>
+
+	<script>
+
+var interPoint = [
+  {x:413 , y:191},
+  {x:624 , y:282},
+  {x:788 , y:351},
+  {x:790 , y:639},
+  {x:488 , y:691},
+  {x:324 , y:559},
+  {x:108 , y:538},
+  {x:168 , y:269},
+
+]
+
+d3.select("svg").on("click", function(){
+  console.log(d3.event.x,d3.event.y);
+})
+
+var graph = {id:"showGraph",
+  nodes:[
+    {x:500 , y:500, color:"black", id:"noyau", size:60},
+  ],
+  links:[
+    { id:"l0", points:[{x:526, y:567},{x:483, y:729},{x:470, y:555},{x:494, y:449},{x:511, y:322},{x:537, y:455}] }
+  ]
+}
+
+
+  flownetGraph = flownet_SVG.graph("test", document.getElementById('canvas'))
+    //.graph(graph)
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .nodes_properties('x', function(d, i){  return d.x})
+    .nodes_properties('y', function(d, i){  return d.y})
+    .nodes_properties('color', function(d, i){ return d.color})
+    .nodes_properties('size', function(d, i){  return d.size})
+
+
+    .links_properties("points", function(d,i){ return d.points})
+    .links_properties("interpolation", function(d,i){ return "basis"})
+    .links_properties("color", "grey")
+    //.links_properties("color", function(d,i){ return d.colorLink})
+
+    //fire(flownetGraph.particule_launcher("l0"), Math.floor(Math.random() * 2000))
+
+function fire(canon, delay){
+        canon.prepare_particule()
+        .particule_properties("height",5)
+        .particule_properties("color","blue")
+        .particule_properties("pattern",[5])
+        .particule_properties("speed",400)
+        .particule_properties("delay", delay)
+        .on_start(function(d,i){
+
+        })
+        .on_end(function(d,i){
+          fire(canon, 200)
+        })
+        .load_particule()
+        .fire_particule()
+}
+	</script>
+
+
+
+</html>

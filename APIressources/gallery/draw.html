@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <script src="../../lib/flownet_SVG.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+  <body>
+      <svg id=canvas width=1000 height=1000 ></svg>
+  </body>
+
+	<script>
+
+var interPoint = [
+  {x:413 , y:191},
+  {x:624 , y:282},
+  {x:788 , y:351},
+  {x:790 , y:639},
+  {x:488 , y:691},
+  {x:324 , y:559},
+  {x:108 , y:538},
+  {x:168 , y:269},
+
+]
+
+var graph = {id:"showGraph",
+  nodes:[
+    {x:100 , y:100, color:"black", id:0, count:60},
+    {x:600 , y:500, color:"black", id:1, count:60},
+    {x:200 , y:700, color:"black", id:2, count:60},
+    {x:700 , y:100, color:"black", id:3, count:60},
+    {x:300 , y:400, color:"black", id:4, count:60},
+    {x:800 , y:800, color:"black", id:5, count:60}
+  ],
+  links:[
+  ]
+}
+
+index = 0;
+for (var i = 0; i < 6; i++) {
+  for (var j = 0; j < 20; j++) {
+    for (var z = 0; z < 6; z++) {
+      if ( i !== z ){
+        inter = interPoint[Math.floor(Math.random() * 6)]
+        graph.links.push( {source:i, target:z, id:index, points:[{x:graph.nodes[i].x,y:graph.nodes[i].y},inter,{x:graph.nodes[z].x,y:graph.nodes[z].y}], interpolation:"basis", colorLink:"grey",sizeLink:1} )
+        index += 1
+      }
+    }
+  }
+}
+
+
+  flownetGraph = flownet_SVG.graph("test", document.getElementById('canvas'))
+    //.graph(graph)
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .nodes_properties('x', function(d, i){  return d.x})
+    .nodes_properties('y', function(d, i){  return d.y})
+    .nodes_properties('color', function(d, i){ return d.color})
+    .nodes_properties('size', function(d, i){  return d.count/2})
+
+
+    .links_properties("points", function(d,i){ return d.points})
+    .links_properties("interpolation", function(d,i){ return d.interpolation})
+    .links_properties("size", function(d,i){ return d.sizeLink})
+    //.links_properties("color", function(d,i){ return d.colorLink})
+
+function scaleBetween(array, scaledMin, scaledMax) {
+      var max = Math.max.apply(Math, array);
+      var min = Math.min.apply(Math, array);
+      return array.map(num => (scaledMax-scaledMin)*(num-min)/(max-min)+scaledMin);
+    }
+
+var canon = [[],[],[],[],[],[]]
+for (var i = 0; i < 600; i++) {
+  canon[Math.floor(i/100)].push({canon:flownetGraph.particule_launcher(graph.links[i].id), source:graph.links[i].source, target:graph.links[i].target})
+}
+
+d3.select("svg").on("mousemove", function(){
+  flee = []
+  for (var i = 0; i < graph.nodes.length; i++) {
+    if ( Math.sqrt( Math.pow(graph.nodes[i].x-d3.event.x,2) + Math.pow(graph.nodes[i].y-d3.event.y,2) ) < 140 ){
+      flee.push({index:i, distance:Math.sqrt( Math.pow(graph.nodes[i].x-d3.event.x,2) + Math.pow(graph.nodes[i].y-d3.event.y,2) )} )
+    }
+  }
+
+  for (var i = 0; i < flee.length; i++) {
+    scale = scaleBetween([40,flee[i].distance,120], 0,120)
+    nbToLaunch = graph.nodes[flee[i].index].count - scale[1];
+    if ( nbToLaunch < 0 ) nbToLaunch = 0;
+
+    var indexArr = [];
+    while (indexArr.length < nbToLaunch) {
+      var rndIndex = Math.floor(Math.random() * 100);
+      if (indexArr.indexOf(rndIndex) == -1) // if rndIndex is not in indexArr
+          indexArr.push(rndIndex);
+    }
+    for (var j = 0; j < indexArr.length; j++) {
+      fire(canon[flee[i].index][indexArr[j]])
+    }
+  }
+})
+
+function fire( canon ){
+  console.log(canon);
+        canon.canon.prepare_particule()
+        .particule_properties("height",3)
+        .particule_properties("color","black")
+        .particule_properties("pattern",[6])
+        .particule_properties("speed",400)
+        .particule_properties("delay", Math.floor(Math.random() * 200))
+        .on_start(function(d,i){
+          graph.nodes[canon.source].count -= 1
+          flownetGraph.selectNode(canon.source)
+            .transition()
+            .duration(200)
+            .attr('r', Math.max(graph.nodes[canon.source].count/2,0))
+        })
+        .on_end(function(d,i){
+          graph.nodes[canon.target].count += 1
+          flownetGraph.selectNode(canon.target)
+            .transition()
+            .duration(200)
+            .attr('r', Math.max(graph.nodes[canon.target].count/2,0))
+        })
+        .load_particule()
+        .fire_particule()
+}
+	</script>
+
+
+
+</html>

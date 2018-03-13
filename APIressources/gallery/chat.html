@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <script src="../../lib/flownet_SVG.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+  <body>
+      <svg id=canvas width=2000 height=2000 ></svg>
+  </body>
+
+	<script>
+
+var numberCenter = 6
+var data = {
+    person:["Bobby","Frank","Marion","Pierre","Coralie","Emma"],
+    communication:[
+      {name1:"Bobby", name2:"Frank", subject:"C", frequency:1},
+      {name1:"Bobby", name2:"Pierre", subject:"B", frequency:4},
+      {name1:"Bobby", name2:"Coralie", subject:"A", frequency:2},
+      {name1:"Frank", name2:"Marion", subject:"B", frequency:4},
+      {name1:"Frank", name2:"Coralie", subject:"A", frequency:2},
+      {name1:"Marion", name2:"Emma", subject:"D", frequency:3},
+      {name1:"Pierre", name2:"Frank", subject:"B", frequency:1},
+      {name1:"Pierre", name2:"Emma", subject:"A", frequency:4},
+      {name1:"Coralie", name2:"Marion", subject:"C", frequency:3},
+      {name1:"Coralie", name2:"Emma", subject:"A", frequency:1},
+      {name1:"Emma", name2:"Frank", subject:"D", frequency:3}
+    ]
+  }
+
+var graph = {id:"showGraph",
+  nodes:[],
+  links:[ ]
+}
+
+for (var i = 0; i < data.person.length; i++) {
+  angle = ((2*Math.PI)/data.person.length) * i
+  let cx = 500 + 300 * Math.cos(angle)
+  let cy = 500 + 300 * Math.sin(angle)
+  graph.nodes.push({name: data.person[i], center:{x:cx, y:cy}})
+}
+
+for (var i = 0; i < data.communication.length; i++) {
+  let pos1 = graph.nodes[data.person.indexOf(data.communication[i].name1)].center
+  let pos2 = graph.nodes[data.person.indexOf(data.communication[i].name2)].center
+  graph.links.push({points:[pos1, pos2]})
+}
+
+
+  flownetGraph = flownet_SVG.graph("test", document.getElementById('canvas'))
+    //.graph(graph)
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .nodes_properties('x', function(d, i){  return d.center.x})
+    .nodes_properties('y', function(d, i){  return d.center.y})
+    .nodes_properties('color', "black")
+    .nodes_properties('size', 10)
+
+
+    .links_properties("points", function(d,i){ return d.points})
+    .links_properties("interpolation", "basis")
+    .links_properties("size", 1)
+    .links_properties("color", "silver")
+
+    .particule_properties("color", "black")
+    .particule_properties("height", 3)
+    .particule_properties("frequency",0.5)
+    .particule_properties("pattern", [3])
+    .particule_properties("speed", 200)
+
+    //.start()
+/*
+function fire( canon ){
+  console.log(canon);
+        canon.canon.prepare_particule()
+        .particule_properties("height",3)
+        .particule_properties("color","black")
+        .particule_properties("pattern",[6])
+        .particule_properties("speed",400)
+        .particule_properties("delay", Math.floor(Math.random() * 200))
+        .on_start(function(d,i){
+          graph.nodes[canon.source].count -= 1
+          flownetGraph.selectNode(canon.source)
+            .transition()
+            .duration(200)
+            .attr('r', Math.max(graph.nodes[canon.source].count/2,0))
+        })
+        .on_end(function(d,i){
+          graph.nodes[canon.target].count += 1
+          flownetGraph.selectNode(canon.target)
+            .transition()
+            .duration(200)
+            .attr('r', Math.max(graph.nodes[canon.target].count/2,0))
+        })
+        .load_particule()
+        .fire_particule()max(graph.nodes[canon.source].count/2,0))
+        })
+        .on_end(function(d,i){
+          graph.nodes[canon.target].count += 1
+          flownetGraph.selectNode(canon.target)
+            .transition()
+            .duration(200)
+            .attr('r', Math.max(graph.nodes[canon.target].count/2,0))
+        })
+        .load_particule()
+        .fire_particule()
+}
+*/
+
+	</script>
+
+
+
+</html>

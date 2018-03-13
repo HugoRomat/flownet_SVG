@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-function graph(id, svg){
+export function graph(id, svg){
   let newGraph = new flownet_svg_graph(id, svg)
   return newGraph;
 }
@@ -77,6 +77,11 @@ flownet_svg_graph.prototype.nodes = function (nodes) {
     });
   return this;
 }; // OK
+flownet_svg_graph.prototype.selectNode = function(id) {
+  let selected = this.groupGraph.select("#nodes").selectAll("circle")
+    .filter( function(){ return this.getAttribute("id").split('_')[1].includes(id)})
+  return selected
+}
 
 /** **********************************************************************************************************************************/
 /** *************************************************  NODE  *************************************************************************/
@@ -1166,8 +1171,4 @@ flownet_svg_graph.prototype.particule_launcher = function (idLink) {
 
   this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).append('g').attr('id', 'particuleLauncher' + numberLauncher + '_link_' + idLink);
   return new particule_launcher(this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).select('#mainPath_' + idLink).select('path').attr('id'), '#particuleLauncher' + numberLauncher + '_link_' + idLink);
-};
-
-module.exports = {
-  graph: graph
 };
