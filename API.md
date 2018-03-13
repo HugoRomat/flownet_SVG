@@ -35,10 +35,15 @@
 
 * flownetGraph.select(id)
 * flownetGraph.filter(fun)
+* flownetGraph.remove()
 * flownetGraph.addLinks(data_Links)
-* flownetGraph.removeLinks(data_Links)
 * flownetGraph.addNode(data_Nodes)
-* flownetGraph.removeNode(data_Nodes)
+
+* .node_properties("label", function(d, i) {return d.name; })
+* .node_properties("label_size", 10)
+* .node_properties("label_x", 15)
+* .node_properties("label_y", -5)
+* .node_properties("label_color", "#FFFFFF")
 
 ## Graph creation
 
