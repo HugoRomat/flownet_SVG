@@ -31,13 +31,11 @@
 * <a href="#launcher_unload" > launcher.unload( id_particle )</a>
 * <a href="#launcher_fire_particule"> launcher.fire_particule( )</a>
 
-### In conding
+### In coding
 
 * flownetGraph.select(id)
 * flownetGraph.filter(fun)
 * flownetGraph.remove()
-* flownetGraph.addLinks(data_Links)
-* flownetGraph.addNode(data_Nodes)
 
 
 ### Waiting for API

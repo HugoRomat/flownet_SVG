@@ -188,7 +188,7 @@ var graph = {id:"showGraph",
     {x:250-100 , y:200+300, color:"black", size:10, id:0},
     {x:1050-100 , y:200+300, color:"black", size:10, id:1},
     {x:1050+150 , y:200, color:"black", size:10, id:2},
-    {x:1050+350 , y:200+300, color:"black", size:10, id:3},
+    {x:1050+350 , y:200+300, color:"black", size:10, id:"node3"},
     {x:1050+150 , y:200+600, color:"black", size:10, id:4}
   ],
   links:[
@@ -197,20 +197,32 @@ var graph = {id:"showGraph",
     sizeLink:12, colorParticule:"black", widthParticule:20, heightParticule:3,
     patternParticule:[10,10], patternType:"absolute", frequencyParticule:1, speedParticule:150},
 
-    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:1,
+    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:"filter1",
     points:[{x:1050-100,y:200+300},{x:1050+150,y:200}], interpolation:"cardinal", colorLink:"lightGrey", sizeLink:12, colorParticule:"black",
     widthParticule:20, heightParticule:3,
     patternParticule:[10,10], patternType:"absolute", frequencyParticule:1, speedParticule:150},
 
-    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:2,
+    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:"link2",
     points:[{x:1050-100,y:200+300},{x:1050+350,y:200+300}], interpolation:"cardinal", colorLink:"lightGrey", sizeLink:12, colorParticule:"black",
     widthParticule:20, heightParticule:3,
     patternParticule:[10,10], patternType:"absolute", frequencyParticule:1, speedParticule:150},
 
-    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:3,
+    {heightGate:{height:6, position:"60%"},colorGate2:{color:"red", position:"80%"}, colorGate1:{color:"blue", position:"35%"}, modele:"physical", id:"filter3",
     points:[{x:1050-100,y:200+300},{x:1050+150,y:200+600}], interpolation:"cardinal", colorLink:"lightGrey", sizeLink:12, colorParticule:"black",
     widthParticule:20, heightParticule:3,
     patternParticule:[10,2,20], patternType:"absolute", frequencyParticule:1, speedParticule:150}
+  ]
+}
+
+var graphExtension = {
+  nodes:[
+    {x:250-100 , y:500+300, color:"black", size:10, id:5}
+  ],
+  links:[
+    {id:4,
+    points:[{x:250-100,y:200+300},{x:250-100,y:500+300}], interpolation:"cardinal", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black", widthParticule:20, heightParticule:3,
+    patternParticule:[10,10], patternType:"absolute", frequencyParticule:1, speedParticule:150}
   ]
 }
 
@@ -222,8 +234,14 @@ var graph = {id:"showGraph",
     .nodes_properties('x', function(d, i){  return d.x})
     .nodes_properties('y', function(d, i){  return d.y})
     .nodes_properties('color', function(d, i){ return d.color})
-
     .nodes_properties('size', function(d, i){  return d.size})
+
+    .nodes_properties('label_text', function(d, i){  return "id:"+d.id})
+    .nodes_properties("label_size", 16)
+    .nodes_properties("label_x", function(d, i){  return d.x+10})
+    .nodes_properties("label_y", function(d, i){  return d.y-10})
+    .nodes_properties("label_font", "arial")
+    .nodes_properties("label_color", "black")
     //.nodes_properties('class', function(d, i){ return d.cssClass})
     /*.nodes_behaviors('mouseover', function(d1,i){
       flownetGraph.nodes_properties('color', "blue", function(d2,i){
@@ -266,6 +284,47 @@ var graph = {id:"showGraph",
     //.start()
     //.stop()
     //console.log(flownetGraph.selectAll('g'))
+
+    let all = flownetGraph.selectAll()
+          .filters(function(d,i){ return String(d.id).includes("filter") })
+          .links_properties("interpolation", "stepBefore")
+      //.remove()
+      //.start()
+/*
+    flownetGraph.nodes(graphExtension.nodes)
+      .links(graphExtension.links)
+      .nodes_properties('x', function(d, i){  return d.x})
+      .nodes_properties('y', function(d, i){  return d.y})
+      .nodes_properties('color', function(d, i){ return d.color})
+      .nodes_properties('size', function(d, i){  return d.size})
+
+      .nodes_properties('label_text',function(d, i){  return "id:"+d.id})
+      .nodes_properties("label_size", 16)
+      .nodes_properties("label_x", function(d, i){  return d.x+10})
+      .nodes_properties("label_y", function(d, i){  return d.y-10})
+      .nodes_properties("label_font", "arial")
+      .nodes_properties("label_color", "black")
+      //.nodes_properties('class', function(d, i){ return d.cssClass})
+
+      //.nodes_properties('shape', "circle") //rectangle, src=img/house
+      //.nodes_properties('visibility', "hidden")
+
+      .links_properties("points", function(d,i){ return d.points})
+      .links_properties("interpolation", function(d,i){ return d.interpolation})
+      .links_properties("color", function(d,i){ return d.colorLink})
+      .links_properties("size", function(d,i){ return d.sizeLink})
+
+
+      .particule_properties("color", function(d,i){ return d.colorParticule})
+      .particule_properties("width", function(d,i){ return d.widthParticule})
+      .particule_properties("height", function(d,i){ return d.heightParticule})
+      .particule_properties("frequency",function(d,i){ return d.frequencyParticule})
+    //  .particule_properties("computationalMethod", function(d,i){ return d.modele})
+//      .particule_properties("pattern", function(d,i){ return d.patternParticule})
+  //    .particule_properties("patternType", function(d,i){ return d.patternType})
+//      .particule_properties("speed", function(d,i){ return d.speedParticule})
+
+
 /*
   d3.select('svg').append('g').selectAll('circle')
     .data([{x:450-100,y:50+300},{x:650-100,y:400+300},{x:850-100,y:50+300}])

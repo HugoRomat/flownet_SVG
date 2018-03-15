@@ -2,24 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <script src="../../../lib/flownet_SVG.js"></script>
+    <script src="http://localhost:8000/lib/flownet_SVG.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-  <body>
-      <svg id=canvas width=2000 height=2000 ></svg>
+  <body >
+      <svg id=canvas width=100% height=100% >
+          <g id=mainGroup></g>
+      </svg>
   </body>
+
+  <style>
+    html {
+      height: 99%;
+      width: 99%;
+    }
+    body {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
 
 	<script>
 
-  var requestURL = './gare.geojson';
-  var request = new XMLHttpRequest();
-  request.open('GET', requestURL);
-  request.responseType = 'json';
-  request.send();
-  request.onload = function() {
-    console.log("sucess");
-  }
+  function scaleBetween(array, scaledMin, scaledMax) {
+        var max = Math.max.apply(Math, array);
+        var min = Math.min.apply(Math, array);
+        return array.map(num => (scaledMax-scaledMin)*(num-min)/(max-min)+scaledMin)[1];
+      }
 
+  $.getJSON("http://localhost:8000/ressources/gare.geojson", function(json) {
+      var gare = json;
+      $.getJSON("http://localhost:8000/ressources/ligne.json", function(json) {
+          var line = json;
+          $.getJSON("http://localhost:8000/ressources/departement.geojson", function(json) {
+              var map = json;
+
+              links = {}
+              for (var i = 0; i < gare.features.length; i++) {
+                first = gare.features[i].properties.code_uic.slice(2,4)
+                second = gare.features[i].properties.code_uic.slice(4,6)
+                third = gare.features[i].properties.code_uic.slice(6,8)
+                if ( links[first] ){
+                  if ( links[first][second]){
+                    links[first][second].push({uic:gare.features[i].properties.code_uic, geo:gare.features[i].geometry.coordinates })
+                  }else{
+                    links[first][second] = [{uic:gare.features[i].properties.code_uic, geo:gare.features[i].geometry.coordinates }]
+                  }
+                }else{
+                  links[first] = {}
+                  links[first][second] = [{uic:gare.features[i].properties.code_uic, geo:gare.features[i].geometry.coordinates }]
+                }
+              }
+              console.log(links);
+
+              var projection = d3.geoMercator()
+                .fitSize([d3.select("#canvas")._groups[0][0].clientWidth+10, d3.select("#canvas")._groups[0][0].clientHeight-10], map);
+
+              var path = d3.geoPath()
+                .projection(projection);
+
+              console.log(d3.select('body'));
+              var zoom = d3.zoom()
+                .scaleExtent([1, 80])
+                .on("zoom", zoomed);
+              function zoomed() {
+                d3.select("#mainGroup").attr("transform", d3.event.transform);
+                console.log( d3.event.transform.k);
+                flownetGraph.nodes_properties('size', scaleBetween([1,d3.event.transform.k,80],1,12)/d3.event.transform.k)
+                flownetGraph.nodes_properties('label_size', scaleBetween([1,d3.event.transform.k,80],2,24)/d3.event.transform.k)
+                d3.select("#map").selectAll("path").attr("stroke-width", 0.5/d3.event.transform.k)
+              }
+              d3.select("#canvas").call(zoom);
+
+              d3.select("#mainGroup").append("g").attr("id","map").append("path")
+              .attr("fill", "none")
+              .attr('stroke', 'black')
+              .attr("stroke-width", 0.5)
+              .attr("d", path(map))
+
+              flownetGraph = flownet_SVG.graph("sncf", document.getElementById('mainGroup'))
+                .nodes(gare.features)
+                .nodes_properties('id', function(d, i){  return "i"+d.properties.code_uic})
+                .nodes_properties('x', function(d, i){  return projection(d.geometry.coordinates)[0]})
+                .nodes_properties('y', function(d, i){  return projection(d.geometry.coordinates)[1]})
+                .nodes_properties('color', "black")
+                .nodes_properties('size', 1)
+
+                .nodes_properties('label_text', function(d, i){  return d.properties.nom_gare+ "  " + d.properties.code_uic.slice(2,10)})
+                .nodes_properties("label_size", 2)
+                .nodes_properties("label_x", function(d, i){  return projection(d.geometry.coordinates)[0]})
+                .nodes_properties("label_y", function(d, i){  return projection(d.geometry.coordinates)[1]})
+                .nodes_properties("label_font", "arial")
+                .nodes_properties("label_color", "black")
+
+              for (var i = 0; i < line.length; i++) {
+                if ( line[i].fields.a ){
+                  d3.selectAll('#i'+line[i].fields.code_uic).select('circle').attr('fill', "red")
+                }else if ( line[i].fields.b ){
+                  d3.selectAll('#i'+line[i].fields.code_uic).select('circle').attr('fill', "skyblue")
+                }else if ( line[i].fields.c ){
+                  d3.selectAll('#i'+line[i].fields.code_uic).select('circle').attr('fill', "gold")
+                }else if ( line[i].fields.d ){
+                  d3.selectAll('#i'+line[i].fields.code_uic).select('circle').attr('fill', "green")
+                }
+              }
+
+          });
+      });
+  });
+/*
+{"type": "Feature",
+"geometry": {"type": "Point", "coordinates": [2.38321063154, 48.6894695504]},
+"properties": {"commune": "Juvisy-sur-Orge", "code_insee_commune": "91326", "libelle_sms_gare": "Juvisy", "libelle": "JUVISY",
+"x_lambert_ii_etendu": 603440.0, "y_lambert_ii_etendu": 2410102.0, "uic7": "8754524", "code_uic": "87545244", "zone_navigo": 4.0,
+"coord_gps_wgs84": [48.6894695504, 2.38321063154], "libelle_stif_info_voyageurs": "GARE DE JUVISY", "nom_gare": "Juvisy-sur-Orge",
+"libelle_point_d_arret": "JUVISY", "gare_non_sncf": 0.0}}
+*/
 	</script>
 
 

@@ -3,122 +3,51 @@ import * as animationBib from './biblio/svg_graph/animation.js'
 import * as nodesBib from './biblio/svg_graph/nodes.js'
 import * as linksBib from './biblio/svg_graph/links.js'
 import * as particulesBib from './biblio/svg_graph/particules.js'
-import {flownet_svg_subgraph} from './subgraph_svg.js'
-import {particule_launcher} from './particle_launcher.js'
-
-export function graph(id, svg){
-  let newGraph = new flownet_svg_graph(id, svg)
-  return newGraph;
-}
 
 /** ********************************************************************************************/
 /** *************************************************  CREATE AND SELECTION  *******************/
 
-function flownet_svg_graph(id, svg) {
-    if (!id) console.warn('flowet graph have no id, some function may have unexpected behavior');
-    if (!svg) console.warn('SVG invalid');
+export function flownet_svg_subgraph(nodes, edges, particles) {
+    this.nodes = nodes;
+    this.edges = edges;
+    this.particles = particles;
 
-    this.groupGraph = d3.select(svg).append('g').attr('id', id);
-    this.groupGraph.append('g').attr('id', 'links');
-    this.groupGraph.select("#links").append('g').attr('id', 'edges')
-    this.groupGraph.select("#links").append('g').attr('id', 'particules')
-    this.groupGraph.append('g').attr('id', 'nodes');
     this.filter = null;
     this.FPS = 'auto';
-    console.log(animationBib);
 }
 
-flownet_svg_graph.prototype.graph = function (graph) {
-  this.links(graph.links);
-  this.nodes(graph.nodes);
-  return this;
-};
-flownet_svg_graph.prototype.links = function (data) {
-  this.groupGraph.select('#edges').selectAll("newData")
-    .data(data)
-    .enter()
-    .append('g')
-    .attr('id', function (d, i) {
-      if (d.id) return 'link_' + d.id;
-      return 'link_' + i;
-    })
-    .each(function (d) {
-      d3.select(this).append('path')
-        .attr('id', function (d, i) {
-          if (d.id) return 'edge_' + d.id;
-          return 'edge_' + i;
-        })
-        .attr('fill', 'none');
-    });
-  this.groupGraph.select('#particules').selectAll("newData")
-    .data(data)
-    .enter()
-    .append('g')
-    .attr('id', function (d, i) {
-      if (d.id) return 'link_' + d.id;
-      return 'link_' + i;
-    })
-    .each(function (d) {
-      d3.select(this).append('g').attr('id', 'mainPath_' + d.id)
-        .append('path')
-        .attr('id', function (d, i) {
-          if (d.id) return 'particules_' + d.id;
-          return 'particules_' + i;
-        })
-        .attr('fill', 'none')
-        .attr('gate', 'none')
-        .each(function (d) { d.previousDashOffset = 0;});
-    });
-  return this;
-};
-flownet_svg_graph.prototype.nodes = function (nodes) {
-  this.groupGraph.select('#nodes').selectAll('newData')
-    .data(nodes)
-    .enter()
-    .append('g')
-    .attr('id', function (d, i) {
-      if (d.id) return 'node_' + d.id;
-      d.id = 'node_' + i;
-      return 'node_' + i;
-    })
-    .each(function(){
-      d3.select(this).append('circle')
-        .attr('id', function (d, i) {
-            if (d.id) return 'cirlce_' + d.id;
-            d.id = 'cirlce_' + i;
-            return 'cirlce_' + i;
-        })
-        d3.select(this).append('text')
-          .attr('id', function (d, i) {
-              if (d.id) return 'label_' + d.id;
-              d.id = 'label_' + i;
-              return 'label_' + i;
-          })
-    })
-  return this;
-}; // OK
-flownet_svg_graph.prototype.select = function(id){
-  let nodes = this.groupGraph.select('#nodes').selectAll("g")
-    .filter( function(){ return this.getAttribute("id").split('_')[1] === id})
-  let edges = this.groupGraph.select('#links').select("#edges").selectAll("g")
-    .filter( function(){ return this.getAttribute("id").split('_')[1] === id})
-  let particles = this.groupGraph.select('#links').select("#particules").selectAll("g")
-    .filter( function(){ return ( this.getAttribute("id").split('_')[1] === id && this.getAttribute("id").split('_')[0] === "link")})
+flownet_svg_subgraph.prototype.select = function(id){
+  let nodes = this.nodes.filter( function(){ return this.getAttribute("id").split('_')[1] === id})
+  let edges = this.edges.filter( function(){ return this.getAttribute("id").split('_')[1] === id})
+  let particles = this.particles.filter( function(){ return ( this.getAttribute("id").split('_')[1] === id && this.getAttribute("id").split('_')[0] === "link")})
 
   return new flownet_svg_subgraph(nodes,edges,particles)
 }
-flownet_svg_graph.prototype.selectAll = function(){
-  let nodes = this.groupGraph.select('#nodes').selectAll("g")
-  let edges = this.groupGraph.select('#links').select("#edges").selectAll("g")
-  let particles = this.groupGraph.select('#links').select("#particules").selectAll("g")
+flownet_svg_subgraph.prototype.selectAll = function(){
+  let nodes = this.nodes
+  let edges = this.edges
+  let particles = this.particles
 
   return new flownet_svg_subgraph(nodes,edges,particles)
+}
+flownet_svg_subgraph.prototype.filters = function(fun){
+  let nodes = this.nodes.filter( function(d,i){ return fun(d,i) } )
+  let edges = this.edges.filter( function(d,i){ return fun(d,i) } )
+  let particles = this.particles.filter( function(d,i){ return fun(d,i) } )
+
+  return new flownet_svg_subgraph(nodes,edges,particles)
+}
+flownet_svg_subgraph.prototype.remove = function(){
+  this.nodes.remove()
+  this.edges.remove()
+  this.particles.remove()
+  return this
 }
 
 /** **********************************************************************************************************************************/
 /** *************************************************  NODE  *************************************************************************/
 
-flownet_svg_graph.prototype.nodes_properties = function (property, value) {
+flownet_svg_subgraph.prototype.nodes_properties = function (property, value) {
   function convertNodePropertyToSVG(property) {
       switch (property) {
         case 'id':
@@ -175,7 +104,7 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
       return
     } else {
       if ( svgProp === "text"){
-        this.groupGraph.select('#nodes').selectAll('text')
+        this.nodes.selectAll('text')
           .filter(function (d, i) {
             if (!filter) return true;
             if (typeof (filter) === 'function') return filter(d, i);
@@ -183,7 +112,7 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
           })
           .text(value);
       }else{
-        this.groupGraph.select('#nodes').selectAll('text')
+        this.nodes.selectAll('text')
           .filter(function (d, i) {
             if (!filter) return true;
             if (typeof (filter) === 'function') return filter(d, i);
@@ -196,7 +125,7 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
     let svgProp = convertNodePropertyToSVG(property);
     let filter = this.filter;
     if (!svgProp) {
-      this.groupGraph.select('#nodes').selectAll('*')
+      this.nodes.selectAll('*')
         .filter(function (d, i) {
           if (!filter) return true;
           if (typeof (filter) === 'function') return filter(d, i);
@@ -204,7 +133,7 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
         })
         .style(property, value);
     } else {
-      this.groupGraph.select('#nodes').selectAll('*')
+      this.nodes.selectAll('*')
         .filter(function (d, i) {
           if (!filter) return true;
           if (typeof (filter) === 'function') return filter(d, i);
@@ -219,7 +148,8 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
 /** **********************************************************************************************************************************/
 /** *************************************************  LINK **************************************************************************/
 
-flownet_svg_graph.prototype.links_properties = function (property, value) {
+
+flownet_svg_subgraph.prototype.links_properties = function (property, value) {
   function convertLinkPropertyToSVG(property) { // OK
     switch (property) {
       case 'id':
@@ -245,7 +175,25 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
   }
   let filter = this.filter;
   if (property === 'interpolation') {
-    this.groupGraph.select('#links').selectAll('g')
+    this.edges
+      .filter(function (d) { return this.getAttribute('id').includes('link_');})
+      .filter(function (d, i) {
+        if (!filter) return true;
+        if (typeof (filter) === 'function') return filter(d, i);
+        return filter;
+      })
+      .attr('interpolation', function (d) {
+        console.log(d);
+        if (typeof (value) === 'function') {
+          return value(d);
+        }
+        return value;
+      })
+      .each(function (d) {
+        let newinterpol = linksBib.interpolateLink((typeof (value) === 'function' ? value(d) : value))(d.points);
+        d3.select(this).selectAll('path').attr(convertLinkPropertyToSVG(property), newinterpol);
+      });
+    this.particles
       .filter(function (d) { return this.getAttribute('id').includes('link_');})
       .filter(function (d, i) {
         if (!filter) return true;
@@ -264,7 +212,23 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
         d3.select(this).selectAll('path').attr(convertLinkPropertyToSVG(property), newinterpol);
       });
   } else if (property === 'points') {
-    this.groupGraph.select('#links').selectAll('g')
+    this.edges
+      .filter(function (d, i) {
+        if (!filter) return true;
+        if (typeof (filter) === 'function') return filter(d, i);
+        return filter;
+      })
+      .filter(function () {
+        return (this.getAttribute('id') && this.getAttribute('id').split('_')[0] === 'link');
+      })
+      .attr('points', function (d) {
+        if (typeof (value) === 'function') {
+          return JSON.stringify(value(d));
+        }
+        return JSON.stringify(value);
+      })
+      .each(function (d) { linksBib.updateLinkPoints(this); });
+    this.particles.selectAll('g')
       .filter(function (d, i) {
         if (!filter) return true;
         if (typeof (filter) === 'function') return filter(d, i);
@@ -281,7 +245,14 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
       })
       .each(function (d) { linksBib.updateLinkPoints(this); });
   } else if (property === 'visibility') {
-    this.groupGraph.select('#links').selectAll('g')
+    this.edges
+      .filter(function (d, i) {
+        if (!filter) return true;
+        if (typeof (filter) === 'function') return filter(d, i);
+        return filter;
+      })
+      .attr(convertLinkPropertyToSVG(property), value);
+    this.particles.selectAll('g')
       .filter(function (d, i) {
         if (!filter) return true;
         if (typeof (filter) === 'function') return filter(d, i);
@@ -289,7 +260,7 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
       })
       .attr(convertLinkPropertyToSVG(property), value);
   } else {
-    this.groupGraph.select('#links').selectAll('path')
+    this.edges.selectAll('path')
       .filter(function (d, i) {
         if (!filter) return true;
         if (typeof (filter) === 'function') return filter(d, i);
@@ -301,14 +272,15 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
   return this;
 };
 
+
 /** **********************************************************************************************************************************/
 /** *************************************************  PARTICLE  *********************************************************************/
 
-flownet_svg_graph.prototype.particule_properties = function (property, value) {
+flownet_svg_subgraph.prototype.particule_properties = function (property, value) {
   let filter = this.filter;
   switch (property) {
     case 'computationalMethod':
-      this.groupGraph.select('#links').selectAll('path')
+      this.particles.selectAll('path')
         .filter(function (d, i) {
           if (!filter) return true;
           if (typeof (filter) === 'function') return filter(d, i);
@@ -317,7 +289,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         .filter(function (d) { return this.getAttribute('id').includes('particule'); })
         .attr('computationalMethod', value)
         .attr('stroke-dasharray', function (d) {
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+          return computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
             this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
         });
       break;
@@ -325,7 +297,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
     case 'spacing':
       if (!value) {
         res = [];
-        this.groupGraph.select('#links').selectAll('path')
+        this.particles.selectAll('path')
           .filter(function (d, i) {
             if (!filter) return true;
             if (typeof (filter) === 'function') return filter(d, i);
@@ -337,7 +309,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           });
         return res;
       }
-      this.groupGraph.select('#links').selectAll('path')
+      this.particles.selectAll('path')
         .filter(function (d, i) {
           if (!filter) return true;
           if (typeof (filter) === 'function') return filter(d, i);
@@ -348,11 +320,11 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           return (typeof (value) === 'function' ? value(d) : value);
         })
         .attr('frequency', function (d) {
-          return particulesBib.spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed')));
+          return spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed')));
         })
         .attr('lastModify', 'spacing')
         .attr('stroke-dasharray', function (d) {
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+          return computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
             this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
         });
       break;
@@ -360,7 +332,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
     case 'frequency':
       if (!value) {
         res = [];
-        this.groupGraph.select('#links').selectAll('path')
+        this.particles.selectAll('path')
           .filter(function (d, i) {
             if (!filter) return true;
             if (typeof (filter) === 'function') return filter(d, i);
@@ -372,7 +344,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           });
         return res;
       }
-      this.groupGraph.select('#links').selectAll('path')
+      this.particles.selectAll('path')
         .filter(function (d, i) {
           if (!filter) return true;
           if (typeof (filter) === 'function') return filter(d, i);
@@ -384,11 +356,11 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         })
         .attr('spacing', function (d) {
           console.log();
-          return particulesBib.frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed')));
+          return frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed')));
         })
         .attr('lastModify', 'frequency')
         .attr('stroke-dasharray', function (d) {
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+          return computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
             this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
         });
       break;
@@ -396,7 +368,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
     case 'pattern':
       if (!value) {
         res = [];
-        this.groupGraph.select('#links').selectAll('path')
+        this.particles.selectAll('path')
           .filter(function (d, i) {
             if (!filter) return true;
             if (typeof (filter) === 'function') return filter(d, i);
@@ -408,7 +380,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           });
         return res;
       }
-      this.groupGraph.select('#links').selectAll('path')
+      this.particles.selectAll('path')
         .filter(function (d, i) {
           if (!filter) return true;
           if (typeof (filter) === 'function') return filter(d, i);
@@ -420,11 +392,11 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         })
         .attr('stroke-dasharray', function (d) {
           if (this.getAttribute('lastModify') === 'spacing') {
-            this.setAttribute('frequency', particulesBib.spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
+            this.setAttribute('frequency', spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
           } else if (this.getAttribute('lastModify') === 'frequency') {
-            this.setAttribute('spacing', particulesBib.frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
+            this.setAttribute('spacing', frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
           }
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+          return computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
             this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
         });
       break;
@@ -432,7 +404,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
     case 'speed':
       if (!value) {
         res = [];
-        this.groupGraph.select('#links').selectAll('path')
+        this.particles.selectAll('path')
           .filter(function (d, i) {
             if (!filter) return true;
             if (typeof (filter) === 'function') return filter(d, i);
@@ -444,7 +416,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           });
         return res;
       }
-      this.groupGraph.select('#links').selectAll('path')
+      this.particles.selectAll('path')
         .filter(function (d, i) {
           if (!filter) return true;
           if (typeof (filter) === 'function') return filter(d, i);
@@ -457,12 +429,12 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         .attr('stroke-dasharray', function (d) {
           console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
           if (this.getAttribute('lastModify') === 'spacing') {
-            this.setAttribute('frequency', particulesBib.spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
+            this.setAttribute('frequency', spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
           } else if (this.getAttribute('lastModify') === 'frequency') {
-            this.setAttribute('spacing', particulesBib.frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
+            this.setAttribute('spacing', frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
           }
           console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+          return computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
             this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
         });
       break;
@@ -470,7 +442,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
     case 'color':
       if (!value) {
         res = [];
-        this.groupGraph.select('#links').selectAll('path')
+        this.particles.selectAll('path')
           .filter(function (d, i) {
             if (!filter) return true;
             if (typeof (filter) === 'function') return filter(d, i);
@@ -482,7 +454,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           });
         return res;
       }
-      this.groupGraph.select('#links').selectAll('path')
+      this.particles.selectAll('path')
         .filter(function (d, i) {
           if (!filter) return true;
           if (typeof (filter) === 'function') return filter(d, i);
@@ -495,7 +467,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
     case 'height':
       if (!value) {
         res = [];
-        this.groupGraph.select('#links').selectAll('path')
+        this.particles.selectAll('path')
           .filter(function (d, i) {
             if (!filter) return true;
             if (typeof (filter) === 'function') return filter(d, i);
@@ -507,7 +479,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           });
         return res;
       }
-      this.groupGraph.select('#links').selectAll('path')
+      this.particles.selectAll('path')
         .filter(function (d, i) {
           if (!filter) return true;
           if (typeof (filter) === 'function') return filter(d, i);
@@ -525,21 +497,21 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
 /** **********************************************************************************************************************************/
 /** *************************************************  ANIMATION  ********************************************************************/
 
-flownet_svg_graph.prototype.fps = function (value) {
+flownet_svg_subgraph.prototype.fps = function (value) {
   this.FPS = value;
   return this;
 }; // OK
-flownet_svg_graph.prototype.start = function () {
+flownet_svg_subgraph.prototype.start = function () {
   var FPS = this.FPS;
 
   if (FPS === 'auto') {
-    this.groupGraph.select('#links').select('#particules').selectAll('g').selectAll('path')
+    this.particles.selectAll('path')
       .filter(function (d) { return this.getAttribute('id').includes('particules'); })
       .each(function (d) {
         animationBib.startTransitionSVG(d3.select(this));
       });
   } else {
-    this.groupGraph.select('#links').selectAll('g').select('g').selectAll('path')
+    this.particles.selectAll('path')
       .filter(function (d) { return this.getAttribute('id').includes('particules'); })
       .each(function (d) {
         animationBib.startTransitionFPS(d3.select(this), FPS);
@@ -547,32 +519,20 @@ flownet_svg_graph.prototype.start = function () {
   }
   return this;
 }; // OK
-flownet_svg_graph.prototype.stop = function () {
-  this.groupGraph.select('#links').selectAll('g').select('g').selectAll('path')
+flownet_svg_subgraph.prototype.stop = function () {
+  this.particles.selectAll('path')
     .filter(function (d) { return this.getAttribute('id').includes('particules'); })
     .interrupt();
   return this;
 }; // OK
-flownet_svg_graph.prototype.reset = function () {
-  this.groupGraph.select('#links').selectAll('path')
+flownet_svg_subgraph.prototype.reset = function () {
+  this.particles.selectAll('path')
     .filter(function (d) { return this.getAttribute('id').includes('particule'); })
     .interrupt();
 
-  this.groupGraph.select('#links').selectAll('path')
+  this.particles.selectAll('path')
     .filter(function (d) { return this.getAttribute('id').includes('particule'); })
     .attr('stroke-dashoffset', function (d) {
       return d.previousDashOffset;
     });
-};
-
-/** **********************************************************************************************************************************/
-/** *************************************************  PARTICULE LAUNCHER  ***********************************************************/
-
-flownet_svg_graph.prototype.particule_launcher = function (idLink) {
-  console.log(this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).selectAll('g'));
-  var numberLauncher = this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).selectAll('g')
-    .filter(function () { return this.getAttribute('id').includes('particuleLauncher');}).size();
-
-  this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).append('g').attr('id', 'particuleLauncher' + numberLauncher + '_link_' + idLink);
-  return new particule_launcher(this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).select('#mainPath_' + idLink).select('path').attr('id'), '#particuleLauncher' + numberLauncher + '_link_' + idLink);
 };
