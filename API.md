@@ -31,7 +31,7 @@
 * <a href="#launcher_unload" > launcher.unload( id_particle )</a>
 * <a href="#launcher_fire_particule"> launcher.fire_particule( )</a>
 
-### In progress
+### In conding
 
 * flownetGraph.select(id)
 * flownetGraph.filter(fun)
@@ -39,11 +39,14 @@
 * flownetGraph.addLinks(data_Links)
 * flownetGraph.addNode(data_Nodes)
 
-* .node_properties("label", function(d, i) {return d.name; })
-* .node_properties("label_size", 10)
-* .node_properties("label_x", 15)
-* .node_properties("label_y", -5)
-* .node_properties("label_color", "#FFFFFF")
+
+### Waiting for API
+
+* node_properties("label", function(d, i) {return d.name; })
+* node_properties("label_size", 10)
+* node_properties("label_x", 15)
+* node_properties("label_y", -5)
+* node_properties("label_color", "#FFFFFF")
 
 ## Graph creation
 

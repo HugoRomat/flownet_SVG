@@ -66,15 +66,29 @@ flownet_svg_graph.prototype.links = function (data) {
   return this;
 };
 flownet_svg_graph.prototype.nodes = function (nodes) {
-  this.groupGraph.select('#nodes').selectAll('circle')
+  this.groupGraph.select('#nodes').selectAll('none')
     .data(nodes)
     .enter()
-    .append('circle')
+    .append('g')
     .attr('id', function (d, i) {
       if (d.id) return 'node_' + d.id;
       d.id = 'node_' + i;
       return 'node_' + i;
-    });
+    })
+    .each(function(){
+      d3.select(this).append('circle')
+        .attr('id', function (d, i) {
+            if (d.id) return 'cirlce_' + d.id;
+            d.id = 'cirlce_' + i;
+            return 'cirlce_' + i;
+        })
+        d3.select(this).append('text')
+          .attr('id', function (d, i) {
+              if (d.id) return 'label_' + d.id;
+              d.id = 'label_' + i;
+              return 'label_' + i;
+          })
+    })
   return this;
 }; // OK
 flownet_svg_graph.prototype.selectNode = function(id) {
@@ -88,47 +102,98 @@ flownet_svg_graph.prototype.selectNode = function(id) {
 
 flownet_svg_graph.prototype.nodes_properties = function (property, value) {
   function convertNodePropertyToSVG(property) {
-    switch (property) {
-      case 'id':
-        return 'id';
-        break;
-      case 'class':
-        return 'class';
-        break;
-      case 'color':
-        return 'fill';
-        break;
-      case 'size':
-        return 'r';
-        break;
-      case 'x':
-        return 'cx';
-        break;
-      case 'y':
-        return 'cy';
-        break;
-      default:
-        return undefined;
+      switch (property) {
+        case 'id':
+          return 'id';
+          break;
+        case 'class':
+          return 'class';
+          break;
+        case 'color':
+          return 'fill';
+          break;
+        case 'size':
+          return 'r';
+          break;
+        case 'x':
+          return 'cx';
+          break;
+        case 'y':
+          return 'cy';
+          break;
+        default:
+          return undefined;
+      }
+  }
+  function convertLabelPropertyToSVG(property) {
+      switch (property) {
+        case 'text':
+          return 'text';
+          break;
+        case 'font':
+          return 'font-family';
+          break;
+        case 'size':
+          return 'font-size';
+          break;
+        case 'color':
+          return 'fill';
+          break;
+        case 'x':
+          return 'x';
+          break;
+        case 'y':
+          return 'y';
+          break;
+        default:
+          return undefined;
+      }
+  }
+
+  if( property.split("_")[0] === "label" ){
+    let svgProp = convertLabelPropertyToSVG(property.split("_")[1]);
+    let filter = this.filter;
+    if (!svgProp) {
+      return
+    } else {
+      if ( svgProp === "text"){
+        this.groupGraph.select('#nodes').selectAll('text')
+          .filter(function (d, i) {
+            if (!filter) return true;
+            if (typeof (filter) === 'function') return filter(d, i);
+            return filter;
+          })
+          .text(value);
+      }else{
+        this.groupGraph.select('#nodes').selectAll('text')
+          .filter(function (d, i) {
+            if (!filter) return true;
+            if (typeof (filter) === 'function') return filter(d, i);
+            return filter;
+          })
+          .attr(svgProp, value);
+      }
     }
-  } // OK
-  let svgProp = convertNodePropertyToSVG(property);
-  let filter = this.filter;
-  if (!svgProp) {
-    this.groupGraph.select('#nodes').selectAll('*')
-      .filter(function (d, i) {
-        if (!filter) return true;
-        if (typeof (filter) === 'function') return filter(d, i);
-        return filter;
-      })
-      .style(property, value);
-  } else {
-    this.groupGraph.select('#nodes').selectAll('*')
-      .filter(function (d, i) {
-        if (!filter) return true;
-        if (typeof (filter) === 'function') return filter(d, i);
-        return filter;
-      })
-      .attr(svgProp, value);
+  }else{
+    let svgProp = convertNodePropertyToSVG(property);
+    let filter = this.filter;
+    if (!svgProp) {
+      this.groupGraph.select('#nodes').selectAll('*')
+        .filter(function (d, i) {
+          if (!filter) return true;
+          if (typeof (filter) === 'function') return filter(d, i);
+          return filter;
+        })
+        .style(property, value);
+    } else {
+      this.groupGraph.select('#nodes').selectAll('*')
+        .filter(function (d, i) {
+          if (!filter) return true;
+          if (typeof (filter) === 'function') return filter(d, i);
+          return filter;
+        })
+        .attr(svgProp, value);
+    }
   }
   return this;
 };
