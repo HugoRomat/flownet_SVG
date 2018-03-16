@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="prism/prism.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="prism/prism.js"></script>
+    <script src="../../lib/flownet_SVG.js"></script>
+    <script src="d3.v4.js"></script>
+
+    <script src="data/creation.js"></script>
+    <script src="data/nodeProp.js"></script>
+    <script src="data/linkProp.js"></script>
+    <script src="data/particleProp.js"></script>
+    <script src="data/selection.js"></script>
+    <script src="data/animation.js"></script>
+    <script src="data/launcher.js"></script>
+</head>
+  <body>
+    <div class=scroll>
+      <div class="chunk">
+        <svg id=creationChunk>
+          <text></text>
+        </svg>
+      </div>
+      <svg class=svg_chunk>
+        <rect width=20px height=140px x=0px y=20px fill="#cccccc"></rect>
+        <line x1=4 x2=16 y1=60 y2=90 stroke=black stroke-width=2></line>
+        <line x1=4 x2=16 y1=120 y2=90 stroke=black stroke-width=2></line>
+      </svg>
+      <div class="chunk">
+        <svg id=nodeInitialisation >
+          <text></text>
+        </svg>
+      </div>
+      <svg class=svg_chunk>
+        <rect width=20px height=140px x=0px y=20px fill="#cccccc"></rect>
+        <line x1=4 x2=16 y1=60 y2=90 stroke=black stroke-width=2></line>
+        <line x1=4 x2=16 y1=120 y2=90 stroke=black stroke-width=2></line>
+      </svg>
+      <div class="chunk">
+        <svg id=linkInitialisation>
+          <text></text>
+        </svg>
+      </div>
+      <svg class=svg_chunk>
+        <rect width=20px height=140px x=0px y=20px fill="#cccccc"></rect>
+        <line x1=4 x2=16 y1=60 y2=90 stroke=black stroke-width=2></line>
+        <line x1=4 x2=16 y1=120 y2=90 stroke=black stroke-width=2></line>
+      </svg>
+      <div class="chunk">
+        <svg id=particlesInitialisation>
+          <text></text>
+        </svg>
+      </div>
+      <svg class=svg_chunk>
+        <rect width=20px height=140px x=0px y=20px fill="#cccccc"></rect>
+        <line x1=4 x2=16 y1=60 y2=90 stroke=black stroke-width=2></line>
+        <line x1=4 x2=16 y1=120 y2=90 stroke=black stroke-width=2></line>
+      </svg>
+      <div class="chunk">
+        <svg id=selection>
+          <text></text>
+        </svg>
+      </div>
+      <svg class=svg_chunk>
+        <rect width=20px height=140px x=0px y=20px fill="#cccccc"></rect>
+        <line x1=4 x2=16 y1=60 y2=90 stroke=black stroke-width=2></line>
+        <line x1=4 x2=16 y1=120 y2=90 stroke=black stroke-width=2></line>
+      </svg>
+      <div class="chunk">
+        <svg id="animation">
+          <text></text>
+        </svg>
+      </div>
+      <svg class=svg_chunk>
+        <rect width=20px height=140px x=0px y=20px fill="#cccccc"></rect>
+      </svg>
+      <div class="chunk">
+        <svg id=launcher>
+          <text></text>
+        </svg>
+      </div>
+    </div>
+    <div class="subDiv">
+      <div class="codeDiv">
+        <pre>
+          <code id="codeText" class="language-javascript" style="margin-top: 20px;">
+          </code>
+        </pre>
+      </div>
+      <div id="flownetDiv" class="flownetDiv">
+
+      </div>
+    </div>
+  </body>
+
+  <script>
+
+  creation.miniature(document.getElementById('creationChunk'))
+  nodeProp.miniature(document.getElementById('nodeInitialisation'))
+  linkProp.miniature(document.getElementById('linkInitialisation'))
+  particleProp.miniature(document.getElementById('particlesInitialisation'))
+  selection.miniature(document.getElementById('selection'))
+  animation.miniature(document.getElementById('animation'))
+  launcher.miniature(document.getElementById('launcher'))
+
+  d3.select("#creationChunk").on('click', function(){
+    d3.select("#codeText").text(creation.code)
+    Prism.highlightElement(document.getElementById('codeText'));
+    d3.select('#flownetDiv').selectAll('*').remove()
+    creation.graph()
+  })
+
+  d3.select("#nodeInitialisation").on('click', function(){
+    d3.select("#codeText").text(nodeProp.code)
+    Prism.highlightElement(document.getElementById('codeText'));
+    d3.select('#flownetDiv').selectAll('*').remove()
+    nodeProp.graph()
+  })
+
+  d3.select("#linkInitialisation").on('click', function(){
+    d3.select("#codeText").text(linkProp.code)
+    Prism.highlightElement(document.getElementById('codeText'));
+    d3.select('#flownetDiv').selectAll('*').remove()
+    linkProp.graph()
+  })
+
+  d3.select("#particlesInitialisation").on('click', function(){
+    d3.select("#codeText").text(particleProp.code)
+    Prism.highlightElement(document.getElementById('codeText'));
+    d3.select('#flownetDiv').selectAll('*').remove()
+    particleProp.graph()
+  })
+
+  d3.select("#selection").on('click', function(){
+    d3.select("#codeText").text(selection.code)
+    Prism.highlightElement(document.getElementById('codeText'));
+    d3.select('#flownetDiv').selectAll('*').remove()
+    selection.graph()
+  })
+
+  d3.select("#animation").on('click', function(){
+    d3.select("#codeText").text(animation.code)
+    Prism.highlightElement(document.getElementById('codeText'));
+    d3.select('#flownetDiv').selectAll('*').remove()
+    animation.graph()
+  })
+
+  d3.select("#launcher").on('click', function(){
+    d3.select("#codeText").text(launcher.code)
+    Prism.highlightElement(document.getElementById('codeText'));
+    d3.select('#flownetDiv').selectAll('*').remove()
+    launcher.graph()
+  })
+
+  window.addEventListener("resize", function(){
+    if ( !document.getElementById("canvas")) return
+    d3.select('#canvas')
+      .attr('transform', 'translate(' + (d3.select('#flownetDiv')._groups[0][0].clientWidth-1000)/2 + ',' + (d3.select('#flownetDiv')._groups[0][0].clientHeight-1000)/2 + ')'+
+      'scale(' + d3.select('#flownetDiv')._groups[0][0].clientWidth/1000 + ',' + d3.select('#flownetDiv')._groups[0][0].clientHeight/1000 + ')')
+    })
+
+  </script>
+
+
+
+</html>
