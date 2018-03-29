@@ -110,6 +110,94 @@
         .headband span{
            text-decoration: underline;
         }
+        body{
+        margin: 0;
+    }
+    #splitting{
+        position: absolute;
+        top: 50px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 100% !important;
+    }
+    #editor{
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    #view{
+        width: 100%;
+        height: 100%;
+    }
+    
+   /* #buttons{
+        z-index: 100;
+        background-color: black;
+        position: relative;
+        display: flex;
+
+        flex-direction: column;
+        width: 100%;
+  
+    align-items: flex-end;
+    }*/
+    #buttons button{
+        background-color: grey;
+        position: absolute;
+        z-index: 100;
+        padding: 10px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border: none;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+.splitter_panel {
+  position: relative; }
+  .splitter_panel .hsplitter,
+  .splitter_panel .vsplitter {
+    background-color: #ddd;
+    z-index: 1000; }
+  .splitter_panel .vsplitter {
+    cursor: col-resize;
+    width: 3px; }
+  .splitter_panel .hsplitter {
+    cursor: row-resize;
+    height: 3px; }
+  .splitter_panel .vsplitter,
+  .splitter_panel .left_panel,
+  .splitter_panel .right_panel,
+  .splitter_panel .hsplitter,
+  .splitter_panel .top_panel,
+  .splitter_panel .bottom_panel {
+    position: absolute;
+    overflow: auto; }
+  .splitter_panel .vsplitter,
+  .splitter_panel .left_panel,
+  .splitter_panel .right_panel {
+    height: 100%; }
+  .splitter_panel .hsplitter,
+  .splitter_panel .top_panel,
+  .splitter_panel .bottom_panel {
+    width: 100%; }
+  .splitter_panel .top_panel,
+  .splitter_panel .left_panel,
+  .splitter_panel .vsplitter {
+    top: 0; }
+  .splitter_panel .top_panel,
+  .splitter_panel .bottom_panel,
+  .splitter_panel .left_panel,
+  .splitter_panel .hsplitter {
+    left: 0; }
+  .splitter_panel .bottom_panel {
+    bottom: 0; }
+  .splitter_panel .right_panel {
+    right: 0; }
 
 
     </style>
@@ -124,243 +212,130 @@
     </div>-->
     <ul class="nav navbar-nav">
       <li><a href="index.html"><i class="fa fa-home"></i> Animated Edges</a></li>
-      <li><a href="index.html#usecase"><i class="fa fa-video-camera"></i> Paper Examples</a></li>
-      <li><a href="index.html#projects"><i class="fa fa-file-text-o"></i> Examples</a></li>
-      <li><a href="index.html#demo" ><i class="fa fa-cogs" aria-hidden="true"></i> Create your graph</a></li>
-      <li><a href="user_study.html"><i class="fa fa-user"></i> Study Material</a></li>
+      <li><a href="#"><i class="fa fa-video-camera"></i> Examples</a></li>
+      <li><a href="#"><i class="fa fa-file-text-o"></i> Documentation</a></li>
       <li><a href="usingFlownet.html"><i class="fa fa-upload" ></i> Using Flownet </a></li>
     </ul>
   </nav>
 
 
 
-   <div class="container">
-   <br/>
-   <br/>
-   <div class="row page-header text-center">
-      <div class="col-md-12">
-        <h1> Using Flownet</h1>
-      </div>
-    </div>
-        <div class="row">
+   <div id="splitting">
+    <div id="left">
+        <div id="buttons">
+            <button id="go"> <i class="fa fa-arrow-right" aria-hidden="true"></i>
 
+            </button>
+        </div>
+        <div id="editor">
+var graph = {
+    nodes:[
+        {x:100 , y:300, color:'black', size:10, id:0},
+        {x:600 , y:300, color:'black', size:10, id:1}
+    ],
+    links:[
+        { 
+            id:0,
+            points:[{x:100,y:300},{x:450-100,y:50+300},{x:600,y:300}], 
+            interpolation:'cardinal', 
+            colorLink:'lightGrey',
+            sizeLink:12, 
+            colorParticule:'black', 
+            widthParticule:20, 
+            heightParticule:3,
+            patternParticule:[10,10], 
+            patternType:'absolute', 
+            frequencyParticule:1, 
+            speedParticule:150
+        }
 
+       
+    ]
+}
+var flownetGraph = flownet_SVG.graph('test', document.getElementById('view'))
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .nodes_properties('x', function(d, i){  return d.x})
+    .nodes_properties('y', function(d, i){  return d.y})
+    .nodes_properties('color', function(d, i){ return d.color})
+    .nodes_properties('size', function(d, i){  return d.size})
 
-          <div class="col-md-offset-3 col-md-6 ">
-
-            <div class="row">
-              <div class="col-md-12 text-center">
-                <h3> Flownet Syntax </h3>
-              </div>
-            </div>
-             <pre><code class="javascript">
-// Load the data
-d3.json("data.json", function(json) {
-  // Create the canvas and attach it to a DOM element
-  var app = flownet.force("#visFrame", width,height,"#abd9e9", 0)
-    // Load my nodes from the json
-    .nodes(json.nodes)
-    // Load my links from the json
-    .links(json.links)
-    // Map the links and nodes to a layout renderer
-    .create_layout()
-
-    // Specify number of canals in each links
-    .tracks("count", 1 )
-    // Create the scene element
-    .create_WEBGL_element()
-
-
-    // Mapping viusal variable on links
-    .link_properties("curvature", 5)
-    .link_properties("color", "#abd9e9")
-    .link_properties("size", 2)
-    .link_properties("opacity", 0.4)
-
-    // Mapping viusal variable on canals
-    .roads_mapping("opacity", 0.2)
-    .roads_mapping("color", "#66c2a5")
-
-    // Mapping viusal variable on nodes
-    .node_properties("color", "black")
-    .node_properties("size",  5)
-    .node_properties("x", function(d, i) {return proj([d.long,d.lat])[0]; })
-    .node_properties("y", function(d, i) {return - proj([d.long,d.lat])[1];  })
-
-    // Mapping viusal variable on particles
-    .particles("color", "#4575b4")
-    .particles("size", 10)
-    .particles("speed", 1)
-    .particles("texture", "rectangle.png")
-    .particles("pattern", [0])
-    .particles("frequency", 1)
-
-    // Start the layout with delay
-    .start(0)
-});
-</code></pre>
-  </div>
-
-
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-   <br/>
-  <br/>
-  <br/>
-  <br/>
-  <p>
-  </p>
-
-
-   <div class="row page-header text-center">
-      <div class="col-md-12">
-        <h1> <!--Superimposing Flownet over d3.js--> <a href="simple_example/simple_example.zip" class='download'><button id="reset"> Download this example <i class="fa fa-upload" ></i></button></a></h1>
-      </div>
-    </div>
-    <div class="row">
-
-
-
-          <!-- <div class="col-md-6" id="viz"> -->
-              <div class="row">
-              <div class="col-md-12 text-center">
-                <h3> Visualization </h3>
-              </div>
-            </div>
-              <!-- <img class="img-responsive" src="images/teaser/d3.png"> -->
-              <iframe src="simple_example/"></iframe>
-          <!-- </div> -->
-      </div>
-          <!-- <div class="col-md-6"> -->
-      <div class="row">
-            <div class="row">
-              <div class="col-md-12 text-center">
-                <h3> Full Code </h3>
-              </div>
-            </div>
-             <pre style="height : 350px;"><code class="javascript">
-
-    //Width and Height of my map and particules network
-    var width = 1500;
-    var height = 1500;
-    var scale = 2000;
-
-    var freq_scale = d3.scale.linear()
-                    .domain([300, 3000])
-                    .range([0.1, 1.8])
-
-    var FlownetProjection = d3.geo.albersUsa()
-                 .scale(scale)
-                 .translate([0,0]);
-
-    var D3Projection = d3.geo.albersUsa()
-                      .scale(scale)
-                      .translate([width/2, height/2]);
-
-    var path = d3.geo.projectionpath()
-                    .(projection);
-
-
-    var svg = d3.select("#visFrame").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("position", "absolute")
-        .attr("top", "0")
-        .attr("left", "0");
-
-/*
-/    Load my topojson map
-/   and draw it with d3.js
-*/
-
-d3.json("us.json", function(error, us) {
-
-    svg.insert("path", ".graticule")
-        .datum(topojson.feature(us, us.objects.land))
-        .attr("class", "land")
-        .attr("d", path);
-
-    svg.insert("path", ".graticule")
-      .datum(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b && !(a.id / 1000 ^ b.id / 1000); }))
-      .attr("class", "county-boundary")
-      .attr("d", path);
-
-    svg.insert("path", ".graticule")
-      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-      .attr("class", "state-boundary")
-      .attr("d", path);
-    });
-
-/*
-/   Load my network dataset
-/   and launch my flownet Algorithm
-*/
-
-
-d3.json("data.json", function(json) {
-
-var app = flownet.force("#visFrame", width , height, "grey",0)
-    .nodes(json.nodes)
-    .links(json.links)
-    .layout("linkDistance", 200)
-    .create_layout()
-
-    .tracks("count", 1 )
-
-    .create_WEBGL_element()
-    //.zoom(true)
-    .controls(true)
-
-    .link_properties("curvature", 5)
-    .link_properties("color", "#abd9e9")
-    .link_properties("size", 2)
-    .link_properties("opacity", 0.4)
-
-    .node_properties("color", "black")
-    .node_properties("size",  5)
-    .node_properties("x", function(d, i) {return proj([d.long,d.lat])[0]; })
-    .node_properties("y", function(d, i) {return - proj([d.long,d.lat])[1];  })
-
-    .particles("color", "#4575b4")
-    .particles("size", 10)
-
-    .particles("speed", 1)
-    .particles("texture", "rectangle.png")
-    .particles("pattern", [0])
-    .particles("frequency", function(d, i) {return freq_scale(d.passengers); })
-
-    .start_particle_delay(200000)
-    .start(0)
-
-});
-
-              </code></pre>
-
+    .nodes_properties('label_text', function(d, i){  return 'id:'+d.id})
+    .nodes_properties('label_size', 16)
+    .nodes_properties('label_x', function(d, i){  return d.x+10})
+    .nodes_properties('label_y', function(d, i){  return d.y-10})
+    .nodes_properties('label_font', 'arial')
+    .nodes_properties('label_color', 'black')
+    .particule_properties('color', function(d,i){ return d.colorParticule})
+    .particule_properties('width', function(d,i){ return d.widthParticule})
+    .particule_properties('height', function(d,i){ return d.heightParticule})
+    .particule_properties('frequency',function(d,i){ return d.frequencyParticule})
+    .particule_properties('pattern', function(d,i){ return d.patternParticule})
+    .particule_properties('speed', function(d,i){ return d.speedParticule})
+    .links_properties('points', function(d,i){ return d.points})
+    .links_properties('interpolation', function(d,i){ return d.interpolation})
+    .links_properties('color', function(d,i){ return d.colorLink})
+    .links_properties('size', function(d,i){ return d.sizeLink})
+    .start()
 
 
         </div>
-
+    </div>
+    <div id="canvasView">
+        <svg id="view">
+        </svg>
+    </div>
 </div>
-
-
-
-
-  </div>
+</div>
 
 
    <div class="footer">
               </div>
 
-    <!-- jQuery -->
-    <!-- <script src="lib/jquery.min.js"></script> -->
-    <!-- Bootstrap Core JavaScript -->
-    <!-- <script src="js/bootstrap.min.js"></script> -->
-    <!-- Theme JavaScript -->
-    <!-- <script src="js/agency.js"></script> -->
+   <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src='lib/flownet_SVG.js'></script>
+<script src='lib/splitter.js'></script>
+<link rel="stylesheet" href="lib/fa/css/font-awesome.css">
+<script>
+
+    var id = "scriptCode"
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+    editor.setOptions({
+        fontSize: "8pt"
+    });
+
+
+    var splitter = $('#splitting').height(200).split({
+        orientation: 'vertical',
+        limit: 10,
+        position: '50%', // if there is no percentage it interpret it as pixels
+        onDrag: function(event) {
+            console.log(splitter.position());
+        }
+    });
+
+
+
+    $("#go").click(function() {
+        $("#scriptCode").remove();
+        $("#canvasView").empty();
+        $("#canvasView").append( "<svg id='view'></svg>" );
+
+        var code = editor.getValue();
+        var script = document.createElement('script');
+        try {
+            script.appendChild(document.createTextNode(code));
+            script.setAttribute("id", id);
+            document.body.appendChild(script);
+        } catch (e) {
+            script.text = code;
+            document.body.appendChild(script);
+        }
+    })
+</script>
 
 
  </body>
