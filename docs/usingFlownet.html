@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <link href="css/style.css" rel="stylesheet">
+   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+   <link rel='stylesheet' href='lib/font-awesome.min.css'>
+
+   <link rel='stylesheet prefetch' href='css/atome-one-dark.css'>
+   <script src='lib/jquery.min.js'></script>
+   <script src='lib/highlight.pack.js'></script>
+    <link rel='stylesheet' href='lib/font-awesome.min.css'>
+
+   <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>Using Flownet</title>
+  <style type="text/css">
+
+        body{
+            font-family: 'Roboto';
+            z-index: -1;
+        }
+        .container{
+            width : 1200px;
+            text-align: justify;
+            text-justify: inter-word;
+            margin-top: 50px;
+        }
+        .click_letter{
+            font-weight: 900;
+        }
+        .legend{
+            text-align: center;
+        }
+        code {
+            white-space: pre;
+        }
+        .user_study > div {
+          padding-right: 0px;
+          padding-left: 0px;
+
+        }
+        .navbar{
+          border-radius:0px;
+        }
+        .navbar-nav {
+          float:none;
+          margin:0 auto;
+          display: block;
+          text-align: center;
+          background-color: black;
+        }
+
+        .navbar-nav > li {
+          display: inline-block;
+          float:none;
+        }
+        .intro-header {
+            padding-top: 250px;
+            padding-bottom: 150px;
+            text-align: center;
+            color: #f8f8f8;
+            background: url(images/teaser/teaser.png) no-repeat center center;
+            background-size: cover;
+        }
+        #videos{
+          margin:-25%;
+        }
+        #viz{
+              display: block;
+        }
+        pre code{
+          font-size: 10px;
+          white-space: pre;
+        }
+        iframe{
+          width : 100%;
+          height : 350px;
+
+        }
+        button {
+          float:right;
+          border-radius: 2px;
+          background-color: #999eb0;
+          border: none;
+          color: black;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
+        .footer{
+          width: 100%;
+          background-color: black;
+          height: 100px;
+        }
+        .headband{
+          /*position: fixed;
+          top: 0;
+          width: 100%;
+          height: 30px;*/
+          background-color: black;
+          color:white;
+          padding-bottom: 15px;
+          padding-top: 15px;
+        }
+        .headband span{
+           text-decoration: underline;
+        }
+        body{
+        margin: 0;
+    }
+    #splitting{
+        position: absolute;
+        top: 50px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 100% !important;
+    }
+    #editor{
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    #view{
+        width: 100%;
+        height: 100%;
+    }
+    
+   /* #buttons{
+        z-index: 100;
+        background-color: black;
+        position: relative;
+        display: flex;
+
+        flex-direction: column;
+        width: 100%;
+  
+    align-items: flex-end;
+    }*/
+    #buttons button{
+        background-color: grey;
+        position: absolute;
+        z-index: 100;
+        padding: 10px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border: none;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+.splitter_panel {
+  position: relative; }
+  .splitter_panel .hsplitter,
+  .splitter_panel .vsplitter {
+    background-color: #ddd;
+    z-index: 1000; }
+  .splitter_panel .vsplitter {
+    cursor: col-resize;
+    width: 3px; }
+  .splitter_panel .hsplitter {
+    cursor: row-resize;
+    height: 3px; }
+  .splitter_panel .vsplitter,
+  .splitter_panel .left_panel,
+  .splitter_panel .right_panel,
+  .splitter_panel .hsplitter,
+  .splitter_panel .top_panel,
+  .splitter_panel .bottom_panel {
+    position: absolute;
+    overflow: auto; }
+  .splitter_panel .vsplitter,
+  .splitter_panel .left_panel,
+  .splitter_panel .right_panel {
+    height: 100%; }
+  .splitter_panel .hsplitter,
+  .splitter_panel .top_panel,
+  .splitter_panel .bottom_panel {
+    width: 100%; }
+  .splitter_panel .top_panel,
+  .splitter_panel .left_panel,
+  .splitter_panel .vsplitter {
+    top: 0; }
+  .splitter_panel .top_panel,
+  .splitter_panel .bottom_panel,
+  .splitter_panel .left_panel,
+  .splitter_panel .hsplitter {
+    left: 0; }
+  .splitter_panel .bottom_panel {
+    bottom: 0; }
+  .splitter_panel .right_panel {
+    right: 0; }
+
+
+    </style>
+ </head>
+ <body>
+
+  <!-- Navigation -->
+  <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top topnav">
+    <!--<div class="nav navbar-nav headband">
+        <li>This is an offline copy of our Website, made available to reviewers.<br>However, online demos (indicated with <span>Online Demo</span> links) require an internet connection.<br>OUR WEBSITE DOES NOT TRACK VISITORS.</li>
+
+    </div>-->
+    <ul class="nav navbar-nav">
+      <li><a href="index.html"><i class="fa fa-home"></i> Animated Edges</a></li>
+      <li><a href="#"><i class="fa fa-video-camera"></i> Examples</a></li>
+      <li><a href="#"><i class="fa fa-file-text-o"></i> Documentation</a></li>
+      <li><a href="usingFlownet.html"><i class="fa fa-upload" ></i> Using Flownet </a></li>
+    </ul>
+  </nav>
+
+
+
+   <div id="splitting">
+    <div id="left">
+        <div id="buttons">
+            <button id="go"> <i class="fa fa-arrow-right" aria-hidden="true"></i>
+
+            </button>
+        </div>
+        <div id="editor">
+var graph = {
+    nodes:[
+        {x:100 , y:300, color:'black', size:10, id:0},
+        {x:600 , y:300, color:'black', size:10, id:1}
+    ],
+    links:[
+        { 
+            id:0,
+            points:[{x:100,y:300},{x:450-100,y:50+300},{x:600,y:300}], 
+            interpolation:'cardinal', 
+            colorLink:'lightGrey',
+            sizeLink:12, 
+            colorParticule:'black', 
+            widthParticule:20, 
+            heightParticule:3,
+            patternParticule:[10,10], 
+            patternType:'absolute', 
+            frequencyParticule:1, 
+            speedParticule:150
+        }
+
+       
+    ]
+}
+var flownetGraph = flownet_SVG.graph('test', document.getElementById('view'))
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .nodes_properties('x', function(d, i){  return d.x})
+    .nodes_properties('y', function(d, i){  return d.y})
+    .nodes_properties('color', function(d, i){ return d.color})
+    .nodes_properties('size', function(d, i){  return d.size})
+
+    .nodes_properties('label_text', function(d, i){  return 'id:'+d.id})
+    .nodes_properties('label_size', 16)
+    .nodes_properties('label_x', function(d, i){  return d.x+10})
+    .nodes_properties('label_y', function(d, i){  return d.y-10})
+    .nodes_properties('label_font', 'arial')
+    .nodes_properties('label_color', 'black')
+    .particule_properties('color', function(d,i){ return d.colorParticule})
+    .particule_properties('width', function(d,i){ return d.widthParticule})
+    .particule_properties('height', function(d,i){ return d.heightParticule})
+    .particule_properties('frequency',function(d,i){ return d.frequencyParticule})
+    .particule_properties('pattern', function(d,i){ return d.patternParticule})
+    .particule_properties('speed', function(d,i){ return d.speedParticule})
+    .links_properties('points', function(d,i){ return d.points})
+    .links_properties('interpolation', function(d,i){ return d.interpolation})
+    .links_properties('color', function(d,i){ return d.colorLink})
+    .links_properties('size', function(d,i){ return d.sizeLink})
+    .start()
+
+
+        </div>
+    </div>
+    <div id="canvasView">
+        <svg id="view">
+        </svg>
+    </div>
+</div>
+</div>
+
+
+   <div class="footer">
+              </div>
+
+   <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src='lib/flownet_SVG.js'></script>
+<script src='lib/splitter.js'></script>
+<link rel="stylesheet" href="lib/fa/css/font-awesome.css">
+<script>
+
+    var id = "scriptCode"
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+    editor.setOptions({
+        fontSize: "8pt"
+    });
+
+
+    var splitter = $('#splitting').height(200).split({
+        orientation: 'vertical',
+        limit: 10,
+        position: '50%', // if there is no percentage it interpret it as pixels
+        onDrag: function(event) {
+            console.log(splitter.position());
+        }
+    });
+
+
+
+    $("#go").click(function() {
+        $("#scriptCode").remove();
+        $("#canvasView").empty();
+        $("#canvasView").append( "<svg id='view'></svg>" );
+
+        var code = editor.getValue();
+        var script = document.createElement('script');
+        try {
+            script.appendChild(document.createTextNode(code));
+            script.setAttribute("id", id);
+            document.body.appendChild(script);
+        } catch (e) {
+            script.text = code;
+            document.body.appendChild(script);
+        }
+    })
+</script>
+
+
+ </body>
+</html>

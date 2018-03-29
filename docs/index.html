@@ -1,358 +1,357 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html>
 <head>
-    <meta charset='utf-8' />
-    <link rel='stylesheet' href='css/style.css'>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <script src='lib/flownet_SVG.js'></script>
+ <link href="css/bootstrap.min.css" rel="stylesheet">
+ <link href="css/style.css" rel="stylesheet">
+ <link rel='stylesheet' href='lib/font-awesome.min.css'>
+ <link href="https://fonts.googleapis.com/css?family=Roboto|Lato|Raleway" rel="stylesheet">
+ <title>Flownet</title>
+ <style type="text/css">
+
+  body{
+    font-family: "Roboto", "Lato", "Raleway";
+  }
+  h1{
+    font-weight: 900;
+    line-height: 1.2em;
+  }
+  h1.title{
+    margin:30px;
+  }
+  h4{
+
+  }
+  .container{
+    width : 1000px;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+  .click_letter{
+    font-weight: 900;
+  }
+  .legend{
+    text-align: center;
+  }
+  code {
+    white-space: pre;
+  }
+  .user_study > div {
+    padding-right: 0px;
+    padding-left: 0px;
+
+  }
+  .navbar{
+    border-radius:0px;
+  }
+  .navbar-nav {
+    float:none;
+    margin:0 auto;
+    display: block;
+    text-align: center;
+  }
+
+  .navbar-nav > li {
+    display: inline-block;
+    float:none;
+  }
+  .intro-header {
+    padding-top: 250px;
+    padding-bottom: 150px;
+    text-align: center;
+    color: #f8f8f8;
+    opacity: 0.8;
+    background: url(images/teaser/teaser.png) no-repeat center center;
+    /*background-size: cover;*/
+    height: 100px;
+  }
+
+ .particles  p {
+    width: 500px;
+    /*text-align: left;*/
+    text-align: justify;
+    margin:auto;
+  }
+  #projects .row{
+    margin-bottom: 30px;
+  }
+
+  section{
+    padding: 20px;
+  }
+
+  .animations p{
+
+  }
+
+  .animations h3{
+    padding-top: 30px;
+  }
+  .text1{
+     height: 150px;
+     text-align: center; /*justify*/
+  }
+  .text2{
+     height: 100px;
+     text-align: center; /*justify*/
+  }
+  .links{
+  font-size: 19px;
+  padding-left: 10px;
+}
+.footer{
+      width: 100%;
+    background-color: black;
+    height: 100px;
+}
+.headband{
+    background-color: black;
+    color:white;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.headband span{
+   text-decoration: underline;
+}
+
+
+</style>
 </head>
-  <body>
-    <div class='mainDiv'>
-      <div class='leftContainer'>
-        <div>
-          <div class='parametersPanel'>
-            <div class='importantText' ><span>Nodes parameters:</span></div></br>
-            <div>
-              <span class='leftSpan'>Size:</span><input type='text' onchange='sizeNodeChange(this)' value='10'><span> px</span></br>
-              <span class='leftSpan'>Color:</span><input type='text' onchange='colorNodeChange(this)' value='black'></br>
-            </div>
-          </div>
-
-          <div class='parametersPanel'>
-            <div class='importantText'><span>Link parameters:</span></div></br>
-            <div>
-              <span class='leftSpan'>Size:</span><input type='text' onchange='sizeEdgeChange(this)' value='12'><span> px</span></br>
-              <span class='leftSpan'>Color:</span><input type='text' onchange='colorEdgeChange(this)' value='lightGrey'></br>
-              <span class='leftSpan'>Interpolate:</span><select onchange='interpolationChange(this)'>
-                  <option value='cardinal'>cardinal</option>
-                  <option value='linear'>linear</option>
-                  <option value='basis'>basis</option>
-                  <option value='stepBefore'>stepBefore</option>
-                </select>
-            </div>
-          </div>
-
-          <div class='parametersPanel'>
-            <div class='importantText'><span>Particules parameters:</span></div></br>
-
-            <span class='leftSpan'>Height:</span><input type='text' onchange='heightParticuleChange(this)' value='3'><span> px</span></br>
-            <span class='leftSpan'>Color:</span><input type='text' onchange='colorParticuleChange(this)' value='black'></br>
-            <span class='leftSpan'>Speed:</span><input type='text' onchange='speedParticuleChange(this)' value='150'><span> px/s</span></br>
-            <span class='leftSpan' style='margin-top: 30px;'>Frequency:</span><input id='frequency' type='text' onchange='frequencyParticuleChange(this)' value='1'><span id='unit'> Hz</span></br>
-            <i class='fa fa-warning' style='font-size:20px'></i><span id='warningFreq'> number of particules that are fired each second! </span></br></br>
-            <span class='leftSpan' style='margin-bottom: 8px;'>Spacing:</span><input id='spacing' type='text' onchange='spacingParticuleChange(this)' value='100'><span> px</span></br>
-            <i class='fa fa-warning' style='font-size:20px'></i><span id='warningFreq'> space between two particules </span></br></br></br>
-
-            <span class='leftSpan'>Pattern:</span><input type='text' value='[10,10]' onchange='patternParticuleChange(this)'></br>
-          </div>
+<body>
 
 
-          <div class='parametersPanel'>
-            <div class='importantText'><span>Animation parameters:</span></div></br>
-            <span style='margin-left: 25px; margin-right: 5px;'>FPS limitation:</span><input type='text' value='auto' onchange='fpsLimitation(this)'></br></br>
-            <input style='margin-left: 50px;' type='button' onclick='startAnimation(this)' value='start'></input>
-            <input type='button' onclick='stopAnimation(this)' value='stop'></input>
-            <input type='button' onclick='resetAnimation(this)' value='reset'></input>
+
+  <!-- Navigation -->
+  <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top topnav">
+
+    <ul class="nav navbar-nav">
+      <li><a href="#flownet"><i class="fa fa-home"></i> Animated Edges</a></li>
+      <li><a href="#"><i class="fa fa-video-camera"></i> Examples</a></li>
+      <li><a href="#"><i class="fa fa-file-text-o"></i> Documentation</a></li>
+      <li><a href="usingFlownet.html" ><i class="fa fa-upload" ></i> Using Flownet </a></li>
+    </ul>
+  </nav>
+
+  <div class="intro-header">
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="intro-message">
+        <br>
+          <h1 id="title">Animated Edge Textures in Node-Link Diagrams:<br/>
+          A Design Space and Initial Evaluation</h1>
+          <br/>
+          <h4 style="line-height: 1.5;">H. Romat, C. Appert, B. Bach, N. Henry-Riche, E. Pietriga, Animated Edge Textures in Node-Link Diagrams: a Design Space and Initial Evaluation, CHI '18: Proceedings of the 36th SIGCHI conference on Human Factors in computing systems, 13 pages, April 2018, Montreal, Canada</h4>
+
+          
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="container">
+
+    <section id="flownet">
+      <div class="row particles">
+        <div class="col-md-12 portfolio-item">
+         <div class="row">
+          <div class="col-lg-12 text-center">
+
+            <p>Animated edge textures can encode data in node-link diagrams by making sequences of small glyphs (<i>i.e.</i>, particles) dynamically move along edges. Our framework, <i>Flownet</i>, supports the creation of such animated edge textures by considering an edge as a tunnel, and a node as an emitter that can fire a specific pattern of particles at a given frequency through this tunnel. Once fired, particles have their own speed, which can change.</p>
+            <p>The combination of motion variables (pattern, frequency and speed) with  more usual visual variables (such as color, shape, opacity), which can be applied to either particles or to the tunnel itself, opens a large design space to encode various edge attributes.</p>
+            <p><i>Flownet</i> also enables the definition of gates, which are invisible constructs placed along a link, that alter the properties of particles that pass through them.</p>
+            <br>
+            <br>
+
+
+
+
+            <a href="videos/flownet_chi2018.mp4" target="_blank">Link to the video <i style="margin-left:5px;" class="fa fa-film" aria-hidden="true"></i></a>
           </div>
 
         </div>
       </div>
-      <svg id=canvas class='rightContainer'></svg>
     </div>
-  </body>
+    <br>
+    <br>
+    <div class="row particles">
+        <div class="col-md-12 text-center">
+        	
+    	</div>
+    </div>
 
-	<script>
-
-  function fire1(){
-    launcher = flownetGraph.particule_launcher('0')
-    .prepare_particule()
-    .particule_properties('id','toast')
-    .particule_properties('height',10)
-    .particule_properties('color','blue')
-    .particule_properties('pattern',[20,3,20])
-    .particule_properties('speed',200)
-    .particule_properties('delay',0)
-    .load_particule()
-    .fire_particule()
-
-    console.log(launcher);
-  }
-
-  function fire2(){
-    launcher = flownetGraph.particule_launcher('0')
-    .prepare_particule([{id:'f1',delay:0,speed:50},{id:'f2',delay:2000, speed:250}])
-    .particule_properties('id',function(d,i){return d.id})
-    .particule_properties('height',10)
-    .particule_properties('color','blue')
-    .particule_properties('pattern',[20,3,20])
-    .particule_properties('speed',function(d,i){return d.speed})
-    .particule_properties('delay',function(d,i){return d.delay})
-    .on_start(function(d,i){ console.log(d.id,i);})
-    .on_end(function(d,i){ console.log(d.id,i);})
-    .load_particule()
-    .fire_particule()
-
-    console.log(launcher);
-  }
-
-  function sizeNodeChange(d){
-    flownetGraph.nodes_properties('size', Number(d.value))
-  }
-  function colorNodeChange(d){
-    flownetGraph.nodes_properties('color', d.value)
-  }
+        <div class="row animations">
 
 
-  function sizeEdgeChange(d){
-      flownetGraph.links_properties('size', d.value)
-  }
-  function colorEdgeChange(d){
-    flownetGraph.links_properties('color', d.value)
-  }
-  function interpolationChange(d){
-    flownetGraph.links_properties('interpolation', d.value)
-  }
+            <div class="col-lg-4 text-center ">
+              <div class="col-lg-12 ">
+                <h3>Speed</h3>
+              </div>
+              <div class="text1">
+                  <p>
+                    The same pattern of particles fired at the same frequency, but with two different speeds.
+                  </p>
+              </div>
+              <div class="col-lg-12 text-center">
+                <video autoplay="" loop="" src="videos/speed.mov" type="video/mov"></video>
+              </div>
+            </div>
+
+            <div class="col-lg-4 text-center ">
+              <div class="col-lg-12">
+                <h3>Frequency</h3>
+              </div>
+              <div class="text1">
+                <br/>
+                  <p>
+                    The same pattern of particles fired at the same speed, but with two different frequencies.
+                  </p>
 
 
-  function colorParticuleChange(d){
-    flownetGraph.particule_properties('color', d.value)
-  }
-  function heightParticuleChange(d){
-    flownetGraph.particule_properties('height', d.value)
-  }
-  function widthParticuleChange(d){
-    flownetGraph.particule_properties('width', d.value)
-  }
-  function modelParticuleChange(d){
-    switch (d.value) {
-      case 'frequencyToWidth':
-        document.getElementById('width').disabled = true
-        document.getElementById('frequency').disabled = false
-        document.getElementById('unit').innerHTML = ' px'
-        document.getElementById('warningFreq').innerHTML = ' distance between two patterns of particules (px) '
-        break;
-      case 'widthToFrequency':
-        document.getElementById('width').disabled = false
-        document.getElementById('frequency').disabled = true
-        document.getElementById('unit').innerHTML = ' px'
-        document.getElementById('warningFreq').innerHTML = ' distance between two patterns of particules (px) '
-        break;
-      case 'none':
-        document.getElementById('width').disabled = false
-        document.getElementById('frequency').disabled = false
-        document.getElementById('unit').innerHTML = ' px'
-        document.getElementById('warningFreq').innerHTML = ' distance between two patterns of particules (px) '
-        break;
-      case 'physical':
-        document.getElementById('width').disabled = false
-        document.getElementById('frequency').disabled = false
-        document.getElementById('unit').innerHTML = ' Hz'
-        document.getElementById('warningFreq').innerHTML = ' number of particules that are fired each second! '
-        break;
-      default:
+              </div>
 
-    }
-    flownetGraph.particule_properties('computationalMethod', d.value)
-  }
-  function patternParticuleChange(d){
-    flownetGraph.particule_properties('pattern', JSON.parse(d.value))
-  }
-  function modelPatternChange(d){
-    flownetGraph.particule_properties('patternType', d.value)
-  }
-  function frequencyParticuleChange(d){
-    flownetGraph.particule_properties('frequency',d.value)
-  }
-  function spacingParticuleChange(d){
-    flownetGraph.particule_properties('spacing',d.value)
-  }
-  function speedParticuleChange(d){
-    flownetGraph.particule_properties('speed', d.value)
-  }
-  function fpsLimitation(d){
-    if ( d.value === 'auto') flownetGraph.fps(d.value)
-    else flownetGraph.fps(Number(d.value))
-  }
-  function startAnimation(d){
-    flownetGraph.start()
-  }
-  function stopAnimation(d){
-    flownetGraph.stop()
-  }
-  function resetAnimation(d){
-    flownetGraph.reset()
-  }
-
-var graph = {id:'showGraph',
-  nodes:[
-    {x:250-100 , y:200+300, color:'black', size:10, id:0},
-    {x:1050-100 , y:200+300, color:'black', size:10, id:1},
-    {x:1050+150 , y:200, color:'black', size:10, id:2},
-    {x:1050+350 , y:200+300, color:'black', size:10, id:'node3'},
-    {x:1050+150 , y:200+600, color:'black', size:10, id:4}
-  ],
-  links:[
-    {heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:0,
-    points:[{x:250-100,y:200+300},{x:450-100,y:50+300},{x:650-100,y:400+300},{x:850-100,y:50+300},{x:1050-100,y:200+300}], interpolation:'cardinal', colorLink:'lightGrey',
-    sizeLink:12, colorParticule:'black', widthParticule:20, heightParticule:3,
-    patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150},
-
-    {heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'filter1',
-    points:[{x:1050-100,y:200+300},{x:1050+150,y:200}], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
-    widthParticule:20, heightParticule:3,
-    patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150},
-
-    {heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'link2',
-    points:[{x:1050-100,y:200+300},{x:1050+350,y:200+300}], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
-    widthParticule:20, heightParticule:3,
-    patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150},
-
-    {heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'filter3',
-    points:[{x:1050-100,y:200+300},{x:1050+150,y:200+600}], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
-    widthParticule:20, heightParticule:3,
-    patternParticule:[10,2,20], patternType:'absolute', frequencyParticule:1, speedParticule:150}
-  ]
-}
-
-var graphExtension = {
-  nodes:[
-    {x:250-100 , y:500+300, color:'black', size:10, id:5}
-  ],
-  links:[
-    {id:4,
-    points:[{x:250-100,y:200+300},{x:250-100,y:500+300}], interpolation:'cardinal', colorLink:'lightGrey',
-    sizeLink:12, colorParticule:'black', widthParticule:20, heightParticule:3,
-    patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150}
-  ]
-}
+              <div class="col-lg-12 text-center">
+                <video autoplay="" loop="" src="videos/frequence.mov" type="video/mov"></video>
+              </div>
+            </div>
 
 
-  flownetGraph = flownet_SVG.graph('test', document.getElementById('canvas'))
-    //.graph(graph)
-    .nodes(graph.nodes)
-    .links(graph.links)
-    .nodes_properties('x', function(d, i){  return d.x})
-    .nodes_properties('y', function(d, i){  return d.y})
-    .nodes_properties('color', function(d, i){ return d.color})
-    .nodes_properties('size', function(d, i){  return d.size})
+            <div class="col-lg-4 text-center ">
+              <div class="col-lg-12">
+                <h3>Pattern</h3>
+              </div>
+              <div class="text1">
+                <p>
+                Two different patterns of particles fired at the same speed and frequency.
+                </p>
+              </div>
 
-    .nodes_properties('label_text', function(d, i){  return 'id:'+d.id})
-    .nodes_properties('label_size', 16)
-    .nodes_properties('label_x', function(d, i){  return d.x+10})
-    .nodes_properties('label_y', function(d, i){  return d.y-10})
-    .nodes_properties('label_font', 'arial')
-    .nodes_properties('label_color', 'black')
-    //.nodes_properties('class', function(d, i){ return d.cssClass})
-    /*.nodes_behaviors('mouseover', function(d1,i){
-      flownetGraph.nodes_properties('color', 'blue', function(d2,i){
-        return d1.id === d2.id
-      })
-    })*/
-    //.nodes_properties('shape', 'circle') //rectangle, src=img/house
-    //.nodes_properties('visibility', 'hidden')
+              <div class="col-lg-12 text-center">
+                <video autoplay="" loop="" src="videos/temporal.mov" type="video/mov"></video>
+              </div>
+            </div>
+       <!--    </div> -->
 
-    .links_properties('points', function(d,i){ return d.points})
-    .links_properties('interpolation', function(d,i){ return d.interpolation})
-    .links_properties('color', function(d,i){ return d.colorLink})
-    .links_properties('size', function(d,i){ return d.sizeLink})
-    /*.links_behaviors('mouseover', function(d1,i){
-      flownetGraph.links_properties('color', 'blue', function(d2,i){
-        return d1.id === d2.id
-      })
-    })*/
-    //.links_properties('visibility', 'hidden')
+        </div>
+      <br/>
+<!--       <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/> -->
+  <br/>
+      <br/>
+      <br/>
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Size</h3>
+          </div>
+          <div class="text2">
+            <p>
+            Particles with different sizes.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/size.mov" type="video/mov"></video>
+          </div>
+        </div>
 
-    .particule_properties('color', function(d,i){ return d.colorParticule})
-    .particule_properties('width', function(d,i){ return d.widthParticule})
-    .particule_properties('height', function(d,i){ return d.heightParticule})
-    .particule_properties('frequency',function(d,i){ return d.frequencyParticule})
-  //  .particule_properties('computationalMethod', function(d,i){ return d.modele})
-    .particule_properties('pattern', function(d,i){ return d.patternParticule})
-//    .particule_properties('patternType', function(d,i){ return d.patternType})
-    .particule_properties('speed', function(d,i){ return d.speedParticule})
-    /*.particule_behaviors('mouseover', function(d1,i){
-      console.log(this);
-      flownetGraph.particule_properties('color', 'blue', function(d2,i){
-        return d1.id === d2.id
-      })
-    })
-    */
-    //.link_add_gate('color', function(d){ return d.colorGate2.color}, function(d){ return d.colorGate2.position} )
-    //.link_add_gate('height', function(d){ return d.heightGate.height}, function(d){ return d.heightGate.position} )
-    //.link_add_gate('color', function(d){ return d.colorGate1.color}, function(d){ return d.colorGate1.position} )
-    //.fps('auto')
-    //.start()
-    //.stop()
-    //console.log(flownetGraph.selectAll('g'))
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Color</h3>
+          </div>
+          <div class="text2">
+            <p>
+            Particles with different colors.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/color.mov" type="video/mov"></video>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Shape</h3>
+          </div>
+          <div class="text2">
+            <p>
+            Particles with different shapes.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/texture.mov" type="video/mov"></video>
+          </div>
+        </div>
+      </div>
 
-    let all = flownetGraph.selectAll()
-          .filters(function(d,i){ return String(d.id).includes('filter') })
-          .links_properties('interpolation', 'stepBefore')
-      //.remove()
-      //.start()
-/*
-    flownetGraph.nodes(graphExtension.nodes)
-      .links(graphExtension.links)
-      .nodes_properties('x', function(d, i){  return d.x})
-      .nodes_properties('y', function(d, i){  return d.y})
-      .nodes_properties('color', function(d, i){ return d.color})
-      .nodes_properties('size', function(d, i){  return d.size})
-
-      .nodes_properties('label_text',function(d, i){  return 'id:'+d.id})
-      .nodes_properties('label_size', 16)
-      .nodes_properties('label_x', function(d, i){  return d.x+10})
-      .nodes_properties('label_y', function(d, i){  return d.y-10})
-      .nodes_properties('label_font', 'arial')
-      .nodes_properties('label_color', 'black')
-      //.nodes_properties('class', function(d, i){ return d.cssClass})
-
-      //.nodes_properties('shape', 'circle') //rectangle, src=img/house
-      //.nodes_properties('visibility', 'hidden')
-
-      .links_properties('points', function(d,i){ return d.points})
-      .links_properties('interpolation', function(d,i){ return d.interpolation})
-      .links_properties('color', function(d,i){ return d.colorLink})
-      .links_properties('size', function(d,i){ return d.sizeLink})
-
-
-      .particule_properties('color', function(d,i){ return d.colorParticule})
-      .particule_properties('width', function(d,i){ return d.widthParticule})
-      .particule_properties('height', function(d,i){ return d.heightParticule})
-      .particule_properties('frequency',function(d,i){ return d.frequencyParticule})
-    //  .particule_properties('computationalMethod', function(d,i){ return d.modele})
-//      .particule_properties('pattern', function(d,i){ return d.patternParticule})
-  //    .particule_properties('patternType', function(d,i){ return d.patternType})
-//      .particule_properties('speed', function(d,i){ return d.speedParticule})
-
-
-/*
-  d3.select('svg').append('g').selectAll('circle')
-    .data([{x:450-100,y:50+300},{x:650-100,y:400+300},{x:850-100,y:50+300}])
-    .enter()
-    .append('circle')
-    .attr('id', function(d,i){ return 'circle'+i})
-    .attr('cx', function(d){ console.log(d.x);return d.x})
-    .attr('cy', function(d){ return d.y})
-    .attr('r', 8)
-    .attr('fill', 'black' )
-    .attr('opacity', '0.5')
-    .call(d3.drag()
-      .on('start', function(){
-        this.setAttribute('ex', d3.event.x)
-        this.setAttribute('ey', d3.event.y)
-      })
-      .on('drag', function(d,i){
-        this.setAttribute('cx', Number(this.getAttribute('cx'))+d3.event.x-Number(this.getAttribute('ex')))
-        this.setAttribute('cy', Number(this.getAttribute('cy'))+d3.event.y-Number(this.getAttribute('ey')))
-        this.setAttribute('ex', d3.event.x)
-        this.setAttribute('ey', d3.event.y)
-        graph.links[0].points.splice(i+1, 1, {x:this.getAttribute('cx'), y:this.getAttribute('cy')})
-        flownetGraph.links_properties('points', function(d){ return d.points})
-      })
-      .on('end', function(){}));*/
-
-	</script>
+        <br/>
+      <br/>
+      <br/>
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Coloring Gate</h3>
+          </div>
+          <div class="text2">
+            <p>
+            A gate that abruptly turns white particles into black particles.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/gate_color.mov" type="video/mov"></video>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Shrinking Gate</h3>
+          </div>
+          <div class="text2">
+            <p>
+            A gate that smoothly decreases particle size.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/gate_size.mov" type="video/mov"></video>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Accelerating Gate</h3>
+          </div>
+          <div class="text2">
+            <p>
+            A gate that smoothly increases particle speed.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/gate_speed.mov" type="video/mov"></video>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
 
-</html>
+
+
+              </div>
+              <div class="footer">
+              </div>
+
+
+              <!-- jQuery -->
+              <script src="lib/jquery.min.js"></script>
+              <!-- Bootstrap Core JavaScript -->
+              <script src="js/bootstrap.min.js"></script>
+              <!-- Theme JavaScript -->
+              <script src="js/agency.js"></script>
+
+
+            </body>
+            </html>
