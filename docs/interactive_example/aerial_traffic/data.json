@@ -1,0 +1,154 @@
+{
+    "nodes": [
+        {
+            "id": 0,
+            "iata": "IAD",
+            "label": "Washington Dulles International",
+            "city": "Chantilly",
+            "state": "VA",
+            "country": "USA",
+            "lat": "38.94453194",
+            "long": "-77.45580972"
+        },
+        {
+            "id": 1,
+            "iata": "IAH",
+            "label": "George Bush Intercontinental",
+            "city": "Houston",
+            "state": "TX",
+            "country": "USA",
+            "lat": "29.98047222",
+            "long": "-95.33972222"
+        },
+        {
+            "id": 2,
+            "iata": "JFK",
+            "label": "John F Kennedy Intl",
+            "city": "New York",
+            "state": "NY",
+            "country": "USA",
+            "lat": "40.63975111",
+            "long": "-73.77892556"
+        },
+        {
+            "id": 3,
+            "iata": "LAS",
+            "label": "McCarran International",
+            "city": "Las Vegas",
+            "state": "NV",
+            "country": "USA",
+            "lat": "36.08036111",
+            "long": "-115.1523333"
+        },
+        {
+            "id": 4,
+            "iata": "LAX",
+            "label": "Los Angeles International",
+            "city": "Los Angeles",
+            "state": "CA",
+            "country": "USA",
+            "lat": "33.94253611",
+            "long": "-118.4080744"
+        },
+        {
+            "id": 5,
+            "iata": "SFO",
+            "label": "San Francisco International",
+            "city": "San Francisco",
+            "state": "CA",
+            "country": "USA",
+            "lat": "37.61900194",
+            "long": "-122.3748433"
+        },
+        {
+            "id": 6,
+            "iata": "SLC",
+            "label": "Salt Lake City Intl",
+            "city": "Salt Lake City",
+            "state": "UT",
+            "country": "USA",
+            "lat": "40.78838778",
+            "long": "-111.9777731"
+        }
+    ],
+    "links": [
+        {
+            "id": 0,
+            "source": 3,
+            "target": 5,
+            "origin": "LAS",
+            "dest": "SFO",
+            "number_plane": 1,
+            "dep_delay": 116.0,
+            "arr_delay": 139.0,
+            "passengers": 1900.0,
+            "number_carrier": 1,
+            "seats": 3416.0
+        },
+        {
+            "id": 1,
+            "source": 4,
+            "target": 5,
+            "origin": "LAX",
+            "dest": "SFO",
+            "number_plane": 3,
+            "dep_delay": 410.0,
+            "arr_delay": 424.0,
+            "passengers": 363.0,
+            "number_carrier": 3,
+            "seats": 366.0
+        },
+        {
+            "id": 2,
+            "source": 6,
+            "target": 5,
+            "origin": "SLC",
+            "dest": "SFO",
+            "number_plane": 2,
+            "dep_delay": 389.0,
+            "arr_delay": 406.0,
+            "passengers": 2900.0,
+            "number_carrier": 1,
+            "seats": 3180.0
+        },
+        {
+            "id": 3,
+            "source": 2,
+            "target": 5,
+            "origin": "JFK",
+            "dest": "SFO",
+            "number_plane": 1,
+            "dep_delay": 347.0,
+            "arr_delay": 363.0,
+            "passengers": 1286.0,
+            "number_carrier": 1,
+            "seats": 1737.0
+        },
+        {
+            "id": 4,
+            "source": 0,
+            "target": 5,
+            "origin": "IAD",
+            "dest": "SFO",
+            "number_plane": 1,
+            "dep_delay": 95.0,
+            "arr_delay": 93.0,
+            "passengers": 139.0,
+            "number_carrier": 1,
+            "seats": 347.0
+        },
+        {
+            "id": 5,
+            "source": 1,
+            "target": 5,
+            "origin": "IAH",
+            "dest": "SFO",
+            "number_plane": 1,
+            "dep_delay": 244.0,
+            "arr_delay": 255.0,
+            "passengers": 549.0,
+            "number_carrier": 1,
+            "seats": 570.0
+        }
+    ]
+}

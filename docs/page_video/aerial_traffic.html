@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title> Video </title>
+ <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+ <style>
+ body{
+      margin:0;
+      font-family: "Roboto", "Myriad Pro";
+    }
+ #legend{
+  position: absolute;
+  top: 10%;
+  width: 30%;
+  /* text-align: center; */
+  font-style: italic;
+  font-size: 15px;
+  right: 10%;
+  background-color: rgba(163, 163, 163, 0.5);
+  padding: 15px;
+}
+
+</style>
+<body>
+	<div id="legend">
+            Statistics about flights in the United States (<a href="https://www.transtats.bts.gov">dataset</a>). Particles flow from one city to another. Their size and frequency respectively encode the average number of passengers and the average number of planes between these cities. Additionally, when there is an average departure delay on a flight route, particles are slowed down at the beginning of this route. This effect is achieved by emitting low-speed particles that are later accelerated with a transformation gate.
+          </div>
+	<div class="container">
+		<div class="col-lg-12 text-center">
+	        <video style="width:100%" autoplay="" loop="" src="../videos/aerial_traffic.mov" type="video/mov"></video>  
+	    </div>
+	</div>
+</body>
+</head>
+</html>

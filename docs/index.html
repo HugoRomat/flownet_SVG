@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link href="css/bootstrap.min.css" rel="stylesheet">
+ <link href="css/style.css" rel="stylesheet">
+ <link rel='stylesheet' href='lib/font-awesome.min.css'>
+ <link href="https://fonts.googleapis.com/css?family=Roboto|Lato|Raleway" rel="stylesheet">
+ <title>Flownet</title>
+ <style type="text/css">
+
+  body{
+    font-family: "Roboto", "Lato", "Raleway";
+  }
+  h1{
+    font-weight: 900;
+    line-height: 1.2em;
+  }
+  h1.title{
+    margin:30px;
+  }
+  h4{
+
+  }
+  .container{
+    width : 1000px;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+  .click_letter{
+    font-weight: 900;
+  }
+  .legend{
+    text-align: center;
+  }
+  code {
+    white-space: pre;
+  }
+  .user_study > div {
+    padding-right: 0px;
+    padding-left: 0px;
+
+  }
+  .navbar{
+    border-radius:0px;
+  }
+  .navbar-nav {
+    float:none;
+    margin:0 auto;
+    display: block;
+    text-align: center;
+  }
+
+  .navbar-nav > li {
+    display: inline-block;
+    float:none;
+  }
+  .intro-header {
+    padding-top: 250px;
+    padding-bottom: 150px;
+    text-align: center;
+    color: #f8f8f8;
+    opacity: 0.8;
+    background: url(images/teaser/teaser.png) no-repeat center center;
+    /*background-size: cover;*/
+    height: 100px;
+  }
+
+ .particles  p {
+    width: 500px;
+    /*text-align: left;*/
+    text-align: justify;
+    margin:auto;
+  }
+  #projects .row{
+    margin-bottom: 30px;
+  }
+
+  section{
+    padding: 20px;
+  }
+
+  .animations p{
+
+  }
+
+  .animations h3{
+    padding-top: 30px;
+  }
+  .text1{
+     height: 150px;
+     text-align: center; /*justify*/
+  }
+  .text2{
+     height: 100px;
+     text-align: center; /*justify*/
+  }
+  .links{
+  font-size: 19px;
+  padding-left: 10px;
+}
+.footer{
+      width: 100%;
+    background-color: black;
+    height: 100px;
+}
+.headband{
+    background-color: black;
+    color:white;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.headband span{
+   text-decoration: underline;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+  <!-- Navigation -->
+  <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top topnav">
+
+    <ul class="nav navbar-nav">
+      <li><a href="#flownet"><i class="fa fa-home"></i> Animated Edges</a></li>
+      <li><a href="#usecase"><i class="fa fa-video-camera"></i> Paper Examples</a></li>
+      <li><a href="#projects"><i class="fa fa-file-text-o"></i> Examples</a></li>
+      <li><a href="#demo" ><i class="fa fa-cogs" aria-hidden="true"></i> Create your graph</a></li>
+      <li><a href="user_study.html"><i class="fa fa-user"></i> Study Material</a></li>
+      <li><a href="usingFlownet.html" ><i class="fa fa-upload" ></i> Using Flownet </a></li>
+    </ul>
+  </nav>
+
+  <div class="intro-header">
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="intro-message">
+        <br>
+          <h1 id="title">Animated Edge Textures in Node-Link Diagrams:<br/>
+          A Design Space and Initial Evaluation</h1>
+          <br/>
+          <h4 style="line-height: 1.5;">H. Romat, C. Appert, B. Bach, N. Henry-Riche, E. Pietriga, Animated Edge Textures in Node-Link Diagrams: a Design Space and Initial Evaluation, CHI '18: Proceedings of the 36th SIGCHI conference on Human Factors in computing systems, 13 pages, April 2018, Montreal, Canada</h4>
+
+          
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="container">
+
+    <section id="flownet">
+      <div class="row particles">
+        <div class="col-md-12 portfolio-item">
+         <div class="row">
+          <div class="col-lg-12 text-center">
+
+            <p>Animated edge textures can encode data in node-link diagrams by making sequences of small glyphs (<i>i.e.</i>, particles) dynamically move along edges. Our framework, <i>Flownet</i>, supports the creation of such animated edge textures by considering an edge as a tunnel, and a node as an emitter that can fire a specific pattern of particles at a given frequency through this tunnel. Once fired, particles have their own speed, which can change.</p>
+            <p>The combination of motion variables (pattern, frequency and speed) with  more usual visual variables (such as color, shape, opacity), which can be applied to either particles or to the tunnel itself, opens a large design space to encode various edge attributes.</p>
+            <p><i>Flownet</i> also enables the definition of gates, which are invisible constructs placed along a link, that alter the properties of particles that pass through them.</p>
+            <br>
+            <br>
+
+
+
+
+            <a href="videos/flownet_chi2018.mp4" target="_blank">Link to the video <i style="margin-left:5px;" class="fa fa-film" aria-hidden="true"></i></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="row particles">
+        <div class="col-md-12 text-center">
+        	
+    	</div>
+    </div>
+
+        <div class="row animations">
+
+
+            <div class="col-lg-4 text-center ">
+              <div class="col-lg-12 ">
+                <h3>Speed</h3>
+              </div>
+              <div class="text1">
+                  <p>
+                    The same pattern of particles fired at the same frequency, but with two different speeds.
+                  </p>
+              </div>
+              <div class="col-lg-12 text-center">
+                <video autoplay="" loop="" src="videos/speed.mov" type="video/mov"></video>
+              </div>
+            </div>
+
+            <div class="col-lg-4 text-center ">
+              <div class="col-lg-12">
+                <h3>Frequency</h3>
+              </div>
+              <div class="text1">
+                <br/>
+                  <p>
+                    The same pattern of particles fired at the same speed, but with two different frequencies.
+                  </p>
+
+
+              </div>
+
+              <div class="col-lg-12 text-center">
+                <video autoplay="" loop="" src="videos/frequence.mov" type="video/mov"></video>
+              </div>
+            </div>
+
+
+            <div class="col-lg-4 text-center ">
+              <div class="col-lg-12">
+                <h3>Pattern</h3>
+              </div>
+              <div class="text1">
+                <p>
+                Two different patterns of particles fired at the same speed and frequency.
+                </p>
+              </div>
+
+              <div class="col-lg-12 text-center">
+                <video autoplay="" loop="" src="videos/temporal.mov" type="video/mov"></video>
+              </div>
+            </div>
+       <!--    </div> -->
+
+        </div>
+      <br/>
+<!--       <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/> -->
+  <br/>
+      <br/>
+      <br/>
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Size</h3>
+          </div>
+          <div class="text2">
+            <p>
+            Particles with different sizes.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/size.mov" type="video/mov"></video>
+          </div>
+        </div>
+
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Color</h3>
+          </div>
+          <div class="text2">
+            <p>
+            Particles with different colors.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/color.mov" type="video/mov"></video>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Shape</h3>
+          </div>
+          <div class="text2">
+            <p>
+            Particles with different shapes.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/texture.mov" type="video/mov"></video>
+          </div>
+        </div>
+      </div>
+
+        <br/>
+      <br/>
+      <br/>
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Coloring Gate</h3>
+          </div>
+          <div class="text2">
+            <p>
+            A gate that abruptly turns white particles into black particles.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/gate_color.mov" type="video/mov"></video>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Shrinking Gate</h3>
+          </div>
+          <div class="text2">
+            <p>
+            A gate that smoothly decreases particle size.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/gate_size.mov" type="video/mov"></video>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="col-lg-12">
+            <h3>Accelerating Gate</h3>
+          </div>
+          <div class="text2">
+            <p>
+            A gate that smoothly increases particle speed.
+            </p>
+          </div>
+          <div class="col-lg-12 text-center">
+            <video autoplay="" loop="" src="videos/gate_speed.mov" type="video/mov"></video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+      <section id="usecase">
+        <div class="row">
+          <div class="col-lg-12 text-center page-header">
+            <h1>Examples from the paper</h1>
+          </div>
+        </div>
+
+
+        <div class="row">
+
+
+            <div class="row">
+          <div class="col-md-6 col-md-offset-3 portfolio-item">
+            <a href="usecases/passengers_number/" target="_blank">
+              <video width="100%" autoplay="" loop="" src="videos/frequency_passengers.mov" type="video/mov" >               </video>
+            </a>
+            <h3 class="text-center">
+              <a href="usecases/passengers_number/" target="_blank">Numerical attribute</a>
+            </h3>
+            <p>
+              The average number of passengers on each flight route is mapped to particle frequency.
+            </p>
+            <p class="text-center">
+
+              <a href="usecases/passengers_number/" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>&nbsp;|&nbsp;
+              <a href="page_video/frequency_passengers.html" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Video </a>
+            </p>
+          </div>
+        </div>
+
+      <!--    </div>
+        <div class="row"> -->
+            <div class="col-md-6 portfolio-item">
+              <a href="usecases/fret_passengers_mail_one_edge" target="_blank">
+                <video width="100%" autoplay="" loop="" src="videos/single_road.mov"  type="video/mov"></video>
+              </a>
+              <h3><a href="usecases/fret_passengers_mail_one_edge" target="_blank">Categorical attribute</a> </h3>
+            <p class="project description">
+            The temporal pattern of particles encodes whether the route is mostly for passenger transportation, mail or freight.
+            </p>
+              <p class="text-center">
+
+              <a href="usecases/fret_passengers_mail_one_edge" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>&nbsp;|&nbsp;
+              <a href="page_video/single_road.html" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Video </a>
+            </p>
+            </div>
+            <div class="col-md-6 portfolio-item">
+              <a href="usecases/fret_passengers_mail_many_edges" target="_blank">
+                <video width="100%" autoplay="" loop="" src="videos/many_roads.mov" type="video/mov" >               </video>
+              </a>
+              <h3><a href="usecases/fret_passengers_mail_many_edges" target="_blank">Multiple attributes</a> </h3>
+              <p class="project description">
+              Particles flow on three parallel tracks for each flight route. Each track represents one category: passenger transportation, mail and freight. The average volume carried along a route is encoded using particle speed. </p>
+              <p class="text-center">
+
+              <a href="usecases/fret_passengers_mail_many_edges" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>&nbsp;|&nbsp;
+              <a href="page_video/many_roads.html" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Video </a>
+            </p>
+            </div>
+      </div>
+      <div class="row">
+
+          <div class="col-md-6 portfolio-item">
+            <a href="usecases/delay_without_opacity" target="_blank">
+              <video width="100%" autoplay="" loop="" src="videos/begin_end.mov" type="video/mov" >               </video>
+            </a>
+            <h3>
+              <a href="usecases/delay_without_opacity" target="_blank"> Temporal attribute </a>
+            </h3>
+            <p>Gates are placed at 20% and 80% of the link's length. The speed of particles is altered when passing through those gates to visually encode departure and arrival delay, if any.</p>
+
+             <p class="text-center">
+
+              <a href="usecases/delay_without_opacity" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>&nbsp;|&nbsp;
+              <a href="page_video/begin_end.html" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Video </a>
+            </p>
+          </div>
+
+          <div class="col-md-6 portfolio-item">
+            <a href="usecases/delay" target="_blank">
+              <video width="100%" autoplay="" loop="" src="videos/begin_end_opacity.mov" type="video/mov" >               </video>
+            </a>
+            <h3>
+              <a href="usecases/delay" target="_blank">Reduce graph clutter</a>
+            </h3>
+            <p>
+The speed of particles is altered when passing through gates to visually encode departure and arrival delay, if any. In this case, these gates are also used to fade particles away in the central portion of the links. Decreasing the particles' opacity in this manner helps reduce visual clutter.
+            </p>
+
+              <p class="text-center">
+
+              <a href="usecases/delay" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>&nbsp;|&nbsp;
+              <a href="page_video/begin_end_opacity.html" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Video </a>
+            </p>
+          </div>
+        </div>
+
+
+
+
+        </section>
+
+          <section id="projects">
+            <div class="row">
+              <div class="col-lg-12 text-center page-header">
+                <h1>More examples</h1>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 portfolio-item">
+                <a href="interactive_example/tree_data/" target="_blank">
+                  <img class="img-responsive" src="images/teaser/tree_data.png">
+                </a>
+                <h3>
+                  <a href="interactive_example/tree_data/" target="_blank">Propagation</a>
+                </h3>
+
+                <p class="project description">A simple propagation example.</p>
+
+                  <a href="interactive_example/tree_data/" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>&nbsp;|&nbsp;
+                  <a href="page_video/tree.html" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Video </a>
+                </div>
+
+                <div class="col-md-3 portfolio-item">
+                  <a href="interactive_example/social_network/" target="_blank">
+                    <img class="img-responsive" src="images/teaser/social_network.png">
+                  </a>
+                  <h3><a href="interactive_example/social_network/" target="_blank">Social Network</a> </h3>
+   
+                  <p class="project description">Messaging between actors across various social networks. Particles flow from one actor to another. Their size and frequency respectively encode the average size and frequency of messages between those actors.</p>
+                  <a href="interactive_example/social_network/" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>&nbsp;|&nbsp;
+                  <a href="page_video/social_network.html" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Video </a>
+                </div>
+
+                <div class="col-md-3 portfolio-item">
+                  <a href="interactive_example/WeaponsTRaffic_Frequency/" target="_blank">
+                    <img class="img-responsive" src="images/teaser/weaponsTraffic2.png">
+                  </a>
+                  <h3>
+                    <a href="interactive_example/WeaponsTRaffic_Frequency/" target="_blank">Arms Trade</a>
+                  </h3>
+
+                  <p>Imports and exports of arms between countries (<a href="https://raw.githubusercontent.com/dataarts/armsglobe/master/categories/All.json">dataset</a>). Particles flow from one country to another. Their color and frequency respectively encode the type (ammunitions, civil weapons or military weapons) and the volume of arms that go from one country to another.</p>
+                  <a href="interactive_example/WeaponsTRaffic_Frequency/" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>&nbsp;|&nbsp;
+                  <a href="page_video/weapons_traffic.html" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Video </a>
+                </div>
+
+              <div class="col-md-3 portfolio-item">
+                  <a href="interactive_example/aerial_traffic/" target="_blank">
+                    <img class="img-responsive" src="images/teaser/aerial_traffic2.png">
+                  </a>
+                  <h3><a href="interactive_example/aerial_traffic/" target="_blank">Air traffic</a></h3>
+
+                    <p>Statistics about flights in the United States (<a href="https://www.transtats.bts.gov">dataset</a>). Particles flow from one city to another. Their size and frequency respectively encode the average number of passengers and the average number of planes between these cities. Additionally, when there is an average departure delay on a flight route, particles are slowed down at the beginning of this route. This effect is achieved by emitting low-speed particles that are later accelerated with a transformation gate.</p>
+                    <a href="interactive_example/aerial_traffic/" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>&nbsp;|&nbsp;
+                    <a href="page_video/aerial_traffic.html" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Video </a>
+                  </div>
+              </div>
+            </section>
+
+                <section id="demo">
+                  <div class="row">
+                    <div class="col-lg-12 text-center page-header">
+                      <h1>Create your Graph</h1>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                    Use our online demo to test different motion and visual attributes
+            
+                    </div>
+                  </div>
+                  <br/>
+
+                  <div class="row">
+                    <div class="col-md-12  text-center">
+                      <a class="links" href="interactive_example/customize_graph" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Online Demo </a>
+                    </div>
+                  </div>
+
+
+                  <br/>
+                  <br/>
+                  <br/>
+                  <br/>
+                </section>
+
+
+
+              </div>
+              <div class="footer">
+              </div>
+
+
+              <!-- jQuery -->
+              <script src="lib/jquery.min.js"></script>
+              <!-- Bootstrap Core JavaScript -->
+              <script src="js/bootstrap.min.js"></script>
+              <!-- Theme JavaScript -->
+              <script src="js/agency.js"></script>
+
+
+            </body>
+            </html>

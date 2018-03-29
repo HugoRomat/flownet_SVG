@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Flow Network</title>
+
+
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/d3.min.js"></script>
+  <!-- <script src="lib/cola.min.js"></script>
+  <script src="lib/topojson.v1.min.js"></script> -->
+  <script src="lib/dat.gui.min.js"></script>
+  <link rel='stylesheet' href='lib/loader.css'>
+  <link rel='stylesheet' href='lib/slider.css'>
+
+  <link rel='stylesheet' href='../../lib/font-awesome.min.css'>
+
+  <script src="lib/three.min.js"></script>
+  <script src="Sparkiz.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+
+  <style>
+
+
+  html {
+    width: 100%;
+    height:100%;
+  }
+  #visFrame{
+    position: absolute;
+  }
+  body{
+
+    width: 100%;
+    height:100%;
+    font-family: "Roboto", "Myriad Pro";
+    margin: 0;
+    padding: 0;
+    background-color: #999eb0;
+    overflow:scroll;
+
+  }
+  .loader {
+  position: absolute;
+  bottom: 5%;
+  left: 4%;
+  width: 7.33333em;
+  height: 7.33333em;
+ /* margin-left: -3.66667em;
+  margin-top: -3.66667em;*/
+  }
+  #computing_graph{
+    color:white;
+    text-align: center;
+    position: relative;
+    left: -20%;
+    top: 90%;
+  }
+  .bandeau-top{
+    z-index: 10;
+  }
+  .dg ac{
+    z-index: 11
+  }
+  
+    </style>
+
+
+</head>
+<body>
+<div class="bandeau-top" style="position:absolute; top:0%;width:100%; height:20px; background-color:black; color:white; text-align: center; padding:7px;">
+     Optimized for Chrome
+     </div>
+  <div id="visFrame"></div>
+
+  <!-- <div id="title">FLOW NETWORK</div> -->
+
+
+
+  <!-- <div id="infos"><i class="fa fa-info-circle fa-2x" aria-hidden="true"></i></div>   -->
+  <!-- <div id="panel">
+    <div class="title">
+      <div id="title_part"> Motion </div>
+    </div>
+    <div class="particules">
+      <div>Number of frequencies: <span id="label_slider_frequency" > 1</span><br/>
+        <input id="slider_frequency" type ="range" min ="1" max="6" step ="1" value ="1"/>
+      </div>
+      <div>Number of speeds:  <span id="label_slider_speed" >1</span><br/>
+        <input id="slider_speed" type ="range" min ="1" max="6" step ="1" value ="1"/>
+      </div>
+      <div>Number of patterns:  <span id="label_slider_temporal" >1</span><br/>
+        <input id="slider_temporal" type ="range" min ="1" max="12" step ="1" value ="1"/>
+      </div>
+      <div>Particle size:  <span id="label_slider_size" >7.0</span><br/>
+        <input id="slider_size" type ="range" min ="1" max="20" step ="0.1" value ="7"/>
+      </div>
+
+    </div>
+    <div class="title">
+      <div id="title_part"> Layout </div>
+    </div>
+    <div class="particules">
+      <div>Number of nodes:  <span id="label_number_nodes" >5</span><br/>
+        <input id="slider_nodes" type ="range" min ="1" max="100" step ="1" value ="5"/>
+      </div>
+      <div>Number of links:  <span id="label_number_links" >7</span><br/>
+        <input id="slider_links" type ="range" min ="1" max="100" step ="1" value ="7"/>
+      </div>
+      <div>Node size:  <span id="label_size_nodes" >3.0</span><br/>
+        <input id="slider_size_nodes" type ="range" min ="3" max="20" step ="0.1" value ="3.0"/>
+      </div>
+      <div>Link size:  <span id="label_size_links" >1.0</span><br/>
+        <input id="slider_size_links" type ="range" min ="0.1" max="10.0" step ="0.1" value ="1.0"/>
+      </div>
+
+    </div> -->
+<!--     <div class="text">
+      * You need to update the graph
+    </div> -->
+<!--     <div class='launch'><button id="launch"> Update </button></div> -->
+    <!-- <div class='launch'><button id="reset"> Reset to defaults </button></div> -->
+
+    </div>
+
+    <div id="loader" class="loader">
+      <div id="computing_graph">
+        Computing the layout
+      </div>
+      <span class="loader-block"></span>
+      <span class="loader-block"></span>
+      <span class="loader-block"></span>
+      <span class="loader-block"></span>
+      <span class="loader-block"></span>
+      <span class="loader-block"></span>
+      <span class="loader-block"></span>
+      <span class="loader-block"></span>
+      <span class="loader-block"></span>
+
+    </div>
+
+
+<!--     <p>Size:
+    </p>
+    <p>Color:
+    </p> -->
+
+
+
+  <!-- <div> color_scale_delay_dep color_scale_delay_dep color_scale_delay_dep color_scale_delay_dep </div> -->
+
+  <script>
+    var prout = {"X":0}
+    var gui = new dat.GUI();
+			
+				// gui.add( material.uniforms.pointColor.value, 'y', 0.0, 1.0 ).name( 'green' );
+				// gui.add( material.uniforms.pointColor.value, 'z', 0.0, 1.0 ).name( 'blue' );
+				// gui.add( material.uniforms.pointColor.value, 'w', 0.0, 1.0 ).name( 'alpha' );
+				// gui.add( material.uniforms.pointSize, 'value', 0.0, 10.0 ).name( 'size' );
+// $('#show-menu').click(function() {
+
+//   if($('#menu').css('display') == 'none'){
+//     $("#menu").show( "slow" );
+//   } else {
+//     $("#menu").hide( "slow" );
+//   }
+
+// });
+
+  var color_scale_delay_dep = d3.scale.linear()
+    .domain([0,593])
+    .range(["steelblue", "brown"])
+    .interpolate(d3.interpolateHcl);
+
+  var parameters = {frequency:1, speed:1, temporal:1, size:7, size_nodes:3, size_links:1, numNodes:5, numLinks:7}
+  var nodesLinks = { updateProperties:function(){update() }, updateLayout: function(){update_layout()}};
+
+  var json = {"nodes": [], "links": []};
+  var width = 1700;
+  var height = 1000;
+
+  var array_speed = [1, 12.45, 7.33, 1.49, 2.533, 4.31]
+  var array_frequency = [0.3, 2.277, 1.518, 0.45, 1.0125, 0.675]
+  var array_temp = [[0.0],[0.0, 0.1],[0.0, 0.2, 0.3, 0.4], [0.0, 0.1, 0.3, 0.4], [0.0, 0.1], [0.0,0.1,0.2], [ 0.0,0.1,0.2,0.3], [0.0,0.1,0.2,0.3,0.4],  [0.0,0.1,0.2,0.3,0.4,0.5],[0.0,0.1,0.2,0.3,0.4,0.5,0.6],[0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7], [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8],[0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7, 0.8,0.9] ]
+
+  var nodes = d3.range(parameters.numNodes).map(Object),
+      list  = randomChoose(unorderedPairs(d3.range(parameters.numNodes)), parameters.numLinks),
+      links = list.map(function (a) { return {source: a[0], target: a[1]} });
+
+  //console.log(nodes)
+  json.nodes = nodes;
+  json.links = links;
+ 
+    $("#loader").show();
+    var app = Sparkiz.force("#visFrame", width ,height, "#999eb0",1)
+      .nodes(json.nodes)
+      .links(json.links)
+      //.layout("linkDistance", 200)
+      .create_layout()
+      .roads_mapping("number_roads", 1 )
+      .create_WEBGL_element()
+      .links_mapping("color", "white")
+      .links_mapping("size", function(d, i) {return parameters.size_links; })
+      // .controls(true)
+      .zoom(true)
+      .setZoom(0.2)
+      //.nodes_mapping("image", "images/rectangle.png")
+      .nodes_mapping("color", "black")
+      .nodes_mapping("size", function(d, i) {return parameters.size_nodes; })
+      // .nodes_mapping("x", function(d, i) {return d.X; })
+      // .nodes_mapping("y", function(d, i) {return d.Y;  })
+      .particle_mapping("size", function(d, i) {return parameters.size; })
+      .particle_mapping("color", "black")
+      .particle_mapping("frequency_pattern", function(d, i) {return array_frequency[i%parameters.frequency];})
+      .particle_mapping("velocity", function(d, i) {return array_speed[i%parameters.speed]; })
+      .particle_mapping("temporal_distribution", function(d, i) {return array_temp[i%parameters.temporal]; })
+      //.particle_mapping("texture", "https://cdn2.iconfinder.com/data/icons/crystalproject/crystal_project_256x256/apps/exit.png")
+      .particle_mapping("spatial_distribution", [0])
+      .on("end", function() { $("#loader").hide(); })
+      .start_particle_delay(20000000)
+      .start(3000);
+      //clear_scene();
+    // console.log(app.viz)
+
+
+function update(){
+  $("#loader").show();
+  clear_particles();
+
+  app.links_mapping("color", "white")
+    .links_mapping("size", function(d, i) {return parameters.size_links; })
+    .nodes_mapping("color", "black")
+    .nodes_mapping("size", function(d, i) {return parameters.size_nodes; })
+    .particle_mapping("color", "black")
+    .particle_mapping("size", function(d, i) {return parameters.size; })
+    .particle_mapping("frequency_pattern", function(d, i) {return array_frequency[i%parameters.frequency];})
+    .particle_mapping("velocity", function(d, i) {return array_speed[i%parameters.speed]; })
+    .particle_mapping("temporal_distribution", function(d, i) {return array_temp[i%parameters.temporal]; })
+    .particle_mapping("spatial_distribution", [0])
+    .on("end", function() { $("#loader").hide(); })
+    app.start();
+}
+function update_layout(){
+  $("#loader").show();
+  clear_scene();
+  app.sparkiz.links = []
+  app.sparkiz.tube = []
+
+  var nodes = d3.range(parameters.numNodes).map(Object),
+      list  = randomChoose(unorderedPairs(d3.range(parameters.numNodes)), parameters.numLinks),
+      links = list.map(function (a) { return {source: a[0], target: a[1]} });
+
+  json.nodes = nodes;
+  json.links = links;
+
+    app.nodes(json.nodes)
+      .links(json.links)
+      .layout("linkDistance", 200)
+      .create_layout()
+      .roads_mapping("number_roads", 1 )
+      .create_WEBGL_element()
+      .links_mapping("color", "white")
+      .links_mapping("size", 2)
+      .nodes_mapping("color", "black")
+      .nodes_mapping("size", function(d, i) {return parameters.size_nodes; })
+      .particle_mapping("color", "black")
+      .particle_mapping("size", function(d, i) {return parameters.size; })
+      .particle_mapping("frequency_pattern", function(d, i) {return array_frequency[i%parameters.frequency];})
+      .particle_mapping("velocity", function(d, i) {return array_speed[i%parameters.speed]; })
+      .particle_mapping("temporal_distribution", function(d, i) {return array_temp[i%parameters.temporal]; })
+      .particle_mapping("spatial_distribution", [0])
+      .stop()
+      .on("end", function() { $("#loader").hide(); })
+      .start_particle_delay(20000000)
+      .start(3000);
+}
+// gui.add(text, 'speed', -5, 5);
+gui.add(parameters, 'speed', 0, 5).step(1);
+gui.add(parameters, 'frequency', 0, 5).step(1);
+gui.add(parameters, 'temporal', 0, 5).step(1);
+gui.add(nodesLinks,'updateProperties');
+gui.add(parameters, 'numLinks', 2, 30).step(1);
+gui.add(parameters, 'numNodes', 2, 30).step(1);
+gui.add(nodesLinks,'updateLayout');
+
+gui.add(parameters, 'size', 0, 20).step(1).onChange(function(value){ app.sparkiz.updateParticles_Size(value)})
+gui.add(parameters, 'size_nodes', 0, 10).step(1).onChange(function(value){ app.sparkiz.updateNodes_scale(value)})
+gui.add(parameters, 'size_links', 0, 10).step(1).onChange(function(value){ app.sparkiz.set_tubes_width(value); app.sparkiz.updateTube()})
+
+    
+function clear_particles(){
+ for( var i = app.sparkiz.scene.children.length - 1; i >= 0; i--) {
+      obj = app.sparkiz.scene.children[i];
+      if (obj.name == "links") app.sparkiz.scene.remove(obj);
+      if (obj.name.slice(0, 15) == 'particle_system') app.sparkiz.scene.remove(obj);
+    }
+}
+function clear_scene(){
+
+  for( var i = app.sparkiz.scene.children.length - 1; i >= 0; i--) {
+      obj = app.sparkiz.scene.children[i];
+      if (obj.name == "links") app.sparkiz.scene.remove(obj);
+      if (obj.name == "roads") app.sparkiz.scene.remove(obj);
+      if (obj.name.slice(0, 4) ==  "tube") app.sparkiz.scene.remove(obj);
+      if (obj.name.slice(0, 15) == 'particle_system') app.sparkiz.scene.remove(obj);
+      if (obj.name == "circle") app.sparkiz.scene.remove(obj);
+    }
+}
+function randomChoose (s, k) { // returns a random k element subset of s
+  var a = [], i = -1, j;
+  while (++i < k) {
+    j = Math.floor(Math.random() * s.length);
+    a.push(s.splice(j, 1)[0]);
+  };
+  return a;
+}
+function unorderedPairs (s) { // returns the list of all unordered pairs from s
+  var i = -1, a = [], j;
+  while (++i < s.length) {
+    j = i;
+    while (++j < s.length) a.push([s[i],s[j]])
+  };
+  return a;
+}
+  </script>
+
+
+</body>
+</html>

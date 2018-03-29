@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <link href="css/style.css" rel="stylesheet">
+   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+   <link rel='stylesheet' href='lib/font-awesome.min.css'>
+  <title>Flownet - User study</title>
+  <style type="text/css">
+
+        body{
+            font-family: 'Roboto';
+        }
+        .container{
+            width : 1000px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+        .click_letter{
+            font-weight: 900;
+        }
+        .legend{
+            text-align: center;
+        }
+        code {
+            white-space: pre;
+        }
+        .user_study > div {
+          padding-right: 0px;
+          padding-left: 0px;
+
+        }
+        .navbar{
+          border-radius:0px;
+        }
+        .navbar-nav {
+          float:none;
+          margin:0 auto;
+          display: block;
+          text-align: center;
+          background-color: black;
+        }
+
+        .navbar-nav > li {
+          display: inline-block;
+          float:none;
+        }
+        .links{
+          font-size: 19px;
+          padding-left: 10px;
+        }
+        .footer{
+            width: 100%;
+            background-color: black;
+            height: 100px;
+        }
+        .headband{
+            /*position: fixed;
+            top: 0;
+            width: 100%;
+            height: 30px;*/
+            background-color: black;
+            color:white;
+            padding-bottom: 15px;
+            padding-top: 15px;
+        }
+        .headband span{
+           text-decoration: underline;
+        }
+
+
+    </style>
+ </head>
+ <body>
+
+  <!-- Navigation -->
+  <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top topnav">
+    <!--<div class="nav navbar-nav headband">
+        <li>This is an offline copy of our Website, made available to reviewers.<br>However, online demos (indicated with <span>Online Demo</span> links) require an internet connection.<br>OUR WEBSITE DOES NOT TRACK VISITORS.</li>
+
+    </div>-->
+    <ul class="nav navbar-nav">
+      <li><a href="index.html"><i class="fa fa-home"></i> Animated Edges</a></li>
+      <li><a href="index.html#usecase"><i class="fa fa-video-camera"></i> Paper Examples</a></li>
+      <li><a href="index.html#projects"><i class="fa fa-file-text-o"></i> Examples</a></li>
+      <li><a href="index.html#demo" ><i class="fa fa-cogs" aria-hidden="true"></i> Create your graph</a></li>
+      <li><a href="user_study.html"><i class="fa fa-user"></i> Study Material</a></li>
+      <li><a href="usingFlownet.html"><i class="fa fa-upload" ></i> Using Flownet </a></li>
+    </ul>
+  </nav>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+   <div class="container">
+
+
+      <div class="row ">
+        <div class="col-md-12 portfolio-item">
+          <div class="row user_study">
+            <div class="col-lg-12 text-center page-header">
+              <h1>User Study</h1>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row ">
+            <div class="col-md-12 portfolio-item">
+              <div class="row user_study">
+                <div class="col-lg-12 text-center page-header">
+                  <h1>Test it</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <a href="https://sparkizexperiment.herokuapp.com/login/"><i class="fa fa-globe fa-2x" aria-hidden="true"></i> <span class="links">Online Experiment</span></a>
+
+      <div class="row ">
+            <div class="col-md-12 portfolio-item">
+              <div class="row user_study">
+                <div class="col-lg-12 text-center page-header">
+                  <h1>Interface</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <p>The goal of this experiment is for participants to tell how many different particle flows they can identify. Each trial is divided into two phases.</p>
+
+        <p>In the first phase, participants had up to 45 seconds to tell how many different groups they perceived. They were encouraged to answer <i>as fast as they could</i>.</p>
+
+      <p>In the second phase, participants had to actually identify these groups, creating the appropriate number of groups and tagging each individual edge. As illustrated in the figure below, the diagram on the left features animated edge textures, while the one on the right contains a copy of that diagram featuring static, solid edges. Participants look at the left-hand side diagram to identify groups, and use the right-hand side one to tag edges. In this second phase, they were instructed to be <i>as accurate as they could</i>.</p>
+
+      <img class="img-responsive" src="images/user_study/interface2.png">
+
+      <div style="margin-top:3em">
+        <p>To tag an edge, participants could use one of the following two techniques:</p>
+      </div>
+      <div class="col-lg-6">
+      (1) Dragging a tag and dropping it on the edge to be tagged<br/>
+      <img src="images/user_study/dragdrop.gif">
+      </div>
+      <div class="col-lg-6">
+      (2) Clicking on a tag to select it in a persistent way, and clicking on the edge to be tagged.<br/>
+      <img src="images/user_study/multitag.gif">
+      </div>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="row ">
+              <div class="col-md-12 portfolio-item">
+                <div class="row user_study">
+                  <div class="col-lg-12 text-center page-header">
+                    <h1>Tested Networks</h1>
+                  </div>
+                  <p>Our experiment involved the following nine networks:</p>
+                  <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz001.png">
+                  </div>
+                 <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz002.png">
+                  </div>
+                  <!-- <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz003.png">
+                  </div> -->
+                  <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz004.png">
+                  </div>
+                  <!-- <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz005.png">
+                  </div> -->
+<!--                   <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz006.png">
+                  </div> -->
+<!--                   <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz007.png">
+                  </div> -->
+                  <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz008.png">
+                  </div>
+                  <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz009.png">
+                  </div>
+                  <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz010.png">
+                  </div>
+<!--                  <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz011.png">
+                  </div> -->
+                  <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz012.png">
+                  </div>
+                  <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz013.png">
+                  </div>
+<!--                   <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz014.png">
+                  </div> -->
+<!--                   <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz015.png">
+                  </div> -->
+<!--                   <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz016.png">
+                  </div> -->
+<!--                   <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz017.png">
+                  </div> -->
+<!--                   <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz018.png">
+                  </div> -->
+<!--                   <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz019.png">
+                  </div> -->
+                  <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz021.png">
+                  </div>
+<!--                   <div class="col-sm-4">
+                    <img class="img-responsive" src="images/layout/ChromiumScreenSnapz022.png">
+                  </div> -->
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+  </div>
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+   <div class="footer">
+              </div>
+
+
+ </body>
+</html>

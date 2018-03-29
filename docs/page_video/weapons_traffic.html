@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title> Video </title>
+ <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+ <style>
+ body{
+      margin:0;
+      font-family: "Roboto", "Myriad Pro";
+    }
+ #legend{
+  position: absolute;
+  top: 10%;
+  width: 30%;
+  /* text-align: center; */
+  font-style: italic;
+  font-size: 15px;
+  right: 10%;
+  background-color: rgba(163, 163, 163, 0.5);
+  padding: 15px;
+}
+
+</style>
+<body>
+	<div id="legend">
+            Imports and exports of arms between countries (<a href="https://raw.githubusercontent.com/dataarts/armsglobe/master/categories/All.json">dataset</a>). Particles flow from one country to another. Their color and frequency respectively encode the type (ammunitions, civil weapons or military weapons) and the volume of arms that go from one country to another.
+          </div>
+	<div class="container">
+		<div class="col-lg-12 text-center">
+	        <video style="width:100%" autoplay="" loop="" src="../videos/weapons_traffic.mov" type="video/mov"></video>  
+	    </div>
+	</div>
+</body>
+</head>
+</html>

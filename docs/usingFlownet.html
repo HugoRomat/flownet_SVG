@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <link href="css/style.css" rel="stylesheet">
+   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+   <link rel='stylesheet' href='lib/font-awesome.min.css'>
+
+   <link rel='stylesheet prefetch' href='css/atome-one-dark.css'>
+   <script src='lib/jquery.min.js'></script>
+   <script src='lib/highlight.pack.js'></script>
+    <link rel='stylesheet' href='lib/font-awesome.min.css'>
+
+   <script>hljs.initHighlightingOnLoad();</script>
+
+  <title>Using Flownet</title>
+  <style type="text/css">
+
+        body{
+            font-family: 'Roboto';
+            z-index: -1;
+        }
+        .container{
+            width : 1200px;
+            text-align: justify;
+            text-justify: inter-word;
+            margin-top: 50px;
+        }
+        .click_letter{
+            font-weight: 900;
+        }
+        .legend{
+            text-align: center;
+        }
+        code {
+            white-space: pre;
+        }
+        .user_study > div {
+          padding-right: 0px;
+          padding-left: 0px;
+
+        }
+        .navbar{
+          border-radius:0px;
+        }
+        .navbar-nav {
+          float:none;
+          margin:0 auto;
+          display: block;
+          text-align: center;
+          background-color: black;
+        }
+
+        .navbar-nav > li {
+          display: inline-block;
+          float:none;
+        }
+        .intro-header {
+            padding-top: 250px;
+            padding-bottom: 150px;
+            text-align: center;
+            color: #f8f8f8;
+            background: url(images/teaser/teaser.png) no-repeat center center;
+            background-size: cover;
+        }
+        #videos{
+          margin:-25%;
+        }
+        #viz{
+              display: block;
+        }
+        pre code{
+          font-size: 10px;
+          white-space: pre;
+        }
+        iframe{
+          width : 100%;
+          height : 350px;
+
+        }
+        button {
+          float:right;
+          border-radius: 2px;
+          background-color: #999eb0;
+          border: none;
+          color: black;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
+        .footer{
+          width: 100%;
+          background-color: black;
+          height: 100px;
+        }
+        .headband{
+          /*position: fixed;
+          top: 0;
+          width: 100%;
+          height: 30px;*/
+          background-color: black;
+          color:white;
+          padding-bottom: 15px;
+          padding-top: 15px;
+        }
+        .headband span{
+           text-decoration: underline;
+        }
+
+
+    </style>
+ </head>
+ <body>
+
+  <!-- Navigation -->
+  <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top topnav">
+    <!--<div class="nav navbar-nav headband">
+        <li>This is an offline copy of our Website, made available to reviewers.<br>However, online demos (indicated with <span>Online Demo</span> links) require an internet connection.<br>OUR WEBSITE DOES NOT TRACK VISITORS.</li>
+
+    </div>-->
+    <ul class="nav navbar-nav">
+      <li><a href="index.html"><i class="fa fa-home"></i> Animated Edges</a></li>
+      <li><a href="index.html#usecase"><i class="fa fa-video-camera"></i> Paper Examples</a></li>
+      <li><a href="index.html#projects"><i class="fa fa-file-text-o"></i> Examples</a></li>
+      <li><a href="index.html#demo" ><i class="fa fa-cogs" aria-hidden="true"></i> Create your graph</a></li>
+      <li><a href="user_study.html"><i class="fa fa-user"></i> Study Material</a></li>
+      <li><a href="usingFlownet.html"><i class="fa fa-upload" ></i> Using Flownet </a></li>
+    </ul>
+  </nav>
+
+
+
+   <div class="container">
+   <br/>
+   <br/>
+   <div class="row page-header text-center">
+      <div class="col-md-12">
+        <h1> Using Flownet</h1>
+      </div>
+    </div>
+        <div class="row">
+
+
+
+          <div class="col-md-offset-3 col-md-6 ">
+
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h3> Flownet Syntax </h3>
+              </div>
+            </div>
+             <pre><code class="javascript">
+// Load the data
+d3.json("data.json", function(json) {
+  // Create the canvas and attach it to a DOM element
+  var app = flownet.force("#visFrame", width,height,"#abd9e9", 0)
+    // Load my nodes from the json
+    .nodes(json.nodes)
+    // Load my links from the json
+    .links(json.links)
+    // Map the links and nodes to a layout renderer
+    .create_layout()
+
+    // Specify number of canals in each links
+    .tracks("count", 1 )
+    // Create the scene element
+    .create_WEBGL_element()
+
+
+    // Mapping viusal variable on links
+    .link_properties("curvature", 5)
+    .link_properties("color", "#abd9e9")
+    .link_properties("size", 2)
+    .link_properties("opacity", 0.4)
+
+    // Mapping viusal variable on canals
+    .roads_mapping("opacity", 0.2)
+    .roads_mapping("color", "#66c2a5")
+
+    // Mapping viusal variable on nodes
+    .node_properties("color", "black")
+    .node_properties("size",  5)
+    .node_properties("x", function(d, i) {return proj([d.long,d.lat])[0]; })
+    .node_properties("y", function(d, i) {return - proj([d.long,d.lat])[1];  })
+
+    // Mapping viusal variable on particles
+    .particles("color", "#4575b4")
+    .particles("size", 10)
+    .particles("speed", 1)
+    .particles("texture", "rectangle.png")
+    .particles("pattern", [0])
+    .particles("frequency", 1)
+
+    // Start the layout with delay
+    .start(0)
+});
+</code></pre>
+  </div>
+
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+   <br/>
+  <br/>
+  <br/>
+  <br/>
+  <p>
+  </p>
+
+
+   <div class="row page-header text-center">
+      <div class="col-md-12">
+        <h1> <!--Superimposing Flownet over d3.js--> <a href="simple_example/simple_example.zip" class='download'><button id="reset"> Download this example <i class="fa fa-upload" ></i></button></a></h1>
+      </div>
+    </div>
+    <div class="row">
+
+
+
+          <!-- <div class="col-md-6" id="viz"> -->
+              <div class="row">
+              <div class="col-md-12 text-center">
+                <h3> Visualization </h3>
+              </div>
+            </div>
+              <!-- <img class="img-responsive" src="images/teaser/d3.png"> -->
+              <iframe src="simple_example/"></iframe>
+          <!-- </div> -->
+      </div>
+          <!-- <div class="col-md-6"> -->
+      <div class="row">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h3> Full Code </h3>
+              </div>
+            </div>
+             <pre style="height : 350px;"><code class="javascript">
+
+    //Width and Height of my map and particules network
+    var width = 1500;
+    var height = 1500;
+    var scale = 2000;
+
+    var freq_scale = d3.scale.linear()
+                    .domain([300, 3000])
+                    .range([0.1, 1.8])
+
+    var FlownetProjection = d3.geo.albersUsa()
+                 .scale(scale)
+                 .translate([0,0]);
+
+    var D3Projection = d3.geo.albersUsa()
+                      .scale(scale)
+                      .translate([width/2, height/2]);
+
+    var path = d3.geo.projectionpath()
+                    .(projection);
+
+
+    var svg = d3.select("#visFrame").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("position", "absolute")
+        .attr("top", "0")
+        .attr("left", "0");
+
+/*
+/    Load my topojson map
+/   and draw it with d3.js
+*/
+
+d3.json("us.json", function(error, us) {
+
+    svg.insert("path", ".graticule")
+        .datum(topojson.feature(us, us.objects.land))
+        .attr("class", "land")
+        .attr("d", path);
+
+    svg.insert("path", ".graticule")
+      .datum(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b && !(a.id / 1000 ^ b.id / 1000); }))
+      .attr("class", "county-boundary")
+      .attr("d", path);
+
+    svg.insert("path", ".graticule")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "state-boundary")
+      .attr("d", path);
+    });
+
+/*
+/   Load my network dataset
+/   and launch my flownet Algorithm
+*/
+
+
+d3.json("data.json", function(json) {
+
+var app = flownet.force("#visFrame", width , height, "grey",0)
+    .nodes(json.nodes)
+    .links(json.links)
+    .layout("linkDistance", 200)
+    .create_layout()
+
+    .tracks("count", 1 )
+
+    .create_WEBGL_element()
+    //.zoom(true)
+    .controls(true)
+
+    .link_properties("curvature", 5)
+    .link_properties("color", "#abd9e9")
+    .link_properties("size", 2)
+    .link_properties("opacity", 0.4)
+
+    .node_properties("color", "black")
+    .node_properties("size",  5)
+    .node_properties("x", function(d, i) {return proj([d.long,d.lat])[0]; })
+    .node_properties("y", function(d, i) {return - proj([d.long,d.lat])[1];  })
+
+    .particles("color", "#4575b4")
+    .particles("size", 10)
+
+    .particles("speed", 1)
+    .particles("texture", "rectangle.png")
+    .particles("pattern", [0])
+    .particles("frequency", function(d, i) {return freq_scale(d.passengers); })
+
+    .start_particle_delay(200000)
+    .start(0)
+
+});
+
+              </code></pre>
+
+
+
+        </div>
+
+</div>
+
+
+
+
+  </div>
+
+
+   <div class="footer">
+              </div>
+
+    <!-- jQuery -->
+    <!-- <script src="lib/jquery.min.js"></script> -->
+    <!-- Bootstrap Core JavaScript -->
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <!-- Theme JavaScript -->
+    <!-- <script src="js/agency.js"></script> -->
+
+
+ </body>
+</html>
