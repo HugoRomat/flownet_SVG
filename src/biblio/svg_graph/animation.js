@@ -47,9 +47,11 @@ export function startTransitionFPS(link, FPS) {
 export function startTransitionSVG(link) {
   console.log('startTransitionSVG');
   let dashOffset = Number(link.attr('stroke-dashoffset'));
+  console.log(link.attr('stroke-dasharray'));
   let patternArray = link.attr('stroke-dasharray').split(',');
   let offset = patternArray.map(x => Number(x)).reduce((a, b) => a + b, 0);
   let offsetMinusFrequency = offset; // - Number(patternArray[patternArray.length-1])
+  console.log(dashOffset, patternArray, offset);
   function motionDash(start, offset, adjust) {
     link.attr('stroke-dashoffset', start + adjust)
       .transition()

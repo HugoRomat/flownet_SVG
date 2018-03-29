@@ -39,9 +39,15 @@ export function interpolateLink(interpolation) {
   return lineFunction;
 }
 
-export function updateLinkPoints(link) {
+export function updateLinkPoints(source,link, target) {
+  if ( !source.attr('cx') || !source.attr('cy') || !target.attr('cx') || !target.attr('cy') ) return
+  let start = [{x:source.attr('cx'), y:source.attr('cy')}]
+  let end = [{x:target.attr('cx'), y:target.attr('cy')}]
+
   d3.select(link).selectAll('path')
     .attr('d', function (d) {
-      return interpolateLink(d3.select(link).attr('interpolation'))(JSON.parse(d3.select(link).attr('points')));
+      let points = start
+      if ( JSON.parse(d3.select(link).attr('points')) ) points = points.concat(JSON.parse(d3.select(link).attr('points')))
+      return interpolateLink(d3.select(link).attr('interpolation'))(points.concat(end));
     });
 }

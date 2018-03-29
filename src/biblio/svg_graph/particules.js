@@ -15,7 +15,7 @@ export function computeParticleRender(lastModify, freq, spacing, speed, pattern)
   if (!spacing) { textIssues += ' Spacing or Frequency information missing.'; issues = true;}
   if (!speed) { textIssues += ' Speed information missing.'; issues = true; }
   if (!pattern) { textIssues += ' Pattern information missing.'; issues = true; }
-  if (issues) { console.warn(textIssues); return; }
+  if (issues) { console.warn(textIssues); return []; }
 
   let newPattern = JSON.parse('[' + pattern + ']');
   let newSpeed = Number(speed);
@@ -54,6 +54,8 @@ export function computeParticleRender(lastModify, freq, spacing, speed, pattern)
   }else if ( lastModify === "spacing"){
     newPattern.push(newSpacing)
     return newPattern
+  }else{
+    return []
   }
   /*
   switch (motionModel) {

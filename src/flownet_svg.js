@@ -164,7 +164,7 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
           return undefined;
       }
   }
-
+  let that = this
   if( property.split("_")[0] === "label" ){
     let svgProp = convertLabelPropertyToSVG(property.split("_")[1]);
     let filter = this.filter;
@@ -207,7 +207,16 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
           if (typeof (filter) === 'function') return filter(d, i);
           return filter;
         })
-        .attr(svgProp, value);
+        .attr(svgProp, value)
+      if ( svgProp === "cx" || svgProp === "cy"){
+        this.groupGraph.select('#links').selectAll('g')
+          .filter(function () {
+            return (this.getAttribute('id') && this.getAttribute('id').split('_')[0] === 'link');
+          })
+          .each(function (d) { linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+d.source),
+                                                          this,
+                                                          that.groupGraph.select("#nodes").select("#node_"+d.target)); });
+      }
     }
   }
   return this;
@@ -217,6 +226,7 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
 /** *************************************************  LINK **************************************************************************/
 
 flownet_svg_graph.prototype.links_properties = function (property, value) {
+  let that = this
   function convertLinkPropertyToSVG(property) { // OK
     switch (property) {
       case 'id':
@@ -256,10 +266,10 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
         }
         return value;
       })
-      .each(function (d) {
-        let newinterpol = linksBib.interpolateLink((typeof (value) === 'function' ? value(d) : value))(d.points);
-        d3.select(this).selectAll('path').attr(convertLinkPropertyToSVG(property), newinterpol);
-      });
+      .each(function (d) { linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+d.source),
+                                                      this,
+                                                      that.groupGraph.select("#nodes").select("#node_"+d.target)); });
+
   } else if (property === 'points') {
     this.groupGraph.select('#links').selectAll('g')
       .filter(function (d, i) {
@@ -276,7 +286,10 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
         }
         return JSON.stringify(value);
       })
-      .each(function (d) { linksBib.updateLinkPoints(this); });
+      .each(function (d) { linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+d.source),
+                                                      this,
+                                                      that.groupGraph.select("#nodes").select("#node_"+d.target)); });
+
   } else if (property === 'visibility') {
     this.groupGraph.select('#links').selectAll('g')
       .filter(function (d, i) {
@@ -422,7 +435,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           } else if (this.getAttribute('lastModify') === 'frequency') {
             this.setAttribute('spacing', particulesBib.frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
           }
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+          return particulesBib.computeParticleRender(this.getAttribute('lastModify'), this.getAttribute('frequency'),
             this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
         });
       break;
@@ -460,7 +473,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
             this.setAttribute('spacing', particulesBib.frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
           }
           console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+          return particulesBib.computeParticleRender(this.getAttribute('lastModify'), this.getAttribute('frequency'),
             this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
         });
       break;
