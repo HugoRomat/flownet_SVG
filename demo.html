@@ -265,11 +265,12 @@ var graphExtension = {
     .particule_properties('color', function(d,i){ return d.colorParticule})
     .particule_properties('width', function(d,i){ return d.widthParticule})
     .particule_properties('height', function(d,i){ return d.heightParticule})
-    .particule_properties('frequency',function(d,i){ return d.frequencyParticule})
   //  .particule_properties('computationalMethod', function(d,i){ return d.modele})
-    .particule_properties('pattern', function(d,i){ return d.patternParticule})
+    .particule_properties('pattern', function(d,i){ return [10,2,10]})
 //    .particule_properties('patternType', function(d,i){ return d.patternType})
-    .particule_properties('speed', function(d,i){ return d.speedParticule})
+    .particule_properties('speed', function(d,i){ return 44})
+
+    .particule_properties('spacing',function(d,i){ return 10})
     /*.particule_behaviors('mouseover', function(d1,i){
       console.log(this);
       flownetGraph.particule_properties('color', 'blue', function(d2,i){
@@ -285,9 +286,6 @@ var graphExtension = {
     //.stop()
     //console.log(flownetGraph.selectAll('g'))
 
-    let all = flownetGraph.selectAll()
-          .filters(function(d,i){ return String(d.id).includes('filter') })
-          .links_properties('interpolation', 'stepBefore')
       //.remove()
       //.start()
 /*

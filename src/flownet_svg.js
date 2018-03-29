@@ -78,20 +78,17 @@ flownet_svg_graph.prototype.nodes = function (nodes) {
     .append('g')
     .attr('id', function (d, i) {
       if (d.id) return 'node_' + d.id;
-      d.id = 'node_' + i;
       return 'node_' + i;
     })
     .each(function(){
       d3.select(this).append('circle')
         .attr('id', function (d, i) {
             if (d.id) return 'cirlce_' + d.id;
-            d.id = 'cirlce_' + i;
             return 'cirlce_' + i;
         })
         d3.select(this).append('text')
           .attr('id', function (d, i) {
               if (d.id) return 'label_' + d.id;
-              d.id = 'label_' + i;
               return 'label_' + i;
           })
     })
@@ -287,6 +284,7 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
         if (typeof (filter) === 'function') return filter(d, i);
         return filter;
       })
+      .filter(function (d) { return this.getAttribute('id').includes('edge'); })
       .attr(convertLinkPropertyToSVG(property), value);
   } else {
     this.groupGraph.select('#links').selectAll('path')
@@ -352,7 +350,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         })
         .attr('lastModify', 'spacing')
         .attr('stroke-dasharray', function (d) {
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+          return particulesBib.computeParticleRender(this.getAttribute('lastModify'), this.getAttribute('frequency'),
             this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
         });
       break;
@@ -388,7 +386,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         })
         .attr('lastModify', 'frequency')
         .attr('stroke-dasharray', function (d) {
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+          return particulesBib.computeParticleRender(this.getAttribute('lastModify'), this.getAttribute('frequency'),
             this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
         });
       break;
@@ -516,6 +514,31 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         .filter(function (d) { return this.getAttribute('id').includes('particule'); })
         .attr('stroke-width', value);
       break;
+
+      case 'visibility':
+        if (!value) {
+          res = [];
+          this.groupGraph.select('#links').selectAll('path')
+            .filter(function (d, i) {
+              if (!filter) return true;
+              if (typeof (filter) === 'function') return filter(d, i);
+              return filter;
+            })
+            .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+            .each(function () {
+              res.push({id: this.getAttribute('id'), visibility: this.getAttribute('visibility')});
+            });
+          return res;
+        }
+        this.groupGraph.select('#links').selectAll('path')
+          .filter(function (d, i) {
+            if (!filter) return true;
+            if (typeof (filter) === 'function') return filter(d, i);
+            return filter;
+          })
+          .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+          .attr('visibility', value);
+        break;
     default:
 
   }
@@ -557,12 +580,12 @@ flownet_svg_graph.prototype.reset = function () {
   this.groupGraph.select('#links').selectAll('path')
     .filter(function (d) { return this.getAttribute('id').includes('particule'); })
     .interrupt();
-
   this.groupGraph.select('#links').selectAll('path')
     .filter(function (d) { return this.getAttribute('id').includes('particule'); })
     .attr('stroke-dashoffset', function (d) {
       return d.previousDashOffset;
     });
+    return this
 };
 
 /** **********************************************************************************************************************************/
