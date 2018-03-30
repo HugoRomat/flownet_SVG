@@ -192,23 +192,27 @@ var graph = {id:'showGraph',
     {x:1050+150 , y:200+600, color:'black', size:10, id:4}
   ],
   links:[
-    {heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:0,
-    points:[{x:250-100,y:200+300},{x:450-100,y:50+300},{x:650-100,y:400+300},{x:850-100,y:50+300},{x:1050-100,y:200+300}], interpolation:'cardinal', colorLink:'lightGrey',
+    {source:0 , target:1 ,
+      heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:0,
+    points:[{x:450-100,y:50+300},{x:650-100,y:400+300},{x:850-100,y:50+300}], interpolation:'cardinal', colorLink:'lightGrey',
     sizeLink:12, colorParticule:'black', widthParticule:20, heightParticule:3,
     patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150},
 
-    {heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'filter1',
-    points:[{x:1050-100,y:200+300},{x:1050+150,y:200}], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
+    {source:1 , target:2 ,
+      heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'filter1',
+    points:[], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
     widthParticule:20, heightParticule:3,
     patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150},
 
-    {heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'link2',
-    points:[{x:1050-100,y:200+300},{x:1050+350,y:200+300}], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
+    {source:1 , target:'node3' ,
+      heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'link2',
+    points:[], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
     widthParticule:20, heightParticule:3,
     patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150},
 
-    {heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'filter3',
-    points:[{x:1050-100,y:200+300},{x:1050+150,y:200+600}], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
+    {source:1 , target:4 ,
+      heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'filter3',
+    points:[], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
     widthParticule:20, heightParticule:3,
     patternParticule:[10,2,20], patternType:'absolute', frequencyParticule:1, speedParticule:150}
   ]
@@ -264,13 +268,13 @@ var graphExtension = {
 
     .particule_properties('color', function(d,i){ return d.colorParticule})
     .particule_properties('width', function(d,i){ return d.widthParticule})
+    .particule_properties('spacing',function(d,i){ return 10})
     .particule_properties('height', function(d,i){ return d.heightParticule})
   //  .particule_properties('computationalMethod', function(d,i){ return d.modele})
     .particule_properties('pattern', function(d,i){ return [10,2,10]})
 //    .particule_properties('patternType', function(d,i){ return d.patternType})
-    .particule_properties('speed', function(d,i){ return 44})
+    .particule_properties('speed', function(d,i){ return 144})
 
-    .particule_properties('spacing',function(d,i){ return 10})
     /*.particule_behaviors('mouseover', function(d1,i){
       console.log(this);
       flownetGraph.particule_properties('color', 'blue', function(d2,i){
