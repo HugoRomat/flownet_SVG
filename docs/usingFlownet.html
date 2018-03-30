@@ -92,11 +92,7 @@
           margin: 4px 2px;
           cursor: pointer;
         }
-        .footer{
-          width: 100%;
-          background-color: black;
-          height: 100px;
-        }
+        
         .headband{
           /*position: fixed;
           top: 0;
@@ -110,10 +106,12 @@
         .headband span{
            text-decoration: underline;
         }
-        body{
-        margin: 0;
-    }
-    #splitting{
+
+
+
+
+
+            #splitting{
         position: absolute;
         top: 50px;
         right: 0;
@@ -131,17 +129,9 @@
         height: 100%;
     }
     
-   /* #buttons{
-        z-index: 100;
-        background-color: black;
-        position: relative;
-        display: flex;
-
-        flex-direction: column;
-        width: 100%;
-  
-    align-items: flex-end;
-    }*/
+       #buttons{
+       
+    }
     #buttons button{
         background-color: grey;
         position: absolute;
@@ -155,6 +145,18 @@
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
+        outline: none;
+        cursor: pointer;
+        top: 5px;
+    }
+    #go {
+        left: calc(100% - 60px);
+    }
+    #stop {
+        left: calc(100% - 100px);  
+    }
+    #play {
+        left: calc(100% - 140px);  
     }
 
 .splitter_panel {
@@ -212,15 +214,15 @@
     </div>-->
     <ul class="nav navbar-nav">
       <li><a href="index.html"><i class="fa fa-home"></i> Animated Edges</a></li>
-      <li><a href="#"><i class="fa fa-video-camera"></i> Examples</a></li>
-      <li><a href="#"><i class="fa fa-file-text-o"></i> Documentation</a></li>
+      <li><a href="index.html#usecase"><i class="fa fa-video-camera"></i> Paper Examples</a></li>
+      <li><a href="index.html#projects"><i class="fa fa-file-text-o"></i> Examples</a></li>
+      <li><a href="index.html#demo" ><i class="fa fa-cogs" aria-hidden="true"></i> Create your graph</a></li>
+      <li><a href="user_study.html"><i class="fa fa-user"></i> Study Material</a></li>
       <li><a href="usingFlownet.html"><i class="fa fa-upload" ></i> Using Flownet </a></li>
     </ul>
   </nav>
 
-
-
-   <div id="splitting">
+<div id="splitting">
     <div id="left">
         <div id="buttons">
             <button id="go"> <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -243,7 +245,7 @@ var graph = {
             colorParticule:'black', 
             widthParticule:20, 
             heightParticule:3,
-            patternParticule:[10,10], 
+            patternParticule:[10,2,10], 
             patternType:'absolute', 
             frequencyParticule:1, 
             speedParticule:150
@@ -260,7 +262,7 @@ var flownetGraph = flownet_SVG.graph('test', document.getElementById('view'))
     .nodes_properties('color', function(d, i){ return d.color})
     .nodes_properties('size', function(d, i){  return d.size})
 
-    .nodes_properties('label_text', function(d, i){  return 'id:'+d.id})
+    .nodes_properties('label_text', function(d, i){return 'id:'+d.id})
     .nodes_properties('label_size', 16)
     .nodes_properties('label_x', function(d, i){  return d.x+10})
     .nodes_properties('label_y', function(d, i){  return d.y-10})
@@ -269,15 +271,17 @@ var flownetGraph = flownet_SVG.graph('test', document.getElementById('view'))
     .particule_properties('color', function(d,i){ return d.colorParticule})
     .particule_properties('width', function(d,i){ return d.widthParticule})
     .particule_properties('height', function(d,i){ return d.heightParticule})
-    .particule_properties('frequency',function(d,i){ return d.frequencyParticule})
+    
     .particule_properties('pattern', function(d,i){ return d.patternParticule})
     .particule_properties('speed', function(d,i){ return d.speedParticule})
+    <!-- .particule_properties('spacing',function(d,i){ return 14}) -->
+    .particule_properties('frequency',function(d,i){ return d.frequencyParticule})
+    
     .links_properties('points', function(d,i){ return d.points})
     .links_properties('interpolation', function(d,i){ return d.interpolation})
     .links_properties('color', function(d,i){ return d.colorLink})
     .links_properties('size', function(d,i){ return d.sizeLink})
     .start()
-
 
         </div>
     </div>
@@ -289,10 +293,8 @@ var flownetGraph = flownet_SVG.graph('test', document.getElementById('view'))
 </div>
 
 
-   <div class="footer">
-              </div>
 
-   <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="lib/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src='lib/flownet_SVG.js'></script>
 <script src='lib/splitter.js'></script>
@@ -317,7 +319,18 @@ var flownetGraph = flownet_SVG.graph('test', document.getElementById('view'))
         }
     });
 
+    var code = editor.getValue();
+    var script = document.createElement('script');
+    script.appendChild(document.createTextNode(code));
+    script.setAttribute("id", id);
+    document.body.appendChild(script);
 
+    $("#stop").click(function() {
+        flownetGraph.stop();
+    })
+    $("#play").click(function() {
+        flownetGraph.start();
+    })
 
     $("#go").click(function() {
         $("#scriptCode").remove();
@@ -336,7 +349,5 @@ var flownetGraph = flownet_SVG.graph('test', document.getElementById('view'))
         }
     })
 </script>
-
-
  </body>
 </html>
