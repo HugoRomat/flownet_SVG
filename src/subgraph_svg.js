@@ -47,7 +47,7 @@ flownet_svg_subgraph.prototype.remove = function(){
 /** **********************************************************************************************************************************/
 /** *************************************************  NODE  *************************************************************************/
 
-flownet_svg_subgraph.prototype.nodes_properties = function (property, value) {
+flownet_svg_subgraph.prototype.node_properties = function (property, value) {
   function convertNodePropertyToSVG(property) {
       switch (property) {
         case 'id':
@@ -149,7 +149,7 @@ flownet_svg_subgraph.prototype.nodes_properties = function (property, value) {
 /** *************************************************  LINK **************************************************************************/
 
 
-flownet_svg_subgraph.prototype.links_properties = function (property, value) {
+flownet_svg_subgraph.prototype.link_properties = function (property, value) {
   function convertLinkPropertyToSVG(property) { // OK
     switch (property) {
       case 'id':
@@ -268,7 +268,7 @@ flownet_svg_subgraph.prototype.links_properties = function (property, value) {
 /** **********************************************************************************************************************************/
 /** *************************************************  PARTICLE  *********************************************************************/
 
-flownet_svg_subgraph.prototype.particule_properties = function (property, value) {
+flownet_svg_subgraph.prototype.particules = function (property, value) {
   let filter = this.filter;
   switch (property) {
     case 'computationalMethod':
@@ -282,7 +282,7 @@ flownet_svg_subgraph.prototype.particule_properties = function (property, value)
         .attr('computationalMethod', value)
         .attr('stroke-dasharray', function (d) {
           return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
         });
       break;
 
@@ -317,7 +317,7 @@ flownet_svg_subgraph.prototype.particule_properties = function (property, value)
         .attr('lastModify', 'spacing')
         .attr('stroke-dasharray', function (d) {
           return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
         });
       break;
 
@@ -353,11 +353,11 @@ flownet_svg_subgraph.prototype.particule_properties = function (property, value)
         .attr('lastModify', 'frequency')
         .attr('stroke-dasharray', function (d) {
           return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
         });
       break;
 
-    case 'pattern':
+    case 'visual_pattern':
       if (!value) {
         res = [];
         this.particles.selectAll('path')
@@ -368,7 +368,7 @@ flownet_svg_subgraph.prototype.particule_properties = function (property, value)
           })
           .filter(function (d) { return this.getAttribute('id').includes('particule'); })
           .each(function () {
-            res.push({id: this.getAttribute('id'), pattern: this.getAttribute('pattern')});
+            res.push({id: this.getAttribute('id'), visual_pattern: this.getAttribute('visual_pattern')});
           });
         return res;
       }
@@ -379,7 +379,7 @@ flownet_svg_subgraph.prototype.particule_properties = function (property, value)
           return filter;
         })
         .filter(function (d) { return this.getAttribute('id').includes('particule'); })
-        .attr('pattern', function (d) {
+        .attr('visual_pattern', function (d) {
           return (typeof (value) === 'function' ? value(d) : value);
         })
         .attr('stroke-dasharray', function (d) {
@@ -389,7 +389,7 @@ flownet_svg_subgraph.prototype.particule_properties = function (property, value)
             this.setAttribute('spacing', frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
           }
           return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
         });
       break;
 
@@ -427,7 +427,7 @@ flownet_svg_subgraph.prototype.particule_properties = function (property, value)
           }
           console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
           return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
         });
       break;
 

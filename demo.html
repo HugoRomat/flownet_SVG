@@ -5,6 +5,7 @@
     <link rel='stylesheet' href='css/style.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <script src='lib/flownet_SVG.js'></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
   <body>
     <div class='mainDiv'>
@@ -66,12 +67,12 @@
   function fire1(){
     launcher = flownetGraph.particule_launcher('0')
     .prepare_particule()
-    .particule_properties('id','toast')
-    .particule_properties('height',10)
-    .particule_properties('color','blue')
-    .particule_properties('pattern',[20,3,20])
-    .particule_properties('speed',200)
-    .particule_properties('delay',0)
+    .particules('id','toast')
+    .particules('height',10)
+    .particules('color','blue')
+    .particules('pattern',[20,3,20])
+    .particules('speed',200)
+    .particules('delay',0)
     .load_particule()
     .fire_particule()
 
@@ -81,12 +82,12 @@
   function fire2(){
     launcher = flownetGraph.particule_launcher('0')
     .prepare_particule([{id:'f1',delay:0,speed:50},{id:'f2',delay:2000, speed:250}])
-    .particule_properties('id',function(d,i){return d.id})
-    .particule_properties('height',10)
-    .particule_properties('color','blue')
-    .particule_properties('pattern',[20,3,20])
-    .particule_properties('speed',function(d,i){return d.speed})
-    .particule_properties('delay',function(d,i){return d.delay})
+    .particules('id',function(d,i){return d.id})
+    .particules('height',10)
+    .particules('color','blue')
+    .particules('pattern',[20,3,20])
+    .particules('speed',function(d,i){return d.speed})
+    .particules('delay',function(d,i){return d.delay})
     .on_start(function(d,i){ console.log(d.id,i);})
     .on_end(function(d,i){ console.log(d.id,i);})
     .load_particule()
@@ -115,13 +116,13 @@
 
 
   function colorParticuleChange(d){
-    flownetGraph.particule_properties('color', d.value)
+    flownetGraph.particules('color', d.value)
   }
   function heightParticuleChange(d){
-    flownetGraph.particule_properties('height', d.value)
+    flownetGraph.particules('height', d.value)
   }
   function widthParticuleChange(d){
-    flownetGraph.particule_properties('width', d.value)
+    flownetGraph.particules('width', d.value)
   }
   function modelParticuleChange(d){
     switch (d.value) {
@@ -152,22 +153,22 @@
       default:
 
     }
-    flownetGraph.particule_properties('computationalMethod', d.value)
+    flownetGraph.particules('computationalMethod', d.value)
   }
   function patternParticuleChange(d){
-    flownetGraph.particule_properties('pattern', JSON.parse(d.value))
+    flownetGraph.particules('pattern', JSON.parse(d.value))
   }
   function modelPatternChange(d){
-    flownetGraph.particule_properties('patternType', d.value)
+    flownetGraph.particules('patternType', d.value)
   }
   function frequencyParticuleChange(d){
-    flownetGraph.particule_properties('frequency',d.value)
+    flownetGraph.particules('frequency',d.value)
   }
   function spacingParticuleChange(d){
-    flownetGraph.particule_properties('spacing',d.value)
+    flownetGraph.particules('spacing',d.value)
   }
   function speedParticuleChange(d){
-    flownetGraph.particule_properties('speed', d.value)
+    flownetGraph.particules('speed', d.value)
   }
   function fpsLimitation(d){
     if ( d.value === 'auto') flownetGraph.fps(d.value)
@@ -185,11 +186,11 @@
 
 var graph = {id:'showGraph',
   nodes:[
-    {x:250-100 , y:200+300, color:'black', size:10, id:0},
-    {x:1050-100 , y:200+300, color:'black', size:10, id:1},
-    {x:1050+150 , y:200, color:'black', size:10, id:2},
-    {x:1050+350 , y:200+300, color:'black', size:10, id:'node3'},
-    {x:1050+150 , y:200+600, color:'black', size:10, id:4}
+    { color:'black', size:10, id:0},
+    { color:'black', size:10, id:1},
+    { color:'black', size:10, id:2},
+    { color:'black', size:10, id:'node3'},
+    { color:'black', size:10, id:4}
   ],
   links:[
     {source:0 , target:1 ,
@@ -230,23 +231,36 @@ var graphExtension = {
   ]
 }
 
+graph.nodes = []
+graph.links = []
+var n = 10;
+var m = 10;
 
-  flownetGraph = flownet_SVG.graph('test', document.getElementById('canvas'))
+graph.nodes = d3.range(n).map(function (a, i) { return { color:'black', size:10, id:i} });
+    list  = randomChoose(unorderedPairs(d3.range(n)), m),
+graph.links = list.map(function (a, i) { return     {source:a[0] , target:a[1] , modele:'physical', id:i,
+        points:[], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
+        widthParticule:20, heightParticule:3,
+        patternParticule:[10,2,20], patternType:'absolute', frequencyParticule:1, speedParticule:150} });
+
+  console.log(graph.nodes);
+
+  flownetGraph = flownet_SVG.graph("#canvas")
     //.graph(graph)
     .nodes(graph.nodes)
     .links(graph.links)
-    .nodes_properties('x', function(d, i){  return d.x})
-    .nodes_properties('y', function(d, i){  return d.y})
-    .nodes_properties('color', function(d, i){ return d.color})
-    .nodes_properties('size', function(d, i){  return d.size})
+    //.node_properties('x', function(d, i){  return d.x})
+    //.node_properties('y', function(d, i){  return d.y})
+    .node_properties('color', function(d, i){ return d.color})
+    .node_properties('size', function(d, i){  return d.size})
 
-    .nodes_properties('label_text', function(d, i){  return 'id:'+d.id})
-    .nodes_properties('label_size', 16)
-    .nodes_properties('label_x', function(d, i){  return d.x+10})
-    .nodes_properties('label_y', function(d, i){  return d.y-10})
-    .nodes_properties('label_font', 'arial')
-    .nodes_properties('label_color', 'black')
-    //.nodes_properties('class', function(d, i){ return d.cssClass})
+     .node_properties('label_text', function(d, i){  return 'id:'+d.id})
+     .node_properties('label_size', 16)
+    // .node_properties('label_x', function(d, i){  return d.x+10})
+    // .node_properties('label_y', function(d, i){  return d.y-10})
+     .node_properties('label_font', 'arial')
+     .node_properties('label_color', 'black')
+    // .node_properties('class', function(d, i){ return d.cssClass})
     /*.nodes_behaviors('mouseover', function(d1,i){
       flownetGraph.nodes_properties('color', 'blue', function(d2,i){
         return d1.id === d2.id
@@ -255,29 +269,30 @@ var graphExtension = {
     //.nodes_properties('shape', 'circle') //rectangle, src=img/house
     //.nodes_properties('visibility', 'hidden')
 
-    .links_properties('points', function(d,i){ return d.points})
-    .links_properties('interpolation', function(d,i){ return d.interpolation})
-    .links_properties('color', function(d,i){ return d.colorLink})
-    .links_properties('size', function(d,i){ return d.sizeLink})
-    /*.links_behaviors('mouseover', function(d1,i){
-      flownetGraph.links_properties('color', 'blue', function(d2,i){
-        return d1.id === d2.id
-      })
-    })*/
-    //.links_properties('visibility', 'hidden')
-
-    .particule_properties('color', function(d,i){ return d.colorParticule})
-    .particule_properties('width', function(d,i){ return d.widthParticule})
-    .particule_properties('spacing',function(d,i){ return 10})
-    .particule_properties('height', function(d,i){ return d.heightParticule})
-  //  .particule_properties('computationalMethod', function(d,i){ return d.modele})
-    .particule_properties('pattern', function(d,i){ return [10,2,10]})
-//    .particule_properties('patternType', function(d,i){ return d.patternType})
-    .particule_properties('speed', function(d,i){ return 144})
-
+     //.link_properties('points', function(d,i){ return d.points})
+     .link_properties('interpolation', function(d,i){ return d.interpolation})
+     .link_properties('color', function(d,i){ return d.colorLink})
+     .link_properties('size', function(d,i){ return d.sizeLink})
+//     /*.links_behaviors('mouseover', function(d1,i){
+//       flownetGraph.links_properties('color', 'blue', function(d2,i){
+//         return d1.id === d2.id
+//       })
+//     })*/
+//     //.links_properties('visibility', 'hidden')
+//
+     .particules('color', function(d,i){ return d.colorParticule})
+//     .particules('width', function(d,i){ return d.widthParticule})
+     .particules('spacing',function(d,i){ return 10})
+     .particules('height', function(d,i){ return d.heightParticule})
+//   //  .particules('computationalMethod', function(d,i){ return d.modele})
+     .particules('visual_pattern', function(d,i){ return [10,2,10]})
+// //    .particules('patternType', function(d,i){ return d.patternType})
+     .particules('speed', function(d,i){ return 12*3})
+    .force_layout("2000", {x:750,y:500})
+//    .start()
     /*.particule_behaviors('mouseover', function(d1,i){
       console.log(this);
-      flownetGraph.particule_properties('color', 'blue', function(d2,i){
+      flownetGraph.particules('color', 'blue', function(d2,i){
         return d1.id === d2.id
       })
     })
@@ -317,14 +332,14 @@ var graphExtension = {
       .links_properties('size', function(d,i){ return d.sizeLink})
 
 
-      .particule_properties('color', function(d,i){ return d.colorParticule})
-      .particule_properties('width', function(d,i){ return d.widthParticule})
-      .particule_properties('height', function(d,i){ return d.heightParticule})
-      .particule_properties('frequency',function(d,i){ return d.frequencyParticule})
-    //  .particule_properties('computationalMethod', function(d,i){ return d.modele})
-//      .particule_properties('pattern', function(d,i){ return d.patternParticule})
-  //    .particule_properties('patternType', function(d,i){ return d.patternType})
-//      .particule_properties('speed', function(d,i){ return d.speedParticule})
+      .particules('color', function(d,i){ return d.colorParticule})
+      .particules('width', function(d,i){ return d.widthParticule})
+      .particules('height', function(d,i){ return d.heightParticule})
+      .particules('frequency',function(d,i){ return d.frequencyParticule})
+    //  .particules('computationalMethod', function(d,i){ return d.modele})
+//      .particules('pattern', function(d,i){ return d.patternParticule})
+  //    .particules('patternType', function(d,i){ return d.patternType})
+//      .particules('speed', function(d,i){ return d.speedParticule})
 
 
 /*
@@ -352,6 +367,24 @@ var graphExtension = {
         flownetGraph.links_properties('points', function(d){ return d.points})
       })
       .on('end', function(){}));*/
+
+            function randomChoose (s, k) { // returns a random k element subset of s
+        var a = [], i = -1, j;
+        while (++i < k) {
+          j = Math.floor(Math.random() * s.length);
+          a.push(s.splice(j, 1)[0]);
+        };
+        return a;
+      }
+
+      function unorderedPairs (s) { // returns the list of all unordered pairs from s
+        var i = -1, a = [], j;
+        while (++i < s.length) {
+          j = i;
+          while (++j < s.length) a.push([s[i],s[j]])
+        };
+        return a;
+      }
 
 	</script>
 
