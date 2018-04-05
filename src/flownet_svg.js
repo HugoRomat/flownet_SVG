@@ -457,42 +457,6 @@ flownet_svg_graph.prototype.particules = function (property, value) {
         });
       break;
 
-  case 'visual_pattern':
-    if (!value) {
-      res = [];
-      this.groupGraph.select('#links').selectAll('path')
-        .filter(function (d, i) {
-          if (!filter) return true;
-          if (typeof (filter) === 'function') return filter(d, i);
-          return filter;
-        })
-        .filter(function (d) { return this.getAttribute('id').includes('particule'); })
-        .each(function () {
-          res.push({id: this.getAttribute('id'), visual_pattern: this.getAttribute('visual_pattern')});
-        });
-      return res;
-    }
-    this.groupGraph.select('#links').selectAll('path')
-      .filter(function (d, i) {
-        if (!filter) return true;
-        if (typeof (filter) === 'function') return filter(d, i);
-        return filter;
-      })
-      .filter(function (d) { return this.getAttribute('id').includes('particule'); })
-      .attr('visual_pattern', function (d) {
-        return (typeof (value) === 'function' ? value(d) : value);
-      })
-      .attr('stroke-dasharray', function (d) {
-        if (this.getAttribute('lastModify') === 'spacing') {
-          this.setAttribute('frequency', particulesBib.spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
-        } else if (this.getAttribute('lastModify') === 'frequency') {
-          this.setAttribute('spacing', particulesBib.frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
-        }
-        return particulesBib.computeParticleRender(this.getAttribute('lastModify'), this.getAttribute('frequency'),
-          this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
-      });
-    break;
-
     case 'speed':
       if (!value) {
         res = [];

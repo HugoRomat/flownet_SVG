@@ -1,8 +1,8 @@
 {
-  "name": "flownet_SVG",
+  "name": "flownet",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/flownet_SVG.js",
+  "main": "lib/flownet.js",
   "scripts": {
     "build": "webpack --env dev && webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",

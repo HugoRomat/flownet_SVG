@@ -4,7 +4,7 @@
     <meta charset='utf-8' />
     <link rel='stylesheet' href='css/style.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <script src='lib/flownet_SVG.js'></script>
+    <script src='lib/flownet.js'></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
   <body>
@@ -245,7 +245,7 @@ graph.links = list.map(function (a, i) { return     {source:a[0] , target:a[1] ,
 
   console.log(graph.nodes);
 
-  flownetGraph = flownet_SVG.graph("#canvas")
+  flownetGraph = flownet.graph("#canvas")
     //.graph(graph)
     .nodes(graph.nodes)
     .links(graph.links)
@@ -287,9 +287,9 @@ graph.links = list.map(function (a, i) { return     {source:a[0] , target:a[1] ,
 //   //  .particules('computationalMethod', function(d,i){ return d.modele})
      .particules('visual_pattern', function(d,i){ return [10,2,10]})
 // //    .particules('patternType', function(d,i){ return d.patternType})
-     .particules('speed', function(d,i){ return 12*3})
+     .particules('speed', function(d,i){ return 144})
     .force_layout("2000", {x:750,y:500})
-//    .start()
+
     /*.particule_behaviors('mouseover', function(d1,i){
       console.log(this);
       flownetGraph.particules('color', 'blue', function(d2,i){

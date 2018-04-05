@@ -6,15 +6,15 @@ const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 const pkg = require('./package.json');
 
-let flownet_SVG = pkg.name;
+let flownet = pkg.name;
 
 let plugins = [], outputFile;
 
 if (env === 'build') {
   plugins.push(new UglifyJsPlugin({ minimize: true }));
-  outputFile = flownet_SVG + '.min.js';
+  outputFile = flownet + '.min.js';
 } else {
-  outputFile = flownet_SVG + '.js';
+  outputFile = flownet + '.js';
 }
 
 const config = {
@@ -23,7 +23,7 @@ const config = {
   output: {
     path: __dirname + '/lib',
     filename: outputFile,
-    library: flownet_SVG,
+    library: flownet,
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
