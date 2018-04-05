@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import * as animationBib from './biblio/svg_graph/animation.js'
 import * as nodesBib from './biblio/svg_graph/nodes.js'
 import * as linksBib from './biblio/svg_graph/links.js'
-import * as particulesBib from './biblio/svg_graph/particules.js'
+import * as particlesBib from './biblio/svg_graph/particles.js'
 
 /** ********************************************************************************************/
 /** *************************************************  CREATE AND SELECTION  *******************/
@@ -268,7 +268,7 @@ flownet_svg_subgraph.prototype.link_properties = function (property, value) {
 /** **********************************************************************************************************************************/
 /** *************************************************  PARTICLE  *********************************************************************/
 
-flownet_svg_subgraph.prototype.particules = function (property, value) {
+flownet_svg_subgraph.prototype.particles = function (property, value) {
   let filter = this.filter;
   switch (property) {
     case 'computationalMethod':
@@ -278,11 +278,11 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
           if (typeof (filter) === 'function') return filter(d, i);
           return filter;
         })
-        .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+        .filter(function (d) { return this.getAttribute('id').includes('particle'); })
         .attr('computationalMethod', value)
         .attr('stroke-dasharray', function (d) {
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
+          return particlesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'),this.getAttribute('size'));
         });
       break;
 
@@ -295,7 +295,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
             if (typeof (filter) === 'function') return filter(d, i);
             return filter;
           })
-          .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+          .filter(function (d) { return this.getAttribute('id').includes('particle'); })
           .each(function () {
             res.push({id: this.getAttribute('id'), spacing: this.getAttribute('spacing')});
           });
@@ -307,17 +307,13 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
           if (typeof (filter) === 'function') return filter(d, i);
           return filter;
         })
-        .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+        .filter(function (d) { return this.getAttribute('id').includes('particle'); })
         .attr('spacing', function (d) {
           return (typeof (value) === 'function' ? value(d) : value);
         })
-        .attr('frequency', function (d) {
-          return particulesBib.spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed')));
-        })
-        .attr('lastModify', 'spacing')
         .attr('stroke-dasharray', function (d) {
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
+          return particlesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'),this.getAttribute('size'));
         });
       break;
 
@@ -330,7 +326,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
             if (typeof (filter) === 'function') return filter(d, i);
             return filter;
           })
-          .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+          .filter(function (d) { return this.getAttribute('id').includes('particle'); })
           .each(function () {
             res.push({id: this.getAttribute('id'), frequency: this.getAttribute('frequency')});
           });
@@ -342,18 +338,13 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
           if (typeof (filter) === 'function') return filter(d, i);
           return filter;
         })
-        .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+        .filter(function (d) { return this.getAttribute('id').includes('particle'); })
         .attr('frequency', function (d) {
           return (typeof (value) === 'function' ? value(d) : value);
         })
-        .attr('spacing', function (d) {
-          console.log();
-          return frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed')));
-        })
-        .attr('lastModify', 'frequency')
         .attr('stroke-dasharray', function (d) {
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
+          return particlesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'),this.getAttribute('size'));
         });
       break;
 
@@ -366,7 +357,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
             if (typeof (filter) === 'function') return filter(d, i);
             return filter;
           })
-          .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+          .filter(function (d) { return this.getAttribute('id').includes('particle'); })
           .each(function () {
             res.push({id: this.getAttribute('id'), visual_pattern: this.getAttribute('visual_pattern')});
           });
@@ -378,20 +369,46 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
           if (typeof (filter) === 'function') return filter(d, i);
           return filter;
         })
-        .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+        .filter(function (d) { return this.getAttribute('id').includes('particle'); })
         .attr('visual_pattern', function (d) {
           return (typeof (value) === 'function' ? value(d) : value);
         })
         .attr('stroke-dasharray', function (d) {
-          if (this.getAttribute('lastModify') === 'spacing') {
-            this.setAttribute('frequency', particulesBib.spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
-          } else if (this.getAttribute('lastModify') === 'frequency') {
-            this.setAttribute('spacing', frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
-          }
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
+          return particlesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'),this.getAttribute('size'));
         });
       break;
+
+    case 'pattern':
+      if (!value) {
+        res = [];
+        this.particles.selectAll('path')
+          .filter(function (d, i) {
+            if (!filter) return true;
+            if (typeof (filter) === 'function') return filter(d, i);
+            return filter;
+          })
+          .filter(function (d) { return this.getAttribute('id').includes('particle'); })
+          .each(function () {
+            res.push({id: this.getAttribute('id'), pattern: this.getAttribute('pattern')});
+          });
+        return res;
+      }
+      this.particles.selectAll('path')
+        .filter(function (d, i) {
+          if (!filter) return true;
+          if (typeof (filter) === 'function') return filter(d, i);
+          return filter;
+        })
+        .filter(function (d) { return this.getAttribute('id').includes('particle'); })
+        .attr('pattern', function (d) {
+          return (typeof (value) === 'function' ? value(d) : value);
+        })
+        .attr('stroke-dasharray', function (d) {
+          return particlesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'),this.getAttribute('size'));
+        });
+        break;
 
     case 'speed':
       if (!value) {
@@ -402,7 +419,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
             if (typeof (filter) === 'function') return filter(d, i);
             return filter;
           })
-          .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+          .filter(function (d) { return this.getAttribute('id').includes('particle'); })
           .each(function () {
             res.push({id: this.getAttribute('id'), speed: this.getAttribute('speed')});
           });
@@ -414,20 +431,13 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
           if (typeof (filter) === 'function') return filter(d, i);
           return filter;
         })
-        .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+        .filter(function (d) { return this.getAttribute('id').includes('particle'); })
         .attr('speed', function (d) {
           return (typeof (value) === 'function' ? value(d) : value);
         })
         .attr('stroke-dasharray', function (d) {
-          console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
-          if (this.getAttribute('lastModify') === 'spacing') {
-            this.setAttribute('frequency', particulesBib.spacingToFrequency(Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
-          } else if (this.getAttribute('lastModify') === 'frequency') {
-            this.setAttribute('spacing', frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
-          }
-          console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
-          return particulesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
-            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'));
+          return particlesBib.computeParticleRender(this.getAttribute('computationalMethod'), this.getAttribute('frequency'),
+            this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'),this.getAttribute('size'));
         });
       break;
 
@@ -440,7 +450,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
             if (typeof (filter) === 'function') return filter(d, i);
             return filter;
           })
-          .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+          .filter(function (d) { return this.getAttribute('id').includes('particle'); })
           .each(function () {
             res.push({id: this.getAttribute('id'), color: this.getAttribute('color')});
           });
@@ -452,7 +462,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
           if (typeof (filter) === 'function') return filter(d, i);
           return filter;
         })
-        .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+        .filter(function (d) { return this.getAttribute('id').includes('particle'); })
         .attr('stroke', value);
       break;
 
@@ -465,7 +475,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
             if (typeof (filter) === 'function') return filter(d, i);
             return filter;
           })
-          .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+          .filter(function (d) { return this.getAttribute('id').includes('particle'); })
           .each(function () {
             res.push({id: this.getAttribute('id'), height: this.getAttribute('height')});
           });
@@ -477,7 +487,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
           if (typeof (filter) === 'function') return filter(d, i);
           return filter;
         })
-        .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+        .filter(function (d) { return this.getAttribute('id').includes('particle'); })
         .attr('stroke-width', value);
       break;
 
@@ -490,7 +500,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
               if (typeof (filter) === 'function') return filter(d, i);
               return filter;
             })
-            .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+            .filter(function (d) { return this.getAttribute('id').includes('particle'); })
             .each(function () {
               res.push({id: this.getAttribute('id'), visibility: this.getAttribute('visibility')});
             });
@@ -502,7 +512,7 @@ flownet_svg_subgraph.prototype.particules = function (property, value) {
             if (typeof (filter) === 'function') return filter(d, i);
             return filter;
           })
-          .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+          .filter(function (d) { return this.getAttribute('id').includes('particle'); })
           .attr('visibility', value);
         break;
 
@@ -524,13 +534,13 @@ flownet_svg_subgraph.prototype.start = function () {
 
   if (FPS === 'auto') {
     this.particles.selectAll('path')
-      .filter(function (d) { return this.getAttribute('id').includes('particules'); })
+      .filter(function (d) { return this.getAttribute('id').includes('particles'); })
       .each(function (d) {
         animationBib.startTransitionSVG(d3.select(this));
       });
   } else {
     this.particles.selectAll('path')
-      .filter(function (d) { return this.getAttribute('id').includes('particules'); })
+      .filter(function (d) { return this.getAttribute('id').includes('particles'); })
       .each(function (d) {
         animationBib.startTransitionFPS(d3.select(this), FPS);
       });
@@ -539,16 +549,16 @@ flownet_svg_subgraph.prototype.start = function () {
 }; // OK
 flownet_svg_subgraph.prototype.stop = function () {
   this.particles.selectAll('path')
-    .filter(function (d) { return this.getAttribute('id').includes('particules'); })
+    .filter(function (d) { return this.getAttribute('id').includes('particles'); })
     .interrupt();
   return this;
 }; // OK
 flownet_svg_subgraph.prototype.reset = function () {
   this.particles.selectAll('path')
-    .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+    .filter(function (d) { return this.getAttribute('id').includes('particle'); })
     .interrupt();
   this.particles.selectAll('path')
-    .filter(function (d) { return this.getAttribute('id').includes('particule'); })
+    .filter(function (d) { return this.getAttribute('id').includes('particle'); })
     .attr('stroke-dashoffset', function (d) {
       return d.previousDashOffset;
     });

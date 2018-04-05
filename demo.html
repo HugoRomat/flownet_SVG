@@ -34,17 +34,17 @@
           </div>
 
           <div class='parametersPanel'>
-            <div class='importantText'><span>Particules parameters:</span></div></br>
+            <div class='importantText'><span>particles parameters:</span></div></br>
 
-            <span class='leftSpan'>Height:</span><input type='text' onchange='heightParticuleChange(this)' value='3'><span> px</span></br>
-            <span class='leftSpan'>Color:</span><input type='text' onchange='colorParticuleChange(this)' value='black'></br>
-            <span class='leftSpan'>Speed:</span><input type='text' onchange='speedParticuleChange(this)' value='150'><span> px/s</span></br>
-            <span class='leftSpan' style='margin-top: 30px;'>Frequency:</span><input id='frequency' type='text' onchange='frequencyParticuleChange(this)' value='1'><span id='unit'> Hz</span></br>
-            <i class='fa fa-warning' style='font-size:20px'></i><span id='warningFreq'> number of particules that are fired each second! </span></br></br>
-            <span class='leftSpan' style='margin-bottom: 8px;'>Spacing:</span><input id='spacing' type='text' onchange='spacingParticuleChange(this)' value='100'><span> px</span></br>
-            <i class='fa fa-warning' style='font-size:20px'></i><span id='warningFreq'> space between two particules </span></br></br></br>
+            <span class='leftSpan'>Height:</span><input type='text' onchange='heightparticleChange(this)' value='3'><span> px</span></br>
+            <span class='leftSpan'>Color:</span><input type='text' onchange='colorparticleChange(this)' value='black'></br>
+            <span class='leftSpan'>Speed:</span><input type='text' onchange='speedparticleChange(this)' value='150'><span> px/s</span></br>
+            <span class='leftSpan' style='margin-top: 30px;'>Frequency:</span><input id='frequency' type='text' onchange='frequencyparticleChange(this)' value='1'><span id='unit'> Hz</span></br>
+            <i class='fa fa-warning' style='font-size:20px'></i><span id='warningFreq'> number of particles that are fired each second! </span></br></br>
+            <span class='leftSpan' style='margin-bottom: 8px;'>Spacing:</span><input id='spacing' type='text' onchange='spacingparticleChange(this)' value='100'><span> px</span></br>
+            <i class='fa fa-warning' style='font-size:20px'></i><span id='warningFreq'> space between two particles </span></br></br></br>
 
-            <span class='leftSpan'>Pattern:</span><input type='text' value='[10,10]' onchange='patternParticuleChange(this)'></br>
+            <span class='leftSpan'>Pattern:</span><input type='text' value='[10,10]' onchange='patternparticleChange(this)'></br>
           </div>
 
 
@@ -65,234 +65,181 @@
 	<script>
 
   function fire1(){
-    launcher = flownetGraph.particule_launcher('0')
-    .prepare_particule()
-    .particules('id','toast')
-    .particules('height',10)
-    .particules('color','blue')
-    .particules('pattern',[20,3,20])
-    .particules('speed',200)
-    .particules('delay',0)
-    .load_particule()
-    .fire_particule()
+    launcher = app.particles_launcher('0')
+    .prepare_particles()
+    .particles('id','toast')
+    .particles('height',10)
+    .particles('color','blue')
+    .particles('pattern',[20,3,20])
+    .particles('speed',200)
+    .particles('delay',0)
+    .load_particles()
+    .fire_particles()
 
     console.log(launcher);
   }
 
   function fire2(){
-    launcher = flownetGraph.particule_launcher('0')
-    .prepare_particule([{id:'f1',delay:0,speed:50},{id:'f2',delay:2000, speed:250}])
-    .particules('id',function(d,i){return d.id})
-    .particules('height',10)
-    .particules('color','blue')
-    .particules('pattern',[20,3,20])
-    .particules('speed',function(d,i){return d.speed})
-    .particules('delay',function(d,i){return d.delay})
+    launcher = app.particles_launcher('0')
+    .prepare_particles([{id:'f1',delay:0,speed:50},{id:'f2',delay:2000, speed:250}])
+    .particles('id',function(d,i){return d.id})
+    .particles('height',10)
+    .particles('color','blue')
+    .particles('pattern',[20,3,20])
+    .particles('speed',function(d,i){return d.speed})
+    .particles('delay',function(d,i){return d.delay})
     .on_start(function(d,i){ console.log(d.id,i);})
     .on_end(function(d,i){ console.log(d.id,i);})
-    .load_particule()
-    .fire_particule()
+    .load_particles()
+    .fire_particles()
 
     console.log(launcher);
   }
 
   function sizeNodeChange(d){
-    flownetGraph.nodes_properties('size', Number(d.value))
+    app.nodes_properties('size', Number(d.value))
   }
   function colorNodeChange(d){
-    flownetGraph.nodes_properties('color', d.value)
+    app.nodes_properties('color', d.value)
   }
 
 
   function sizeEdgeChange(d){
-      flownetGraph.links_properties('size', d.value)
+      app.links_properties('size', d.value)
   }
   function colorEdgeChange(d){
-    flownetGraph.links_properties('color', d.value)
+    app.links_properties('color', d.value)
   }
   function interpolationChange(d){
-    flownetGraph.links_properties('interpolation', d.value)
+    app.links_properties('interpolation', d.value)
   }
 
 
-  function colorParticuleChange(d){
-    flownetGraph.particules('color', d.value)
+  function colorparticleChange(d){
+    app.particles('color', d.value)
   }
-  function heightParticuleChange(d){
-    flownetGraph.particules('height', d.value)
+  function heightparticleChange(d){
+    app.particles('height', d.value)
   }
-  function widthParticuleChange(d){
-    flownetGraph.particules('width', d.value)
+  function widthparticleChange(d){
+    app.particles('width', d.value)
   }
-  function modelParticuleChange(d){
+  function modelparticleChange(d){
     switch (d.value) {
       case 'frequencyToWidth':
         document.getElementById('width').disabled = true
         document.getElementById('frequency').disabled = false
         document.getElementById('unit').innerHTML = ' px'
-        document.getElementById('warningFreq').innerHTML = ' distance between two patterns of particules (px) '
+        document.getElementById('warningFreq').innerHTML = ' distance between two patterns of particles (px) '
         break;
       case 'widthToFrequency':
         document.getElementById('width').disabled = false
         document.getElementById('frequency').disabled = true
         document.getElementById('unit').innerHTML = ' px'
-        document.getElementById('warningFreq').innerHTML = ' distance between two patterns of particules (px) '
+        document.getElementById('warningFreq').innerHTML = ' distance between two patterns of particles (px) '
         break;
       case 'none':
         document.getElementById('width').disabled = false
         document.getElementById('frequency').disabled = false
         document.getElementById('unit').innerHTML = ' px'
-        document.getElementById('warningFreq').innerHTML = ' distance between two patterns of particules (px) '
+        document.getElementById('warningFreq').innerHTML = ' distance between two patterns of particles (px) '
         break;
       case 'physical':
         document.getElementById('width').disabled = false
         document.getElementById('frequency').disabled = false
         document.getElementById('unit').innerHTML = ' Hz'
-        document.getElementById('warningFreq').innerHTML = ' number of particules that are fired each second! '
+        document.getElementById('warningFreq').innerHTML = ' number of particles that are fired each second! '
         break;
       default:
 
     }
-    flownetGraph.particules('computationalMethod', d.value)
+    app.particles('computationalMethod', d.value)
   }
-  function patternParticuleChange(d){
-    flownetGraph.particules('pattern', JSON.parse(d.value))
+  function patternparticleChange(d){
+    app.particles('pattern', JSON.parse(d.value))
   }
   function modelPatternChange(d){
-    flownetGraph.particules('patternType', d.value)
+    app.particles('patternType', d.value)
   }
-  function frequencyParticuleChange(d){
-    flownetGraph.particules('frequency',d.value)
+  function frequencyparticleChange(d){
+    app.particles('frequency',d.value)
   }
-  function spacingParticuleChange(d){
-    flownetGraph.particules('spacing',d.value)
+  function spacingparticleChange(d){
+    app.particles('spacing',d.value)
   }
-  function speedParticuleChange(d){
-    flownetGraph.particules('speed', d.value)
+  function speedparticleChange(d){
+    app.particles('speed', d.value)
   }
   function fpsLimitation(d){
-    if ( d.value === 'auto') flownetGraph.fps(d.value)
-    else flownetGraph.fps(Number(d.value))
+    if ( d.value === 'auto') app.fps(d.value)
+    else app.fps(Number(d.value))
   }
   function startAnimation(d){
-    flownetGraph.start()
+    app.start()
   }
   function stopAnimation(d){
-    flownetGraph.stop()
+    app.stop()
   }
   function resetAnimation(d){
-    flownetGraph.reset()
+    app.reset()
   }
 
-var graph = {id:'showGraph',
-  nodes:[
-    { color:'black', size:10, id:0},
-    { color:'black', size:10, id:1},
-    { color:'black', size:10, id:2},
-    { color:'black', size:10, id:'node3'},
-    { color:'black', size:10, id:4}
-  ],
-  links:[
-    {source:0 , target:1 ,
-      heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:0,
-    points:[{x:450-100,y:50+300},{x:650-100,y:400+300},{x:850-100,y:50+300}], interpolation:'cardinal', colorLink:'lightGrey',
-    sizeLink:12, colorParticule:'black', widthParticule:20, heightParticule:3,
-    patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150},
+  var n = 10;
+  var m = 10;
+  var nodes = d3.range(n).map(function (a, i) { return { id: i, name:i} });
+      list  = randomChoose(unorderedPairs(d3.range(n)), m),
+      links = list.map(function (a, i) { return {source: a[0], target: a[1], id: i} });
 
-    {source:1 , target:2 ,
-      heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'filter1',
-    points:[], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
-    widthParticule:20, heightParticule:3,
-    patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150},
+    console.log(nodes, links)
+      var width = window.innerWidth;
+      var height = window.innerHeight
 
-    {source:1 , target:'node3' ,
-      heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'link2',
-    points:[], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
-    widthParticule:20, heightParticule:3,
-    patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150},
 
-    {source:1 , target:4 ,
-      heightGate:{height:6, position:'60%'},colorGate2:{color:'red', position:'80%'}, colorGate1:{color:'blue', position:'35%'}, modele:'physical', id:'filter3',
-    points:[], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
-    widthParticule:20, heightParticule:3,
-    patternParticule:[10,2,20], patternType:'absolute', frequencyParticule:1, speedParticule:150}
-  ]
-}
+  var app = flownet.graph("#canvas", width, height, "white", 1)
+        // .nodes(json.nodes)
+        // .links(json.links)
+        .nodes(nodes)
+        .links(links)
+        // .layout("linkDistance", 500)
+        // .create_layout()
+        .tracks("count", 1 )
 
-var graphExtension = {
-  nodes:[
-    {x:250-100 , y:500+300, color:'black', size:10, id:5}
-  ],
-  links:[
-    {id:4,
-    points:[{x:250-100,y:200+300},{x:250-100,y:500+300}], interpolation:'cardinal', colorLink:'lightGrey',
-    sizeLink:12, colorParticule:'black', widthParticule:20, heightParticule:3,
-    patternParticule:[10,10], patternType:'absolute', frequencyParticule:1, speedParticule:150}
-  ]
-}
+        // .create_WEBGL_element()
+        // .zoom(true)
+        // .controls(false)
 
-graph.nodes = []
-graph.links = []
-var n = 10;
-var m = 10;
+        .link_properties("curvature", -5)
+        .link_properties("color", "#D3D3D3")
+        .link_properties("size", 5)
+        //  .link_properties("opacity", 0.2) //function(d, i) {return color_scale_delay_dep(d.value); })
+        // //
+        .node_properties("color", "#000000")
+        .node_properties("size", 8)
+        // .node_properties("x", function(d, i) {return 50; })
+        // .node_properties("y", function(d, i) {return (100 * i);  })
+        //.node_properties("image", function(d, i) {return "images/" + d.label + ".jpg"; })
+        // .node_properties("x", function(d, i) {return d.X; })
+        // .node_properties("y", function(d, i) {return d.Y;  })
 
-graph.nodes = d3.range(n).map(function (a, i) { return { color:'black', size:10, id:i} });
-    list  = randomChoose(unorderedPairs(d3.range(n)), m),
-graph.links = list.map(function (a, i) { return     {source:a[0] , target:a[1] , modele:'physical', id:i,
-        points:[], interpolation:'cardinal', colorLink:'lightGrey', sizeLink:12, colorParticule:'black',
-        widthParticule:20, heightParticule:3,
-        patternParticule:[10,2,20], patternType:'absolute', frequencyParticule:1, speedParticule:150} });
+        .tracks("opacity", 0.2)
+        .particles("color", "black")
+        .particles("size", 10)
 
-  console.log(graph.nodes);
 
-  flownetGraph = flownet.graph("#canvas")
-    //.graph(graph)
-    .nodes(graph.nodes)
-    .links(graph.links)
-    //.node_properties('x', function(d, i){  return d.x})
-    //.node_properties('y', function(d, i){  return d.y})
-    .node_properties('color', function(d, i){ return d.color})
-    .node_properties('size', function(d, i){  return d.size})
-
-     .node_properties('label_text', function(d, i){  return 'id:'+d.id})
-     .node_properties('label_size', 16)
-    // .node_properties('label_x', function(d, i){  return d.x+10})
-    // .node_properties('label_y', function(d, i){  return d.y-10})
-     .node_properties('label_font', 'arial')
-     .node_properties('label_color', 'black')
-    // .node_properties('class', function(d, i){ return d.cssClass})
-    /*.nodes_behaviors('mouseover', function(d1,i){
-      flownetGraph.nodes_properties('color', 'blue', function(d2,i){
-        return d1.id === d2.id
-      })
-    })*/
-    //.nodes_properties('shape', 'circle') //rectangle, src=img/house
-    //.nodes_properties('visibility', 'hidden')
-
-     //.link_properties('points', function(d,i){ return d.points})
-     .link_properties('interpolation', function(d,i){ return d.interpolation})
-     .link_properties('color', function(d,i){ return d.colorLink})
-     .link_properties('size', function(d,i){ return d.sizeLink})
-//     /*.links_behaviors('mouseover', function(d1,i){
-//       flownetGraph.links_properties('color', 'blue', function(d2,i){
-//         return d1.id === d2.id
-//       })
-//     })*/
-//     //.links_properties('visibility', 'hidden')
-//
-     .particules('color', function(d,i){ return d.colorParticule})
-//     .particules('width', function(d,i){ return d.widthParticule})
-     .particules('spacing',function(d,i){ return 10})
-     .particules('height', function(d,i){ return d.heightParticule})
-//   //  .particules('computationalMethod', function(d,i){ return d.modele})
-     .particules('visual_pattern', function(d,i){ return [10,2,10]})
-// //    .particules('patternType', function(d,i){ return d.patternType})
-     .particules('speed', function(d,i){ return 144})
-    .force_layout("2000", {x:750,y:500})
-
-    /*.particule_behaviors('mouseover', function(d1,i){
+        .particles("speed", 3*12)
+        .particles("pattern", function(d, i) {return [0, 0.2, 0.4, 0.6]; })
+        //.particles("track", [0, 0, 1, 1, 2, 2])
+        .particles("frequency", 1)
+        // .particles("frequency", function(d, i) {return freq(d.value); })
+        // .particles("speed", 10, 0.0)
+        // .particles("speed", 3, 0.2)
+        // .particles("speed", 5, 0.5)
+         .particles("color", "red", 0.5)
+         .force_layout("2000")
+         .start()
+    /*.particle_behaviors('mouseover', function(d1,i){
       console.log(this);
-      flownetGraph.particules('color', 'blue', function(d2,i){
+      app.particles('color', 'blue', function(d2,i){
         return d1.id === d2.id
       })
     })
@@ -303,12 +250,12 @@ graph.links = list.map(function (a, i) { return     {source:a[0] , target:a[1] ,
     //.fps('auto')
     //.start()
     //.stop()
-    //console.log(flownetGraph.selectAll('g'))
+    //console.log(app.selectAll('g'))
 
       //.remove()
       //.start()
 /*
-    flownetGraph.nodes(graphExtension.nodes)
+    app.nodes(graphExtension.nodes)
       .links(graphExtension.links)
       .nodes_properties('x', function(d, i){  return d.x})
       .nodes_properties('y', function(d, i){  return d.y})
@@ -332,14 +279,14 @@ graph.links = list.map(function (a, i) { return     {source:a[0] , target:a[1] ,
       .links_properties('size', function(d,i){ return d.sizeLink})
 
 
-      .particules('color', function(d,i){ return d.colorParticule})
-      .particules('width', function(d,i){ return d.widthParticule})
-      .particules('height', function(d,i){ return d.heightParticule})
-      .particules('frequency',function(d,i){ return d.frequencyParticule})
-    //  .particules('computationalMethod', function(d,i){ return d.modele})
-//      .particules('pattern', function(d,i){ return d.patternParticule})
-  //    .particules('patternType', function(d,i){ return d.patternType})
-//      .particules('speed', function(d,i){ return d.speedParticule})
+      .particles('color', function(d,i){ return d.colorparticle})
+      .particles('width', function(d,i){ return d.widthparticle})
+      .particles('height', function(d,i){ return d.heightparticle})
+      .particles('frequency',function(d,i){ return d.frequencyparticle})
+    //  .particles('computationalMethod', function(d,i){ return d.modele})
+//      .particles('pattern', function(d,i){ return d.patternparticle})
+  //    .particles('patternType', function(d,i){ return d.patternType})
+//      .particles('speed', function(d,i){ return d.speedparticle})
 
 
 /*
@@ -364,7 +311,7 @@ graph.links = list.map(function (a, i) { return     {source:a[0] , target:a[1] ,
         this.setAttribute('ex', d3.event.x)
         this.setAttribute('ey', d3.event.y)
         graph.links[0].points.splice(i+1, 1, {x:this.getAttribute('cx'), y:this.getAttribute('cy')})
-        flownetGraph.links_properties('points', function(d){ return d.points})
+        app.links_properties('points', function(d){ return d.points})
       })
       .on('end', function(){}));*/
 

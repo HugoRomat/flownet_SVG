@@ -1,14 +1,14 @@
 import * as d3 from 'd3';
 import * as launcherBib from './biblio/launcher/launcher.js'
 
-export function particule_launcher(ref, id) {
+export function particles_launcher(ref, id) {
   this.d = ref;
   this.entryPoint = id;
   this.waiting = [];
   this.fired = [];
   this.prepare = [];
 }
-particule_launcher.prototype.prepare_particule = function (data) {
+particles_launcher.prototype.prepare_particles = function (data) {
   this.prepare = [];
   if (data) {
     for (var i = 0; i < data.length; i++) {
@@ -19,7 +19,7 @@ particule_launcher.prototype.prepare_particule = function (data) {
   }
   return this;
 };
-particule_launcher.prototype.particule_properties = function (property, value, gate) {
+particles_launcher.prototype.particles = function (property, value, gate) {
   if (!value && value !== 0) throw 'value is not defined';
   if (!property) throw 'property is not defined';
 
@@ -49,26 +49,26 @@ particule_launcher.prototype.particule_properties = function (property, value, g
   }
   return this;
 };
-particule_launcher.prototype.on_start = function (fun) {
+particles_launcher.prototype.on_start = function (fun) {
   if (typeof (fun) !== 'function') throw 'argument must be a function';
   for (var i = 0; i < this.prepare.length; i++) {
     this.prepare[i].onstartfun = fun;
   }
   return this;
 };
-particule_launcher.prototype.on_end = function (fun) {
+particles_launcher.prototype.on_end = function (fun) {
   if (typeof (fun) !== 'function') throw 'argument must be a function';
   for (var i = 0; i < this.prepare.length; i++) {
     this.prepare[i].onendfun = fun;
   }
   return this;
 };
-particule_launcher.prototype.load_particule = function () {
+particles_launcher.prototype.load_particles = function () {
   this.waiting = this.waiting.concat(this.prepare);
   this.prepare = [];
   return this;
 };
-particule_launcher.prototype.fire_particule = function () {
+particles_launcher.prototype.fire_particles = function () {
   for (var i = 0; i < this.waiting.length; i++) {
     this.fired.push(d3.select(this.entryPoint).append('g').selectAll('path')
       .data([this.waiting[i]])
