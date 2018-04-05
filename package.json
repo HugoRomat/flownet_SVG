@@ -1,5 +1,5 @@
 {
-  "name": "flownet_SVG",
+  "name": "flownet",
   "version": "1.0.0",
   "description": "",
   "main": "lib/flownet_SVG.js",
