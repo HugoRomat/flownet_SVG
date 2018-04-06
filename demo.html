@@ -195,48 +195,39 @@
       var height = window.innerHeight
 
 
-  var app = flownet.graph("#canvas", width, height, "white", 1)
+  var app = flownet.graph("#canvas")
         // .nodes(json.nodes)
         // .links(json.links)
         .nodes(nodes)
         .links(links)
-        // .layout("linkDistance", 500)
-        // .create_layout()
-        .tracks("count", 1 )
 
-        // .create_WEBGL_element()
-        // .zoom(true)
-        // .controls(false)
-
-        .link_properties("curvature", -5)
-        .link_properties("color", "#D3D3D3")
-        .link_properties("size", 5)
-        //  .link_properties("opacity", 0.2) //function(d, i) {return color_scale_delay_dep(d.value); })
-        // //
-        .node_properties("color", "#000000")
-        .node_properties("size", 8)
-        // .node_properties("x", function(d, i) {return 50; })
-        // .node_properties("y", function(d, i) {return (100 * i);  })
-        //.node_properties("image", function(d, i) {return "images/" + d.label + ".jpg"; })
-        // .node_properties("x", function(d, i) {return d.X; })
-        // .node_properties("y", function(d, i) {return d.Y;  })
-
-        .tracks("opacity", 0.2)
-        .particles("color", "black")
-        .particles("size", 10)
+        .link_properties('points', function(d,i){ return []})
+        .link_properties('interpolation', function(d,i){ return "linear"})
+        .link_properties('color', function(d,i){ return "grey"})
+        .link_properties('size', function(d,i){ return 10})
 
 
-        .particles("speed", 3*12)
-        .particles("pattern", function(d, i) {return [0, 0.2, 0.4, 0.6]; })
-        //.particles("track", [0, 0, 1, 1, 2, 2])
-        .particles("frequency", 1)
-        // .particles("frequency", function(d, i) {return freq(d.value); })
-        // .particles("speed", 10, 0.0)
-        // .particles("speed", 3, 0.2)
-        // .particles("speed", 5, 0.5)
-         .particles("color", "red", 0.5)
-         .force_layout("2000")
-         .start()
+        .node_properties('color', function(d, i){ return "black"})
+        .node_properties('size', function(d, i){  return 8})
+
+        .node_properties('label_text', function(d, i){return 'id:'+d.id})
+        .node_properties('label_size', 16)
+
+        .node_properties('label_font', 'arial')
+        .node_properties('label_color', 'black')
+
+
+
+
+      .particles("frequency", 1)
+      .particles('pattern', function(d,i){ return [0.0,0.3]})
+      .particles('speed', function(d,i){ return 40})
+      .particles('color', function(d,i){ return "black"})
+      .particles('size', function(d,i){ return 10})
+      .particles('height', function(d,i){ return 2})
+
+      .force_layout("1000")
+        // .start()
     /*.particle_behaviors('mouseover', function(d1,i){
       console.log(this);
       app.particles('color', 'blue', function(d2,i){

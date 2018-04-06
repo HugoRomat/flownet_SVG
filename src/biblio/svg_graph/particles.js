@@ -19,7 +19,7 @@ export function computeParticleRender(method, freq, spacing, speed, visupattern,
     case 'Speed-Frequency-RelativePattern':
       {
         if (!speed) { textIssues += ' Speed information missing.'; issues = true; }
-        if (!frequency || Number(freq)<=0) { textIssues += ' Frequency information missing.'; issues = true; }
+        if (!freq || Number(freq)<=0) { textIssues += ' Frequency information missing.'; issues = true; }
         if (!pattern) { textIssues += ' Pattern information missing.'; issues = true; }
         if (!size) { textIssues += ' Size information missing.'; issues = true; }
         if (issues) { console.warn(textIssues); return [];}
@@ -60,7 +60,7 @@ export function computeParticleRender(method, freq, spacing, speed, visupattern,
     case 'Speed-Frequency-AbsolutePattern':
       {
         if (!speed) { textIssues += ' Speed information missing.'; issues = true; }
-        if (!frequency || Number(freq)<=0) { textIssues += ' Frequency information missing.'; issues = true; }
+        if (!freq || Number(freq)<=0) { textIssues += ' Frequency information missing.'; issues = true; }
         if (!visupattern) { textIssues += ' VisualPattern information missing.'; issues = true; }
         if (issues) { console.warn(textIssues); return [];}
 
@@ -139,7 +139,7 @@ export function computeParticleRender(method, freq, spacing, speed, visupattern,
     case 'Speed-Spacing-AbsolutePattern':
       {
         if (!speed) { textIssues += ' Speed information missing.'; issues = true; }
-        if (!frequency || Number(freq)<=0) { textIssues += ' Frequency information missing.'; issues = true; }
+        if (!freq || Number(freq)<=0) { textIssues += ' Frequency information missing.'; issues = true; }
         if (!visupattern) { textIssues += ' VisualPattern information missing.'; issues = true; }
         if (issues) { console.warn(textIssues); return [];}
 
@@ -179,7 +179,7 @@ export function computeParticleRender(method, freq, spacing, speed, visupattern,
       {
        console.warn("No method specified, 'Speed-Frequency-RelativePattern' by default")
        if (!speed) { textIssues += ' Speed information missing.'; issues = true; }
-       if (!frequency || Number(freq)<=0) { textIssues += ' Frequency information missing.'; issues = true; }
+       if (!freq || Number(freq)<=0) { textIssues += ' Frequency information missing.'; issues = true; }
        if (!pattern) { textIssues += ' Pattern information missing.'; issues = true; }
        if (!size) { textIssues += ' Size information missing.'; issues = true; }
        if (issues) { console.warn(textIssues); return [];}

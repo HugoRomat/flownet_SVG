@@ -239,9 +239,14 @@ flownet_svg_graph.prototype.node_properties = function (property, value) {
           .filter(function () {
             return (this.getAttribute('id') && this.getAttribute('id').split('_')[0] === 'link');
           })
-          .each(function (d) { linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+d.source),
-                                                          this,
-                                                          that.groupGraph.select("#nodes").select("#node_"+d.target)); });
+          .each(function (d) {
+            let source = d.source;
+            let target = d.target;
+            if( d.source === Object(d.source) ) source = d.source.id
+            if( d.target === Object(d.target) ) target = d.target.id
+            linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+source),
+                                      this,
+                                      that.groupGraph.select("#nodes").select("#node_"+target)); });
       }
     }
   }
@@ -292,9 +297,14 @@ flownet_svg_graph.prototype.link_properties = function (property, value) {
         }
         return value;
       })
-      .each(function (d) { linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+d.source),
-                                                      this,
-                                                      that.groupGraph.select("#nodes").select("#node_"+d.target)); });
+      .each(function (d) {
+        let source = d.source;
+        let target = d.target;
+        if( d.source === Object(d.source) ) source = d.source.id
+        if( d.target === Object(d.target) ) target = d.target.id
+        linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+source),
+                                  this,
+                                  that.groupGraph.select("#nodes").select("#node_"+target)); });
 
   } else if (property === 'points') {
     this.groupGraph.select('#links').selectAll('g')
@@ -312,9 +322,14 @@ flownet_svg_graph.prototype.link_properties = function (property, value) {
         }
         return JSON.stringify(value);
       })
-      .each(function (d) { linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+d.source),
-                                                      this,
-                                                      that.groupGraph.select("#nodes").select("#node_"+d.target)); });
+      .each(function (d) {
+        let source = d.source;
+        let target = d.target;
+        if( d.source === Object(d.source) ) source = d.source.id
+        if( d.target === Object(d.target) ) target = d.target.id
+        linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+source),
+                                  this,
+                                  that.groupGraph.select("#nodes").select("#node_"+target)); });
 
   } else if (property === 'visibility') {
     this.groupGraph.select('#links').selectAll('g')
