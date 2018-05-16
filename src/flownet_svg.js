@@ -37,13 +37,13 @@ flownet_svg_graph.prototype.links = function (data) {
     .enter()
     .append('g')
     .attr('id', function (d, i) {
-      if (d.id) return 'link_' + d.id;
+      if (d.id) return 'link_' + String(d.id);
       return 'link_' + i;
     })
     .each(function (d) {
       d3.select(this).append('path')
         .attr('id', function (d, i) {
-          if (d.id) return 'edge_' + d.id;
+          if (d.id) return 'edge_' + String(d.id);
           return 'edge_' + i;
         })
         .attr('fill', 'none');
@@ -57,10 +57,10 @@ flownet_svg_graph.prototype.links = function (data) {
       return 'link_' + i;
     })
     .each(function (d) {
-      d3.select(this).append('g').attr('id', 'mainPath_' + d.id)
+      d3.select(this).append('g').attr('id', 'mainPath_' + String(d.id))
         .append('path')
         .attr('id', function (d, i) {
-          if (d.id) return 'particles_' + d.id;
+          if (d.id) return 'particles_' + String(d.id);
           return 'particles_' + i;
         })
         .attr('fill', 'none')
@@ -76,18 +76,18 @@ flownet_svg_graph.prototype.nodes = function (nodes) {
     .enter()
     .append('g')
     .attr('id', function (d, i) {
-      if (d.id) return 'node_' + d.id;
+      if (d.id) return 'node_' + String(d.id);
       return 'node_' + i;
     })
     .each(function(){
       d3.select(this).append('circle')
         .attr('id', function (d, i) {
-            if (d.id) return 'cirlce_' + d.id;
+            if (d.id) return 'cirlce_' + String(d.id);
             return 'cirlce_' + i;
         })
         d3.select(this).append('text')
           .attr('id', function (d, i) {
-              if (d.id) return 'label_' + d.id;
+              if (d.id) return 'label_' + String(d.id);
               return 'label_' + i;
           })
     })
@@ -244,6 +244,7 @@ flownet_svg_graph.prototype.node_properties = function (property, value) {
             let target = d.target;
             if( d.source === Object(d.source) ) source = d.source.id
             if( d.target === Object(d.target) ) target = d.target.id
+            console.log(source,target);
             linksBib.updateLinkPoints(that.groupGraph.select("#nodes").select("#node_"+source),
                                       this,
                                       that.groupGraph.select("#nodes").select("#node_"+target)); });

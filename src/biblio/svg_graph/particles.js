@@ -15,6 +15,9 @@ export function computeParticleRender(method, freq, spacing, speed, visupattern,
   var newSize = null;
   var newSpacing = null;
 
+  console.log("method", "freq", "spacing", "speed", "visupattern", "pattern", "size");
+  console.log(method, freq, spacing, speed, visupattern, pattern, size);
+
   switch (method) {
     case 'Speed-Frequency-RelativePattern':
       {
@@ -100,7 +103,7 @@ export function computeParticleRender(method, freq, spacing, speed, visupattern,
     case 'Speed-Spacing-RelativePattern':
       {
         if (!speed) { textIssues += ' Speed information missing.'; issues = true; }
-        if (!spacing || Number(freq)<=0) { textIssues += ' Spacing information missing.'; issues = true; }
+        if (!spacing ) { textIssues += ' Spacing information missing.'; issues = true; }
         if (!pattern) { textIssues += ' Pattern information missing.'; issues = true; }
         if (!size) { textIssues += ' Size information missing.'; issues = true; }
         if (issues) { console.warn(textIssues); return [];}
@@ -139,7 +142,7 @@ export function computeParticleRender(method, freq, spacing, speed, visupattern,
     case 'Speed-Spacing-AbsolutePattern':
       {
         if (!speed) { textIssues += ' Speed information missing.'; issues = true; }
-        if (!freq || Number(freq)<=0) { textIssues += ' Frequency information missing.'; issues = true; }
+        if (!spacing ) { textIssues += ' Frequency information missing.'; issues = true; }
         if (!visupattern) { textIssues += ' VisualPattern information missing.'; issues = true; }
         if (issues) { console.warn(textIssues); return [];}
 
