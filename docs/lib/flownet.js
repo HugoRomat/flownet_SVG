@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("flownet_SVG", [], factory);
+		define("flownet", [], factory);
 	else if(typeof exports === 'object')
-		exports["flownet_SVG"] = factory();
+		exports["flownet"] = factory();
 	else
-		root["flownet_SVG"] = factory();
+		root["flownet"] = factory();
 })(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -937,7 +937,10 @@ var durationWeek = 6048e5;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_d3_ease__ = __webpack_require__(122);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_10_d3_ease__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_d3_force__ = __webpack_require__(299);
-/* unused harmony namespace reexport */
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_11_d3_force__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_11_d3_force__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_11_d3_force__["c"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_11_d3_force__["d"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_d3_format__ = __webpack_require__(71);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_d3_geo__ = __webpack_require__(329);
@@ -945,7 +948,7 @@ var durationWeek = 6048e5;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_d3_hierarchy__ = __webpack_require__(357);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_d3_interpolate__ = __webpack_require__(5);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_15_d3_interpolate__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_15_d3_interpolate__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_d3_path__ = __webpack_require__(14);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_d3_polygon__ = __webpack_require__(379);
@@ -961,7 +964,7 @@ var durationWeek = 6048e5;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_d3_scale__ = __webpack_require__(401);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_d3_selection__ = __webpack_require__(1);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_23_d3_selection__["f"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "q", function() { return __WEBPACK_IMPORTED_MODULE_23_d3_selection__["f"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_d3_shape__ = __webpack_require__(434);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_24_d3_shape__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_24_d3_shape__["b"]; });
@@ -972,7 +975,7 @@ var durationWeek = 6048e5;
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_24_d3_shape__["g"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_24_d3_shape__["h"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_24_d3_shape__["i"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_24_d3_shape__["j"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "p", function() { return __WEBPACK_IMPORTED_MODULE_24_d3_shape__["j"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_d3_time__ = __webpack_require__(46);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_d3_time_format__ = __webpack_require__(83);
@@ -5137,10 +5140,9 @@ function clipEdges(x0, y0, x1, y1) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["computeSpeed"] = computeSpeed;
-/* harmony export (immutable) */ __webpack_exports__["startTransitionFPS"] = startTransitionFPS;
-/* harmony export (immutable) */ __webpack_exports__["startTransitionSVG"] = startTransitionSVG;
+/* harmony export (immutable) */ __webpack_exports__["a"] = computeSpeed;
+/* harmony export (immutable) */ __webpack_exports__["b"] = startTransitionFPS;
+/* harmony export (immutable) */ __webpack_exports__["c"] = startTransitionSVG;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(10);
 
 
@@ -5183,9 +5185,11 @@ function startTransitionFPS(link, FPS) {
 function startTransitionSVG(link) {
   console.log('startTransitionSVG');
   let dashOffset = Number(link.attr('stroke-dashoffset'));
+  console.log(link.attr('stroke-dasharray'));
   let patternArray = link.attr('stroke-dasharray').split(',');
   let offset = patternArray.map(x => Number(x)).reduce((a, b) => a + b, 0);
   let offsetMinusFrequency = offset; // - Number(patternArray[patternArray.length-1])
+  console.log(dashOffset, patternArray, offset);
   function motionDash(start, offset, adjust) {
     link.attr('stroke-dashoffset', start + adjust).transition().duration(function (d) {
       return computeSpeed(Number(this.getAttribute('speed')), offsetMinusFrequency);
@@ -6143,8 +6147,8 @@ var max = Math.max;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = x;
-/* harmony export (immutable) */ __webpack_exports__["b"] = y;
+/* harmony export (immutable) */ __webpack_exports__["b"] = x;
+/* harmony export (immutable) */ __webpack_exports__["c"] = y;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_dispatch__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_d3_collection__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3_timer__ = __webpack_require__(37);
@@ -6163,7 +6167,7 @@ function y(d) {
 var initialRadius = 10,
     initialAngle = Math.PI * (3 - Math.sqrt(5));
 
-/* unused harmony default export */ var _unused_webpack_default_export = (function(nodes) {
+/* harmony default export */ __webpack_exports__["a"] = (function(nodes) {
   var simulation,
       alpha = 1,
       alphaMin = 0.001,
@@ -9650,7 +9654,7 @@ function transform(node) {
 
 
 function interpolateLink(interpolation) {
-  let lineFunction = __WEBPACK_IMPORTED_MODULE_0_d3__["l" /* line */]().x(function (d) {
+  let lineFunction = __WEBPACK_IMPORTED_MODULE_0_d3__["p" /* line */]().x(function (d) {
     return d.x;
   }).y(function (d) {
     return d.y;
@@ -9690,9 +9694,15 @@ function interpolateLink(interpolation) {
   return lineFunction;
 }
 
-function updateLinkPoints(link) {
-  __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](link).selectAll('path').attr('d', function (d) {
-    return interpolateLink(__WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](link).attr('interpolation'))(JSON.parse(__WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](link).attr('points')));
+function updateLinkPoints(source, link, target) {
+  if (!source.attr('cx') || !source.attr('cy') || !target.attr('cx') || !target.attr('cy')) return;
+  let start = [{ x: source.attr('cx'), y: source.attr('cy') }];
+  let end = [{ x: target.attr('cx'), y: target.attr('cy') }];
+
+  __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](link).selectAll('path').attr('d', function (d) {
+    let points = start;
+    if (JSON.parse(__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](link).attr('points'))) points = points.concat(JSON.parse(__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](link).attr('points')));
+    return interpolateLink(__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](link).attr('interpolation'))(points.concat(end));
   });
 }
 
@@ -9701,8 +9711,8 @@ function updateLinkPoints(link) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = frequencyToSpacing;
-/* harmony export (immutable) */ __webpack_exports__["c"] = spacingToFrequency;
+/* unused harmony export frequencyToSpacing */
+/* unused harmony export spacingToFrequency */
 /* harmony export (immutable) */ __webpack_exports__["a"] = computeParticleRender;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(10);
 
@@ -9713,143 +9723,311 @@ function frequencyToSpacing(freq, speed) {
 function spacingToFrequency(spacing, speed) {
   return speed / spacing;
 }
-function computeParticleRender(lastModify, freq, spacing, speed, pattern) {
-  console.log(lastModify, freq, spacing, speed, pattern);
+function computeParticleRender(method, freq, spacing, speed, visupattern, pattern, size) {
+  var issues = false;
+  var textIssues = '';
+  var newPattern = null;
+  var newSpeed = null;
+  var newFrequency = null;
+  var newSize = null;
+  var newSpacing = null;
 
-  let issues = false;
-  let textIssues = '';
+  console.log("method", "freq", "spacing", "speed", "visupattern", "pattern", "size");
+  console.log(method, freq, spacing, speed, visupattern, pattern, size);
 
-  if (!spacing) {
-    textIssues += ' Spacing or Frequency information missing.';issues = true;
-  }
-  if (!speed) {
-    textIssues += ' Speed information missing.';issues = true;
-  }
-  if (!pattern) {
-    textIssues += ' Pattern information missing.';issues = true;
-  }
-  if (issues) {
-    console.warn(textIssues);return;
-  }
-
-  let newPattern = JSON.parse('[' + pattern + ']');
-  let newSpeed = Number(speed);
-  let newSpacing = Number(spacing);
-  console.log(newPattern, newSpeed, newSpacing);
-
-  let spaceArray = [];
-  let indexSpaceArray = 0;
-
-  if (lastModify === "frequency") {
-    for (var i = 0; i < newSpacing; i++) {
-      spaceArray.push(0);
-    }
-    for (var i = 0; i < newPattern.length; i++) {
-      if (i % 2 === 0) {
-        for (var j = 0; j < newPattern[i]; j++) {
-          spaceArray[indexSpaceArray] = 1;
-          indexSpaceArray += 1;
+  switch (method) {
+    case 'Speed-Frequency-RelativePattern':
+      {
+        if (!speed) {
+          textIssues += ' Speed information missing.';issues = true;
         }
-      } else {
-        indexSpaceArray += newPattern[i];
-      }
-      indexSpaceArray = indexSpaceArray % newSpacing;
-    }
-    newPattern = [];
-    let count = 1;
-    console.log(spaceArray);
-    for (var i = 1; i < spaceArray.length; i++) {
-      if (spaceArray[i] != spaceArray[i - 1]) {
+        if (!freq || Number(freq) <= 0) {
+          textIssues += ' Frequency information missing.';issues = true;
+        }
+        if (!pattern) {
+          textIssues += ' Pattern information missing.';issues = true;
+        }
+        if (!size) {
+          textIssues += ' Size information missing.';issues = true;
+        }
+        if (issues) {
+          console.warn(textIssues);return [];
+        }
+
+        newPattern = JSON.parse('[' + pattern + ']');
+        newSpeed = Number(speed);
+        newFrequency = Number(freq);
+        newSize = Number(size);
+        newSpacing = frequencyToSpacing(newFrequency, newSpeed);
+
+        let spaceArray = [];
+
+        for (var i = 0; i < newSpacing; i++) {
+          spaceArray.push(0);
+        }
+        for (var i = 0; i < newPattern.length; i++) {
+          let index = parseInt(newSpacing * newPattern[i]);
+          console.log(index, newPattern[i]);
+          for (var j = index; j < index + newSize; j++) {
+            spaceArray[j % newSpacing] = 1;
+          }
+        }
+
+        newPattern = [];
+        let count = 1;
+        console.log(spaceArray);
+        for (var i = 1; i < spaceArray.length; i++) {
+          if (spaceArray[i] != spaceArray[i - 1]) {
+            newPattern.push(count);
+            count = 1;
+          } else count += 1;
+        }
         newPattern.push(count);
-        count = 1;
-      } else count += 1;
-    }
-    newPattern.push(count);
-    if (spaceArray[spaceArray.length - 1] === 1) newPattern.push(0);
-    console.log(newPattern);
-    return newPattern;
-  } else if (lastModify === "spacing") {
-    newPattern.push(newSpacing);
-    return newPattern;
-  }
-  /*
-  switch (motionModel) {
-     default:
-       if (d.frequency && d.speed) {
-        space = (d.speed / d.frequency);
-        if (d.pattern) {
-          if (d.patternType === 'absolute') {
-            spaceArray = [];
-            indexSpaceArray = 0;
-            for (var i = 0; i < space; i++) { spaceArray.push(0);}
-            for (var i = 0; i < d.width; i++) {
-              if (indexSpaceArray === spaceArray.length) return [d.width, 0];
-              spaceArray[indexSpaceArray] = 1;
-              indexSpaceArray += 1;
-            }
-            for (var i = 0; i < d.pattern.length; i++) {
-              indexSpaceArray = (indexSpaceArray + d.pattern[i]) % space;
-              for (var j = 0; j < d.width; j++) {
-                spaceArray[indexSpaceArray] = 1;
-                indexSpaceArray += 1;
-              }
-            }
-             newPattern = [];
-            count = 1;
-            for (var i = 1; i < spaceArray.length; i++) {
-              if (spaceArray[i] != spaceArray[i - 1]) {
-                newPattern.push(count);
-                count = 1;
-              } else count += 1;
-            }
-            newPattern.push(count);
-            if (spaceArray[spaceArray.length - 1] === 1) newPattern.push(0);
-            console.log(space);
-            console.log(newPattern);
-            return newPattern;
-          } else if (d.patternType === 'weight') {
-            total = d.pattern.reduce((a, b) => a + b, 0);
-            adjust = d.width / total;
-            newPattern = d.pattern.map(x => x * adjust);
-            if (space - d.width > 0) return newPattern.concat(space - d.width);
-             spaceArray = [];
-            indexSpaceArray = 0;
-            for (var i = 0; i < space; i++) { spaceArray.push(0);}
-            for (var i = 0; i < newPattern.length; i++) {
-              if (i % 2 === 0) {
-                for (var j = 0; j < newPattern[i]; j++) {
-                  spaceArray[indexSpaceArray] = 1;
-                  indexSpaceArray += 1;
-                }
-              } else {
-                indexSpaceArray += newPattern[i];
-              }
-              indexSpaceArray = (indexSpaceArray) % space;
-            }
-            newPattern = [];
-            count = 1;
-            for (var i = 1; i < spaceArray.length; i++) {
-              if (spaceArray[i] != spaceArray[i - 1]) {
-                newPattern.push(count);
-                count = 1;
-              } else count += 1;
-            }
-            newPattern.push(count);
-            if (spaceArray[spaceArray.length - 1] === 1) newPattern.push(0);
-            console.log(space);
-            console.log(newPattern);
-            return newPattern;
-           }
-        } else {
-          space = space - d.width;
-          if (space < 0) space = 0;
-          return [d.width, space];
-        }
+        if (spaceArray[spaceArray.length - 1] === 1) newPattern.push(0);
+        console.log(newPattern);
+        return newPattern;
       }
-      return [];
       break;
+
+    case 'Speed-Frequency-AbsolutePattern':
+      {
+        if (!speed) {
+          textIssues += ' Speed information missing.';issues = true;
+        }
+        if (!freq || Number(freq) <= 0) {
+          textIssues += ' Frequency information missing.';issues = true;
+        }
+        if (!visupattern) {
+          textIssues += ' VisualPattern information missing.';issues = true;
+        }
+        if (issues) {
+          console.warn(textIssues);return [];
+        }
+
+        newPattern = JSON.parse('[' + visupattern + ']');
+        newSpeed = Number(speed);
+        newFrequency = Number(freq);
+        newSpacing = frequencyToSpacing(newFrequency, newSpeed);
+
+        let spaceArray = [];
+        let lastIndex = 0;
+        for (var i = 0; i < newSpacing; i++) {
+          spaceArray.push(0);
+        }
+
+        for (var i = 0; i < newPattern.length; i++) {
+          for (var j = 0; j < newPattern[i]; j++) {
+            if (i % 2 === 0) {
+              spaceArray[lastIndex % newSpacing] = 1;
+            }
+            lastIndex += 1;
+          }
+        }
+
+        newPattern = [];
+        let count = 1;
+        console.log(spaceArray);
+        for (var i = 1; i < spaceArray.length; i++) {
+          if (spaceArray[i] != spaceArray[i - 1]) {
+            newPattern.push(count);
+            count = 1;
+          } else count += 1;
+        }
+        newPattern.push(count);
+        if (spaceArray[spaceArray.length - 1] === 1) newPattern.push(0);
+        console.log(newPattern);
+        return newPattern;
+      }
+      break;
+    case 'Speed-Spacing-RelativePattern':
+      {
+        if (!speed) {
+          textIssues += ' Speed information missing.';issues = true;
+        }
+        if (!spacing) {
+          textIssues += ' Spacing information missing.';issues = true;
+        }
+        if (!pattern) {
+          textIssues += ' Pattern information missing.';issues = true;
+        }
+        if (!size) {
+          textIssues += ' Size information missing.';issues = true;
+        }
+        if (issues) {
+          console.warn(textIssues);return [];
+        }
+
+        newPattern = JSON.parse('[' + pattern + ']');
+        newSize = Number(size);
+        newSpeed = Number(speed);
+        newSpacing = Number(spacing);
+
+        let spaceArray = [];
+
+        for (var i = 0; i < newSpacing; i++) {
+          spaceArray.push(0);
+        }
+        for (var i = 0; i < newPattern.length; i++) {
+          let index = parseInt(newSpacing * newPattern[i]);
+          console.log(index, newPattern[i]);
+          for (var j = index; j < index + newSize; j++) {
+            spaceArray[j % newSpacing] = 1;
+          }
+        }
+
+        newPattern = [];
+        let count = 1;
+        console.log(spaceArray);
+        for (var i = 1; i < spaceArray.length; i++) {
+          if (spaceArray[i] != spaceArray[i - 1]) {
+            newPattern.push(count);
+            count = 1;
+          } else count += 1;
+        }
+        newPattern.push(count);
+        if (spaceArray[spaceArray.length - 1] === 1) newPattern.push(0);
+        console.log(newPattern);
+        return newPattern;
+      }
+      break;
+    case 'Speed-Spacing-AbsolutePattern':
+      {
+        if (!speed) {
+          textIssues += ' Speed information missing.';issues = true;
+        }
+        if (!spacing) {
+          textIssues += ' Frequency information missing.';issues = true;
+        }
+        if (!visupattern) {
+          textIssues += ' VisualPattern information missing.';issues = true;
+        }
+        if (issues) {
+          console.warn(textIssues);return [];
+        }
+
+        newPattern = JSON.parse('[' + visupattern + ']');
+        newSpeed = Number(speed);
+        newSpacing = Number(spacing);
+
+        let spaceArray = [];
+        let lastIndex = 0;
+        for (var i = 0; i < newSpacing; i++) {
+          spaceArray.push(0);
+        }
+
+        for (var i = 0; i < newPattern.length; i++) {
+          for (var j = 0; j < newPattern[i]; j++) {
+            if (i % 2 === 0) {
+              spaceArray[lastIndex % newSpacing] = 1;
+            }
+            lastIndex += 1;
+          }
+        }
+
+        newPattern = [];
+        let count = 1;
+        console.log(spaceArray);
+        for (var i = 1; i < spaceArray.length; i++) {
+          if (spaceArray[i] != spaceArray[i - 1]) {
+            newPattern.push(count);
+            count = 1;
+          } else count += 1;
+        }
+        newPattern.push(count);
+        if (spaceArray[spaceArray.length - 1] === 1) newPattern.push(0);
+        console.log(newPattern);
+        return newPattern;
+      }
+      break;
+    default:
+      {
+        console.warn("No method specified, 'Speed-Frequency-RelativePattern' by default");
+        if (!speed) {
+          textIssues += ' Speed information missing.';issues = true;
+        }
+        if (!freq || Number(freq) <= 0) {
+          textIssues += ' Frequency information missing.';issues = true;
+        }
+        if (!pattern) {
+          textIssues += ' Pattern information missing.';issues = true;
+        }
+        if (!size) {
+          textIssues += ' Size information missing.';issues = true;
+        }
+        if (issues) {
+          console.warn(textIssues);return [];
+        }
+
+        newPattern = JSON.parse('[' + pattern + ']');
+        newSpeed = Number(speed);
+        newFrequency = Number(freq);
+        newSize = Number(size);
+        newSpacing = frequencyToSpacing(newFrequency, newSpeed);
+
+        let spaceArray = [];
+
+        for (var i = 0; i < newSpacing; i++) {
+          spaceArray.push(0);
+        }
+        for (var i = 0; i < newPattern.length; i++) {
+          let index = parseInt(newSpacing * newPattern[i]);
+          console.log(index, newPattern[i]);
+          for (var j = index; j < index + newSize; j++) {
+            spaceArray[j % newSpacing] = 1;
+          }
+        }
+
+        newPattern = [];
+        let count = 1;
+        console.log(spaceArray);
+        for (var i = 1; i < spaceArray.length; i++) {
+          if (spaceArray[i] != spaceArray[i - 1]) {
+            newPattern.push(count);
+            count = 1;
+          } else count += 1;
+        }
+        newPattern.push(count);
+        if (spaceArray[spaceArray.length - 1] === 1) newPattern.push(0);
+        console.log(newPattern);
+        return newPattern;
+      }
+
+    /*
+    if ( lastModify === "frequency"){
+      for (var i = 0; i < newSpacing; i++) { spaceArray.push(0);}
+      for (var i = 0; i < newPattern.length; i++) {
+        if (i % 2 === 0) {
+          for (var j = 0; j < newPattern[i]; j++) {
+            spaceArray[indexSpaceArray] = 1;
+            indexSpaceArray += 1;
+          }
+        } else {
+          indexSpaceArray += newPattern[i];
+        }
+        indexSpaceArray = (indexSpaceArray) % newSpacing;
+      }
+      newPattern = [];
+      let count = 1;
+      console.log(spaceArray);
+      for (var i = 1; i < spaceArray.length; i++) {
+        if (spaceArray[i] != spaceArray[i - 1]) {
+          newPattern.push(count);
+          count = 1;
+        } else count += 1;
+      }
+      newPattern.push(count);
+      if (spaceArray[spaceArray.length - 1] === 1) newPattern.push(0);
+      console.log(newPattern);
+      return newPattern;
+    }else if ( lastModify === "spacing"){
+      newPattern.push(newSpacing)
+      return newPattern
+    }else{
+      return []
+    }
+    */
+
   }
-  */
 }
 
 /***/ }),
@@ -9863,7 +10041,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__biblio_svg_graph_nodes_js__ = __webpack_require__(174);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__ = __webpack_require__(176);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__subgraph_svg_js__ = __webpack_require__(469);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__particle_launcher_js__ = __webpack_require__(470);
 
@@ -9882,18 +10060,16 @@ function graph(id, svg) {
 /** ********************************************************************************************/
 /** *************************************************  CREATE AND SELECTION  *******************/
 
-function flownet_svg_graph(id, svg) {
-  if (!id) console.warn('flowet graph have no id, some function may have unexpected behavior');
+function flownet_svg_graph(svg) {
   if (!svg) console.warn('SVG invalid');
-
-  this.groupGraph = __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](svg).append('g').attr('id', id);
+  this.svg_id = svg;
+  this.groupGraph = __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](svg).append('g');
   this.groupGraph.append('g').attr('id', 'links');
   this.groupGraph.select("#links").append('g').attr('id', 'edges');
-  this.groupGraph.select("#links").append('g').attr('id', 'particules');
+  this.groupGraph.select("#links").append('g').attr('id', 'particles');
   this.groupGraph.append('g').attr('id', 'nodes');
   this.filter = null;
   this.FPS = 'auto';
-  console.log(__WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__);
 }
 
 flownet_svg_graph.prototype.graph = function (graph) {
@@ -9903,21 +10079,21 @@ flownet_svg_graph.prototype.graph = function (graph) {
 };
 flownet_svg_graph.prototype.links = function (data) {
   this.groupGraph.select('#edges').selectAll("newData").data(data).enter().append('g').attr('id', function (d, i) {
-    if (d.id) return 'link_' + d.id;
+    if (d.id) return 'link_' + String(d.id);
     return 'link_' + i;
   }).each(function (d) {
-    __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this).append('path').attr('id', function (d, i) {
-      if (d.id) return 'edge_' + d.id;
+    __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this).append('path').attr('id', function (d, i) {
+      if (d.id) return 'edge_' + String(d.id);
       return 'edge_' + i;
     }).attr('fill', 'none');
   });
-  this.groupGraph.select('#particules').selectAll("newData").data(data).enter().append('g').attr('id', function (d, i) {
+  this.groupGraph.select('#particles').selectAll("newData").data(data).enter().append('g').attr('id', function (d, i) {
     if (d.id) return 'link_' + d.id;
     return 'link_' + i;
   }).each(function (d) {
-    __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this).append('g').attr('id', 'mainPath_' + d.id).append('path').attr('id', function (d, i) {
-      if (d.id) return 'particules_' + d.id;
-      return 'particules_' + i;
+    __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this).append('g').attr('id', 'mainPath_' + String(d.id)).append('path').attr('id', function (d, i) {
+      if (d.id) return 'particles_' + String(d.id);
+      return 'particles_' + i;
     }).attr('fill', 'none').attr('gate', 'none').each(function (d) {
       d.previousDashOffset = 0;
     });
@@ -9925,16 +10101,17 @@ flownet_svg_graph.prototype.links = function (data) {
   return this;
 };
 flownet_svg_graph.prototype.nodes = function (nodes) {
+  console.log(this.groupGraph);
   this.groupGraph.select('#nodes').selectAll('newData').data(nodes).enter().append('g').attr('id', function (d, i) {
-    if (d.id) return 'node_' + d.id;
+    if (d.id) return 'node_' + String(d.id);
     return 'node_' + i;
   }).each(function () {
-    __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this).append('circle').attr('id', function (d, i) {
-      if (d.id) return 'cirlce_' + d.id;
+    __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this).append('circle').attr('id', function (d, i) {
+      if (d.id) return 'cirlce_' + String(d.id);
       return 'cirlce_' + i;
     });
-    __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this).append('text').attr('id', function (d, i) {
-      if (d.id) return 'label_' + d.id;
+    __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this).append('text').attr('id', function (d, i) {
+      if (d.id) return 'label_' + String(d.id);
       return 'label_' + i;
     });
   });
@@ -9947,7 +10124,7 @@ flownet_svg_graph.prototype.select = function (id) {
   let edges = this.groupGraph.select('#links').select("#edges").selectAll("g").filter(function () {
     return this.getAttribute("id").split('_')[1] === id;
   });
-  let particles = this.groupGraph.select('#links').select("#particules").selectAll("g").filter(function () {
+  let particles = this.groupGraph.select('#links').select("#particles").selectAll("g").filter(function () {
     return this.getAttribute("id").split('_')[1] === id && this.getAttribute("id").split('_')[0] === "link";
   });
 
@@ -9956,7 +10133,7 @@ flownet_svg_graph.prototype.select = function (id) {
 flownet_svg_graph.prototype.selectAll = function () {
   let nodes = this.groupGraph.select('#nodes').selectAll("g");
   let edges = this.groupGraph.select('#links').select("#edges").selectAll("g");
-  let particles = this.groupGraph.select('#links').select("#particules").selectAll("g");
+  let particles = this.groupGraph.select('#links').select("#particles").selectAll("g");
 
   return new __WEBPACK_IMPORTED_MODULE_5__subgraph_svg_js__["a" /* flownet_svg_subgraph */](nodes, edges, particles);
 };
@@ -9964,7 +10141,38 @@ flownet_svg_graph.prototype.selectAll = function () {
 /** **********************************************************************************************************************************/
 /** *************************************************  NODE  *************************************************************************/
 
-flownet_svg_graph.prototype.nodes_properties = function (property, value) {
+flownet_svg_graph.prototype.force_layout = function (delay) {
+  var that = this;
+
+  this.simulation = __WEBPACK_IMPORTED_MODULE_0_d3__["n" /* forceSimulation */]().force("charge", __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* forceManyBody */]().strength(-200).distanceMin(50).distanceMax(500)).force("link", __WEBPACK_IMPORTED_MODULE_0_d3__["l" /* forceLink */]().id(function (d) {
+    return d.id;
+  }).distance(200));
+  if (__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this.svg_id)) {
+    console.log(__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this.svg_id));
+    this.simulation.force("center", __WEBPACK_IMPORTED_MODULE_0_d3__["k" /* forceCenter */](Number(__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this.svg_id)._groups[0][0].clientWidth) / 2, Number(__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this.svg_id)._groups[0][0].clientHeight) / 2));
+  } else {
+    console.log("no");
+    this.simulation.force("center", __WEBPACK_IMPORTED_MODULE_0_d3__["k" /* forceCenter */](0, 0));
+  }
+
+  this.simulation.nodes(this.groupGraph.select('#nodes').selectAll('g').data());
+
+  this.groupGraph.attr('visibility', "hidden");
+  setTimeout(function () {
+    that.node_properties('x', function (d, i) {
+      return d.x;
+    }).node_properties('y', function (d, i) {
+      return d.y;
+    }).node_properties('label_x', function (d, i) {
+      return d.x + 10;
+    }).node_properties('label_y', function (d, i) {
+      return d.y - 10;
+    });
+    that.groupGraph.attr('visibility', "visible");
+  }, delay);
+  return that;
+};
+flownet_svg_graph.prototype.node_properties = function (property, value) {
   function convertNodePropertyToSVG(property) {
     switch (property) {
       case 'id':
@@ -10013,7 +10221,7 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
         return undefined;
     }
   }
-
+  let that = this;
   if (property.split("_")[0] === "label") {
     let svgProp = convertLabelPropertyToSVG(property.split("_")[1]);
     let filter = this.filter;
@@ -10049,6 +10257,18 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).attr(svgProp, value);
+      if (svgProp === "cx" || svgProp === "cy") {
+        this.groupGraph.select('#links').selectAll('g').filter(function () {
+          return this.getAttribute('id') && this.getAttribute('id').split('_')[0] === 'link';
+        }).each(function (d) {
+          let source = d.source;
+          let target = d.target;
+          if (d.source === Object(d.source)) source = d.source.id;
+          if (d.target === Object(d.target)) target = d.target.id;
+          console.log(source, target);
+          __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__["b" /* updateLinkPoints */](that.groupGraph.select("#nodes").select("#node_" + source), this, that.groupGraph.select("#nodes").select("#node_" + target));
+        });
+      }
     }
   }
   return this;
@@ -10057,7 +10277,8 @@ flownet_svg_graph.prototype.nodes_properties = function (property, value) {
 /** **********************************************************************************************************************************/
 /** *************************************************  LINK **************************************************************************/
 
-flownet_svg_graph.prototype.links_properties = function (property, value) {
+flownet_svg_graph.prototype.link_properties = function (property, value) {
+  let that = this;
   function convertLinkPropertyToSVG(property) {
     // OK
     switch (property) {
@@ -10097,8 +10318,11 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
       }
       return value;
     }).each(function (d) {
-      let newinterpol = __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__["a" /* interpolateLink */](typeof value === 'function' ? value(d) : value)(d.points);
-      __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this).selectAll('path').attr(convertLinkPropertyToSVG(property), newinterpol);
+      let source = d.source;
+      let target = d.target;
+      if (d.source === Object(d.source)) source = d.source.id;
+      if (d.target === Object(d.target)) target = d.target.id;
+      __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__["b" /* updateLinkPoints */](that.groupGraph.select("#nodes").select("#node_" + source), this, that.groupGraph.select("#nodes").select("#node_" + target));
     });
   } else if (property === 'points') {
     this.groupGraph.select('#links').selectAll('g').filter(function (d, i) {
@@ -10113,7 +10337,11 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
       }
       return JSON.stringify(value);
     }).each(function (d) {
-      __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__["b" /* updateLinkPoints */](this);
+      let source = d.source;
+      let target = d.target;
+      if (d.source === Object(d.source)) source = d.source.id;
+      if (d.target === Object(d.target)) target = d.target.id;
+      __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__["b" /* updateLinkPoints */](that.groupGraph.select("#nodes").select("#node_" + source), this, that.groupGraph.select("#nodes").select("#node_" + target));
     });
   } else if (property === 'visibility') {
     this.groupGraph.select('#links').selectAll('g').filter(function (d, i) {
@@ -10138,18 +10366,19 @@ flownet_svg_graph.prototype.links_properties = function (property, value) {
 /** **********************************************************************************************************************************/
 /** *************************************************  PARTICLE  *********************************************************************/
 
-flownet_svg_graph.prototype.particule_properties = function (property, value) {
+flownet_svg_graph.prototype.particles = function (property, value) {
   let filter = this.filter;
   switch (property) {
+
     case 'computationalMethod':
       this.groupGraph.select('#links').selectAll('path').filter(function (d, i) {
         if (!filter) return true;
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('computationalMethod', value).attr('stroke-dasharray', function (d) {
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
@@ -10161,7 +10390,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), spacing: this.getAttribute('spacing') });
         });
@@ -10172,13 +10401,11 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('spacing', function (d) {
         return typeof value === 'function' ? value(d) : value;
-      }).attr('frequency', function (d) {
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["c" /* spacingToFrequency */](Number(this.getAttribute('spacing')), Number(this.getAttribute('speed')));
-      }).attr('lastModify', 'spacing').attr('stroke-dasharray', function (d) {
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+      }).attr('stroke-dasharray', function (d) {
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
@@ -10190,7 +10417,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), frequency: this.getAttribute('frequency') });
         });
@@ -10201,14 +10428,38 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('frequency', function (d) {
         return typeof value === 'function' ? value(d) : value;
-      }).attr('spacing', function (d) {
-        console.log();
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["b" /* frequencyToSpacing */](Number(this.getAttribute('frequency')), Number(this.getAttribute('speed')));
-      }).attr('lastModify', 'frequency').attr('stroke-dasharray', function (d) {
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+      }).attr('stroke-dasharray', function (d) {
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
+      });
+      break;
+
+    case 'visual_pattern':
+      if (!value) {
+        res = [];
+        this.groupGraph.select('#links').selectAll('path').filter(function (d, i) {
+          if (!filter) return true;
+          if (typeof filter === 'function') return filter(d, i);
+          return filter;
+        }).filter(function (d) {
+          return this.getAttribute('id').includes('particle');
+        }).each(function () {
+          res.push({ id: this.getAttribute('id'), visual_pattern: this.getAttribute('visual_pattern') });
+        });
+        return res;
+      }
+      this.groupGraph.select('#links').selectAll('path').filter(function (d, i) {
+        if (!filter) return true;
+        if (typeof filter === 'function') return filter(d, i);
+        return filter;
+      }).filter(function (d) {
+        return this.getAttribute('id').includes('particle');
+      }).attr('visual_pattern', function (d) {
+        return typeof value === 'function' ? value(d) : value;
+      }).attr('stroke-dasharray', function (d) {
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
@@ -10220,7 +10471,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), pattern: this.getAttribute('pattern') });
         });
@@ -10231,16 +10482,11 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('pattern', function (d) {
         return typeof value === 'function' ? value(d) : value;
       }).attr('stroke-dasharray', function (d) {
-        if (this.getAttribute('lastModify') === 'spacing') {
-          this.setAttribute('frequency', __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["c" /* spacingToFrequency */](Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
-        } else if (this.getAttribute('lastModify') === 'frequency') {
-          this.setAttribute('spacing', __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["b" /* frequencyToSpacing */](Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
-        }
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
@@ -10252,7 +10498,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), speed: this.getAttribute('speed') });
         });
@@ -10263,18 +10509,38 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('speed', function (d) {
         return typeof value === 'function' ? value(d) : value;
       }).attr('stroke-dasharray', function (d) {
-        console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
-        if (this.getAttribute('lastModify') === 'spacing') {
-          this.setAttribute('frequency', __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["c" /* spacingToFrequency */](Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
-        } else if (this.getAttribute('lastModify') === 'frequency') {
-          this.setAttribute('spacing', __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["b" /* frequencyToSpacing */](Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
-        }
-        console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
+      });
+      break;
+
+    case 'size':
+      if (!value) {
+        res = [];
+        this.groupGraph.select('#links').selectAll('path').filter(function (d, i) {
+          if (!filter) return true;
+          if (typeof filter === 'function') return filter(d, i);
+          return filter;
+        }).filter(function (d) {
+          return this.getAttribute('id').includes('particle');
+        }).each(function () {
+          res.push({ id: this.getAttribute('id'), speed: this.getAttribute('speed') });
+        });
+        return res;
+      }
+      this.groupGraph.select('#links').selectAll('path').filter(function (d, i) {
+        if (!filter) return true;
+        if (typeof filter === 'function') return filter(d, i);
+        return filter;
+      }).filter(function (d) {
+        return this.getAttribute('id').includes('particle');
+      }).attr('size', function (d) {
+        return typeof value === 'function' ? value(d) : value;
+      }).attr('stroke-dasharray', function (d) {
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
@@ -10286,7 +10552,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), color: this.getAttribute('color') });
         });
@@ -10297,7 +10563,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('stroke', value);
       break;
 
@@ -10309,7 +10575,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), height: this.getAttribute('height') });
         });
@@ -10320,7 +10586,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('stroke-width', value);
       break;
 
@@ -10332,7 +10598,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), visibility: this.getAttribute('visibility') });
         });
@@ -10343,7 +10609,7 @@ flownet_svg_graph.prototype.particule_properties = function (property, value) {
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('visibility', value);
       break;
     default:
@@ -10363,32 +10629,32 @@ flownet_svg_graph.prototype.start = function () {
   var FPS = this.FPS;
 
   if (FPS === 'auto') {
-    this.groupGraph.select('#links').select('#particules').selectAll('g').selectAll('path').filter(function (d) {
-      return this.getAttribute('id').includes('particules');
+    this.groupGraph.select('#links').select('#particles').selectAll('g').selectAll('path').filter(function (d) {
+      return this.getAttribute('id').includes('particles');
     }).each(function (d) {
-      __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__["startTransitionSVG"](__WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this));
+      __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__["c" /* startTransitionSVG */](__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this));
     });
   } else {
     this.groupGraph.select('#links').selectAll('g').select('g').selectAll('path').filter(function (d) {
-      return this.getAttribute('id').includes('particules');
+      return this.getAttribute('id').includes('particles');
     }).each(function (d) {
-      __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__["startTransitionFPS"](__WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this), FPS);
+      __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__["b" /* startTransitionFPS */](__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this), FPS);
     });
   }
   return this;
 }; // OK
 flownet_svg_graph.prototype.stop = function () {
   this.groupGraph.select('#links').selectAll('g').select('g').selectAll('path').filter(function (d) {
-    return this.getAttribute('id').includes('particules');
+    return this.getAttribute('id').includes('particles');
   }).interrupt();
   return this;
 }; // OK
 flownet_svg_graph.prototype.reset = function () {
   this.groupGraph.select('#links').selectAll('path').filter(function (d) {
-    return this.getAttribute('id').includes('particule');
+    return this.getAttribute('id').includes('particle');
   }).interrupt();
   this.groupGraph.select('#links').selectAll('path').filter(function (d) {
-    return this.getAttribute('id').includes('particule');
+    return this.getAttribute('id').includes('particle');
   }).attr('stroke-dashoffset', function (d) {
     return d.previousDashOffset;
   });
@@ -10396,16 +10662,23 @@ flownet_svg_graph.prototype.reset = function () {
 };
 
 /** **********************************************************************************************************************************/
-/** *************************************************  PARTICULE LAUNCHER  ***********************************************************/
+/** *************************************************  particle LAUNCHER  ***********************************************************/
 
-flownet_svg_graph.prototype.particule_launcher = function (idLink) {
-  console.log(this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).selectAll('g'));
-  var numberLauncher = this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).selectAll('g').filter(function () {
-    return this.getAttribute('id').includes('particuleLauncher');
+flownet_svg_graph.prototype.particles_launcher = function (idLink) {
+  console.log(this.groupGraph.select('#links').select('#particles').select('#link_' + idLink).selectAll('g'));
+  var numberLauncher = this.groupGraph.select('#links').select('#particles').select('#link_' + idLink).selectAll('g').filter(function () {
+    return this.getAttribute('id').includes('particleLauncher');
   }).size();
 
-  this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).append('g').attr('id', 'particuleLauncher' + numberLauncher + '_link_' + idLink);
-  return new __WEBPACK_IMPORTED_MODULE_6__particle_launcher_js__["a" /* particule_launcher */](this.groupGraph.select('#links').select('#particules').select('#link_' + idLink).select('#mainPath_' + idLink).select('path').attr('id'), '#particuleLauncher' + numberLauncher + '_link_' + idLink);
+  this.groupGraph.select('#links').select('#particles').select('#link_' + idLink).append('g').attr('id', 'particleLauncher' + numberLauncher + '_link_' + idLink);
+  return new __WEBPACK_IMPORTED_MODULE_6__particle_launcher_js__["a" /* particles_launcher */](this.groupGraph.select('#links').select('#particles').select('#link_' + idLink).select('#mainPath_' + idLink).select('path').attr('id'), '#particleLauncher' + numberLauncher + '_link_' + idLink);
+};
+
+/** **********************************************************************************************************************************/
+/** *************************************************  WEBGL function ***********************************************************/
+flownet_svg_graph.prototype.tracks = function () {
+  console.warn("tracks is a webgl function");
+  return this;
 };
 
 /***/ }),
@@ -15109,17 +15382,17 @@ var tsvFormatRows = tsv.formatRows;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_center__ = __webpack_require__(300);
-/* unused harmony reexport forceCenter */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__src_center__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_collide__ = __webpack_require__(301);
 /* unused harmony reexport forceCollide */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_link__ = __webpack_require__(315);
-/* unused harmony reexport forceLink */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__src_link__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_manyBody__ = __webpack_require__(316);
-/* unused harmony reexport forceManyBody */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__src_manyBody__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_radial__ = __webpack_require__(317);
 /* unused harmony reexport forceRadial */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_simulation__ = __webpack_require__(124);
-/* unused harmony reexport forceSimulation */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_5__src_simulation__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src_x__ = __webpack_require__(318);
 /* unused harmony reexport forceX */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__src_y__ = __webpack_require__(319);
@@ -15139,7 +15412,7 @@ var tsvFormatRows = tsv.formatRows;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony default export */ var _unused_webpack_default_export = (function(x, y) {
+/* harmony default export */ __webpack_exports__["a"] = (function(x, y) {
   var nodes;
 
   if (x == null) x = 0;
@@ -15839,7 +16112,7 @@ function find(nodeById, nodeId) {
   return node;
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = (function(links) {
+/* harmony default export */ __webpack_exports__["a"] = (function(links) {
   var id = index,
       strength = defaultStrength,
       strengths,
@@ -15957,7 +16230,7 @@ function find(nodeById, nodeId) {
 
 
 
-/* unused harmony default export */ var _unused_webpack_default_export = (function() {
+/* harmony default export */ __webpack_exports__["a"] = (function() {
   var nodes,
       node,
       alpha,
@@ -15968,7 +16241,7 @@ function find(nodeById, nodeId) {
       theta2 = 0.81;
 
   function force(_) {
-    var i, n = nodes.length, tree = Object(__WEBPACK_IMPORTED_MODULE_2_d3_quadtree__["a" /* quadtree */])(nodes, __WEBPACK_IMPORTED_MODULE_3__simulation__["a" /* x */], __WEBPACK_IMPORTED_MODULE_3__simulation__["b" /* y */]).visitAfter(accumulate);
+    var i, n = nodes.length, tree = Object(__WEBPACK_IMPORTED_MODULE_2_d3_quadtree__["a" /* quadtree */])(nodes, __WEBPACK_IMPORTED_MODULE_3__simulation__["b" /* x */], __WEBPACK_IMPORTED_MODULE_3__simulation__["c" /* y */]).visitAfter(accumulate);
     for (alpha = _, i = 0; i < n; ++i) node = nodes[i], tree.visit(apply);
   }
 
@@ -23511,7 +23784,7 @@ function nopropagation() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__biblio_svg_graph_nodes_js__ = __webpack_require__(174);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__ = __webpack_require__(176);
 
 
 
@@ -23524,7 +23797,7 @@ function nopropagation() {
 function flownet_svg_subgraph(nodes, edges, particles) {
   this.nodes = nodes;
   this.edges = edges;
-  this.particles = particles;
+  this.particles_group = particles;
 
   this.filter = null;
   this.FPS = 'auto';
@@ -23537,7 +23810,7 @@ flownet_svg_subgraph.prototype.select = function (id) {
   let edges = this.edges.filter(function () {
     return this.getAttribute("id").split('_')[1] === id;
   });
-  let particles = this.particles.filter(function () {
+  let particles = this.particles_group.filter(function () {
     return this.getAttribute("id").split('_')[1] === id && this.getAttribute("id").split('_')[0] === "link";
   });
 
@@ -23546,7 +23819,7 @@ flownet_svg_subgraph.prototype.select = function (id) {
 flownet_svg_subgraph.prototype.selectAll = function () {
   let nodes = this.nodes;
   let edges = this.edges;
-  let particles = this.particles;
+  let particles = this.particles_group;
 
   return new flownet_svg_subgraph(nodes, edges, particles);
 };
@@ -23557,7 +23830,7 @@ flownet_svg_subgraph.prototype.filters = function (fun) {
   let edges = this.edges.filter(function (d, i) {
     return fun(d, i);
   });
-  let particles = this.particles.filter(function (d, i) {
+  let particles = this.particles_group.filter(function (d, i) {
     return fun(d, i);
   });
 
@@ -23566,14 +23839,14 @@ flownet_svg_subgraph.prototype.filters = function (fun) {
 flownet_svg_subgraph.prototype.remove = function () {
   this.nodes.remove();
   this.edges.remove();
-  this.particles.remove();
+  this.particles_group.remove();
   return this;
 };
 
 /** **********************************************************************************************************************************/
 /** *************************************************  NODE  *************************************************************************/
 
-flownet_svg_subgraph.prototype.nodes_properties = function (property, value) {
+flownet_svg_subgraph.prototype.node_properties = function (property, value) {
   function convertNodePropertyToSVG(property) {
     switch (property) {
       case 'id':
@@ -23666,7 +23939,7 @@ flownet_svg_subgraph.prototype.nodes_properties = function (property, value) {
 /** **********************************************************************************************************************************/
 /** *************************************************  LINK **************************************************************************/
 
-flownet_svg_subgraph.prototype.links_properties = function (property, value) {
+flownet_svg_subgraph.prototype.link_properties = function (property, value) {
   function convertLinkPropertyToSVG(property) {
     // OK
     switch (property) {
@@ -23707,9 +23980,9 @@ flownet_svg_subgraph.prototype.links_properties = function (property, value) {
       return value;
     }).each(function (d) {
       let newinterpol = __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__["a" /* interpolateLink */](typeof value === 'function' ? value(d) : value)(d.points);
-      __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this).selectAll('path').attr(convertLinkPropertyToSVG(property), newinterpol);
+      __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this).selectAll('path').attr(convertLinkPropertyToSVG(property), newinterpol);
     });
-    this.particles.filter(function (d) {
+    this.particles_group.filter(function (d) {
       return this.getAttribute('id').includes('link_');
     }).filter(function (d, i) {
       if (!filter) return true;
@@ -23723,7 +23996,7 @@ flownet_svg_subgraph.prototype.links_properties = function (property, value) {
       return value;
     }).each(function (d) {
       let newinterpol = __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__["a" /* interpolateLink */](typeof value === 'function' ? value(d) : value)(d.points);
-      __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this).selectAll('path').attr(convertLinkPropertyToSVG(property), newinterpol);
+      __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this).selectAll('path').attr(convertLinkPropertyToSVG(property), newinterpol);
     });
   } else if (property === 'points') {
     this.edges.filter(function (d, i) {
@@ -23740,7 +24013,7 @@ flownet_svg_subgraph.prototype.links_properties = function (property, value) {
     }).each(function (d) {
       __WEBPACK_IMPORTED_MODULE_3__biblio_svg_graph_links_js__["b" /* updateLinkPoints */](this);
     });
-    this.particles.selectAll('g').filter(function (d, i) {
+    this.particles_group.selectAll('g').filter(function (d, i) {
       if (!filter) return true;
       if (typeof filter === 'function') return filter(d, i);
       return filter;
@@ -23773,212 +24046,222 @@ flownet_svg_subgraph.prototype.links_properties = function (property, value) {
 /** **********************************************************************************************************************************/
 /** *************************************************  PARTICLE  *********************************************************************/
 
-flownet_svg_subgraph.prototype.particule_properties = function (property, value) {
+flownet_svg_subgraph.prototype.particles = function (property, value) {
   let filter = this.filter;
   switch (property) {
     case 'computationalMethod':
-      this.particles.selectAll('path').filter(function (d, i) {
+      this.particles_group.selectAll('path').filter(function (d, i) {
         if (!filter) return true;
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('computationalMethod', value).attr('stroke-dasharray', function (d) {
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
     case 'spacing':
       if (!value) {
         res = [];
-        this.particles.selectAll('path').filter(function (d, i) {
+        this.particles_group.selectAll('path').filter(function (d, i) {
           if (!filter) return true;
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), spacing: this.getAttribute('spacing') });
         });
         return res;
       }
-      this.particles.selectAll('path').filter(function (d, i) {
+      this.particles_group.selectAll('path').filter(function (d, i) {
         if (!filter) return true;
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('spacing', function (d) {
         return typeof value === 'function' ? value(d) : value;
-      }).attr('frequency', function (d) {
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["c" /* spacingToFrequency */](Number(this.getAttribute('spacing')), Number(this.getAttribute('speed')));
-      }).attr('lastModify', 'spacing').attr('stroke-dasharray', function (d) {
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+      }).attr('stroke-dasharray', function (d) {
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
     case 'frequency':
       if (!value) {
         res = [];
-        this.particles.selectAll('path').filter(function (d, i) {
+        this.particles_group.selectAll('path').filter(function (d, i) {
           if (!filter) return true;
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), frequency: this.getAttribute('frequency') });
         });
         return res;
       }
-      this.particles.selectAll('path').filter(function (d, i) {
+      this.particles_group.selectAll('path').filter(function (d, i) {
         if (!filter) return true;
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('frequency', function (d) {
         return typeof value === 'function' ? value(d) : value;
-      }).attr('spacing', function (d) {
-        console.log();
-        return frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed')));
-      }).attr('lastModify', 'frequency').attr('stroke-dasharray', function (d) {
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+      }).attr('stroke-dasharray', function (d) {
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
+      });
+      break;
+
+    case 'visual_pattern':
+      if (!value) {
+        res = [];
+        this.particles_group.selectAll('path').filter(function (d, i) {
+          if (!filter) return true;
+          if (typeof filter === 'function') return filter(d, i);
+          return filter;
+        }).filter(function (d) {
+          return this.getAttribute('id').includes('particle');
+        }).each(function () {
+          res.push({ id: this.getAttribute('id'), visual_pattern: this.getAttribute('visual_pattern') });
+        });
+        return res;
+      }
+      this.particles_group.selectAll('path').filter(function (d, i) {
+        if (!filter) return true;
+        if (typeof filter === 'function') return filter(d, i);
+        return filter;
+      }).filter(function (d) {
+        return this.getAttribute('id').includes('particle');
+      }).attr('visual_pattern', function (d) {
+        return typeof value === 'function' ? value(d) : value;
+      }).attr('stroke-dasharray', function (d) {
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
     case 'pattern':
       if (!value) {
         res = [];
-        this.particles.selectAll('path').filter(function (d, i) {
+        this.particles_group.selectAll('path').filter(function (d, i) {
           if (!filter) return true;
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), pattern: this.getAttribute('pattern') });
         });
         return res;
       }
-      this.particles.selectAll('path').filter(function (d, i) {
+      this.particles_group.selectAll('path').filter(function (d, i) {
         if (!filter) return true;
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('pattern', function (d) {
         return typeof value === 'function' ? value(d) : value;
       }).attr('stroke-dasharray', function (d) {
-        if (this.getAttribute('lastModify') === 'spacing') {
-          this.setAttribute('frequency', __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["c" /* spacingToFrequency */](Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
-        } else if (this.getAttribute('lastModify') === 'frequency') {
-          this.setAttribute('spacing', frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
-        }
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
     case 'speed':
       if (!value) {
         res = [];
-        this.particles.selectAll('path').filter(function (d, i) {
+        this.particles_group.selectAll('path').filter(function (d, i) {
           if (!filter) return true;
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), speed: this.getAttribute('speed') });
         });
         return res;
       }
-      this.particles.selectAll('path').filter(function (d, i) {
+      this.particles_group.selectAll('path').filter(function (d, i) {
         if (!filter) return true;
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('speed', function (d) {
         return typeof value === 'function' ? value(d) : value;
       }).attr('stroke-dasharray', function (d) {
-        console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
-        if (this.getAttribute('lastModify') === 'spacing') {
-          this.setAttribute('frequency', __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["c" /* spacingToFrequency */](Number(this.getAttribute('spacing')), Number(this.getAttribute('speed'))));
-        } else if (this.getAttribute('lastModify') === 'frequency') {
-          this.setAttribute('spacing', frequencyToSpacing(Number(this.getAttribute('frequency')), Number(this.getAttribute('speed'))));
-        }
-        console.log(this.getAttribute('lastModify'), this.getAttribute('frequency'), this.getAttribute('spacing'));
-        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particules_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('pattern'));
+        return __WEBPACK_IMPORTED_MODULE_4__biblio_svg_graph_particles_js__["a" /* computeParticleRender */](this.getAttribute('computationalMethod'), this.getAttribute('frequency'), this.getAttribute('spacing'), this.getAttribute('speed'), this.getAttribute('visual_pattern'), this.getAttribute('pattern'), this.getAttribute('size'));
       });
       break;
 
     case 'color':
       if (!value) {
         res = [];
-        this.particles.selectAll('path').filter(function (d, i) {
+        this.particles_group.selectAll('path').filter(function (d, i) {
           if (!filter) return true;
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), color: this.getAttribute('color') });
         });
         return res;
       }
-      this.particles.selectAll('path').filter(function (d, i) {
+      this.particles_group.selectAll('path').filter(function (d, i) {
         if (!filter) return true;
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('stroke', value);
       break;
 
     case 'height':
       if (!value) {
         res = [];
-        this.particles.selectAll('path').filter(function (d, i) {
+        this.particles_group.selectAll('path').filter(function (d, i) {
           if (!filter) return true;
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), height: this.getAttribute('height') });
         });
         return res;
       }
-      this.particles.selectAll('path').filter(function (d, i) {
+      this.particles_group.selectAll('path').filter(function (d, i) {
         if (!filter) return true;
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('stroke-width', value);
       break;
 
     case 'visibility':
       if (!value) {
         res = [];
-        this.particles.selectAll('path').filter(function (d, i) {
+        this.particles_group.selectAll('path').filter(function (d, i) {
           if (!filter) return true;
           if (typeof filter === 'function') return filter(d, i);
           return filter;
         }).filter(function (d) {
-          return this.getAttribute('id').includes('particule');
+          return this.getAttribute('id').includes('particle');
         }).each(function () {
           res.push({ id: this.getAttribute('id'), visibility: this.getAttribute('visibility') });
         });
         return res;
       }
-      this.particles.selectAll('path').filter(function (d, i) {
+      this.particles_group.selectAll('path').filter(function (d, i) {
         if (!filter) return true;
         if (typeof filter === 'function') return filter(d, i);
         return filter;
       }).filter(function (d) {
-        return this.getAttribute('id').includes('particule');
+        return this.getAttribute('id').includes('particle');
       }).attr('visibility', value);
       break;
 
@@ -23999,32 +24282,32 @@ flownet_svg_subgraph.prototype.start = function () {
   var FPS = this.FPS;
 
   if (FPS === 'auto') {
-    this.particles.selectAll('path').filter(function (d) {
-      return this.getAttribute('id').includes('particules');
+    this.particles_group.selectAll('path').filter(function (d) {
+      return this.getAttribute('id').includes('particles');
     }).each(function (d) {
-      __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__["startTransitionSVG"](__WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this));
+      __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__["c" /* startTransitionSVG */](__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this));
     });
   } else {
-    this.particles.selectAll('path').filter(function (d) {
-      return this.getAttribute('id').includes('particules');
+    this.particles_group.selectAll('path').filter(function (d) {
+      return this.getAttribute('id').includes('particles');
     }).each(function (d) {
-      __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__["startTransitionFPS"](__WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this), FPS);
+      __WEBPACK_IMPORTED_MODULE_1__biblio_svg_graph_animation_js__["b" /* startTransitionFPS */](__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this), FPS);
     });
   }
   return this;
 }; // OK
 flownet_svg_subgraph.prototype.stop = function () {
-  this.particles.selectAll('path').filter(function (d) {
-    return this.getAttribute('id').includes('particules');
+  this.particles_group.selectAll('path').filter(function (d) {
+    return this.getAttribute('id').includes('particles');
   }).interrupt();
   return this;
 }; // OK
 flownet_svg_subgraph.prototype.reset = function () {
-  this.particles.selectAll('path').filter(function (d) {
-    return this.getAttribute('id').includes('particule');
+  this.particles_group.selectAll('path').filter(function (d) {
+    return this.getAttribute('id').includes('particle');
   }).interrupt();
-  this.particles.selectAll('path').filter(function (d) {
-    return this.getAttribute('id').includes('particule');
+  this.particles_group.selectAll('path').filter(function (d) {
+    return this.getAttribute('id').includes('particle');
   }).attr('stroke-dashoffset', function (d) {
     return d.previousDashOffset;
   });
@@ -24036,20 +24319,20 @@ flownet_svg_subgraph.prototype.reset = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = particule_launcher;
+/* harmony export (immutable) */ __webpack_exports__["a"] = particles_launcher;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__biblio_launcher_launcher_js__ = __webpack_require__(471);
 
 
 
-function particule_launcher(ref, id) {
+function particles_launcher(ref, id) {
   this.d = ref;
   this.entryPoint = id;
   this.waiting = [];
   this.fired = [];
   this.prepare = [];
 }
-particule_launcher.prototype.prepare_particule = function (data) {
+particles_launcher.prototype.prepare_particles = function (data) {
   this.prepare = [];
   if (data) {
     for (var i = 0; i < data.length; i++) {
@@ -24060,7 +24343,7 @@ particule_launcher.prototype.prepare_particule = function (data) {
   }
   return this;
 };
-particule_launcher.prototype.particule_properties = function (property, value, gate) {
+particles_launcher.prototype.particles = function (property, value, gate) {
   if (!value && value !== 0) throw 'value is not defined';
   if (!property) throw 'property is not defined';
 
@@ -24090,28 +24373,28 @@ particule_launcher.prototype.particule_properties = function (property, value, g
   }
   return this;
 };
-particule_launcher.prototype.on_start = function (fun) {
+particles_launcher.prototype.on_start = function (fun) {
   if (typeof fun !== 'function') throw 'argument must be a function';
   for (var i = 0; i < this.prepare.length; i++) {
     this.prepare[i].onstartfun = fun;
   }
   return this;
 };
-particule_launcher.prototype.on_end = function (fun) {
+particles_launcher.prototype.on_end = function (fun) {
   if (typeof fun !== 'function') throw 'argument must be a function';
   for (var i = 0; i < this.prepare.length; i++) {
     this.prepare[i].onendfun = fun;
   }
   return this;
 };
-particule_launcher.prototype.load_particule = function () {
+particles_launcher.prototype.load_particles = function () {
   this.waiting = this.waiting.concat(this.prepare);
   this.prepare = [];
   return this;
 };
-particule_launcher.prototype.fire_particule = function () {
+particles_launcher.prototype.fire_particles = function () {
   for (var i = 0; i < this.waiting.length; i++) {
-    this.fired.push(__WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this.entryPoint).append('g').selectAll('path').data([this.waiting[i]]).enter().append('path').attr('id', this.waiting[i].id).attr('fill', 'none').attr('d', __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */]('#' + this.d).attr('d')).attr('stroke', this.waiting[i].color[0]).attr('stroke-width', this.waiting[i].height[0]).attr('pattern', this.waiting[i].pattern).attr('speed', this.waiting[i].speed[0]).attr('delay', this.waiting[i].delay).attr('stroke-dasharray', function (d) {
+    this.fired.push(__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this.entryPoint).append('g').selectAll('path').data([this.waiting[i]]).enter().append('path').attr('id', this.waiting[i].id).attr('fill', 'none').attr('d', __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */]('#' + this.d).attr('d')).attr('stroke', this.waiting[i].color[0]).attr('stroke-width', this.waiting[i].height[0]).attr('pattern', this.waiting[i].pattern).attr('speed', this.waiting[i].speed[0]).attr('delay', this.waiting[i].delay).attr('stroke-dasharray', function (d) {
       let res = __WEBPACK_IMPORTED_MODULE_1__biblio_launcher_launcher_js__["a" /* computeInteractiveParticleRender */](this.getAttribute('speed'), this.getAttribute('stroke-dasharray'), this.getAttribute('pattern'), this.getTotalLength(), this.getAttribute('stroke-dashoffset'));
       this.setAttribute('numberToDestroy', res.length / 2);
       let offset = res.reduce((a, b) => a + b, 0) - res[res.length - 1];
@@ -24119,7 +24402,7 @@ particule_launcher.prototype.fire_particule = function () {
       res[res.length - 1] += offset;
       return res;
     }).each(function (d) {
-      __WEBPACK_IMPORTED_MODULE_1__biblio_launcher_launcher_js__["b" /* startTransitionSVG_fire */](__WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](this), false, Number(this.getAttribute('delay')), 0);
+      __WEBPACK_IMPORTED_MODULE_1__biblio_launcher_launcher_js__["b" /* startTransitionSVG_fire */](__WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](this), false, Number(this.getAttribute('delay')), 0);
     }));
     this.fired.push(this.waiting[i]);
   }
@@ -24146,10 +24429,10 @@ function startTransitionSVG_fire(link, full, delay, step) {
   patternArray = [0, 0].concat(patternArray);
 
   link.transition().delay(delay).duration(function (d) {
-    return __WEBPACK_IMPORTED_MODULE_1__svg_graph_animation_js__["computeSpeed"](Number(link.attr('speed')), lengthOfLastPart);
+    return __WEBPACK_IMPORTED_MODULE_1__svg_graph_animation_js__["a" /* computeSpeed */](Number(link.attr('speed')), lengthOfLastPart);
   }).ease(__WEBPACK_IMPORTED_MODULE_0_d3__["j" /* easeLinear */]).attrTween('stroke-dasharray', function (d) {
-    let last = __WEBPACK_IMPORTED_MODULE_0_d3__["k" /* interpolate */](patternArray[patternArray.length - 1], 0);
-    let first = __WEBPACK_IMPORTED_MODULE_0_d3__["k" /* interpolate */](0, patternArray[patternArray.length - 1]);
+    let last = __WEBPACK_IMPORTED_MODULE_0_d3__["o" /* interpolate */](patternArray[patternArray.length - 1], 0);
+    let first = __WEBPACK_IMPORTED_MODULE_0_d3__["o" /* interpolate */](0, patternArray[patternArray.length - 1]);
 
     return function (t) {
       patternArray[1] = first(t);
@@ -24168,7 +24451,7 @@ function startTransitionSVG_fire(link, full, delay, step) {
       link.attr('numberToDestroy', nbToDestroy);
       if (d.onendfun) d.onendfun(d.data, 0);
       if (nbToDestroy <= 0) {
-        __WEBPACK_IMPORTED_MODULE_0_d3__["m" /* select */](link._groups[0][0].parentNode).remove();
+        __WEBPACK_IMPORTED_MODULE_0_d3__["q" /* select */](link._groups[0][0].parentNode).remove();
       } else startTransitionSVG_fire(link, false, 0, step += 1);
     } else {
       let newArray = link.attr('stroke-dasharray').split(',').map(x => Number(x));
@@ -24212,4 +24495,4 @@ function computeInteractiveParticleRender(speed, actualPattern, pattern, total_l
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=flownet_SVG.js.map
+//# sourceMappingURL=flownet.js.map
