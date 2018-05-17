@@ -1,20 +1,18 @@
-# flownet_SVG: API
+# flownet: SVG-API
 
 ## Summary
 
 ### Graph creation
 
-* <a href="#graph"> flownet_SVG.graph( id, svg )</a>
+* <a href="#graph"> flownet.graph( "#svgid" )</a>
 * <a href="#nodes"> flownetGraph.nodes( data_Nodes )</a>
 * <a href="#links"> flownetGraph.links( data_Links )</a>
-* <a href="#node_property"> flownetGraph.nodes_properties( property, value )</a>
-* <a href="#link_property"> flownetGraph.links_properties( property, value )</a>
-* <a href="#particule_property"> flownetGraph.particule_properties( property, value )</a>
+* <a href="#node_property"> flownetGraph.node_properties( property, value )</a>
+* <a href="#link_property"> flownetGraph.link_properties( property, value )</a>
+* <a href="#particule_property"> flownetGraph.particles( property, value )</a>
 
 ### Graph animation
 
-* <a href="#animation_delay"> flownetGraph.delay( value )</a>
-* <a href="#animation_fps"> flownetGraph.fps( value )</a>
 * <a href="#animation_start"> flownetGraph.start( )</a>
 * <a href="#animation_stop"> flownetGraph.stop( )</a>
 * <a href="#animation_reset"> flownetGraph.reset( )</a>
@@ -24,7 +22,7 @@
 
 * <a href="#particule_launcher"> flownetGraph.particule_launcher( id_link )</a>
 * <a href="#launcher_prepare_particule"> launcher.prepare_particule( )</a>
-* <a href="#launcher_particule_properties"> launcher.particule_properties( property, value )</a>
+* <a href="#launcher_particles"> launcher.particles( property, value )</a>
 * <a href="#launcher_onStart"> launcher.on_start( function( ){ } )</a>
 * <a href="#launcher_onEnd"> launcher.on_end( function( ){ } )</a>
 * <a href="#launcher_load"> launcher.load( )</a>
@@ -73,11 +71,11 @@ Fill the graph previously created with **links** according to the number of Obje
 ## Nodes
 
 ```js
-flownetGraph.nodes_properties("property", "value")
-flownetGraph.nodes_properties("property", function(d,i){ return "value"})
-flownetGraph.nodes_properties("property", function(d,i){ return d.value})
+flownetGraph.node_properties("property", "value")
+flownetGraph.node_properties("property", function(d,i){ return "value"})
+flownetGraph.node_properties("property", function(d,i){ return d.value})
 ```
-<a href="#node_property" name="node_property">#</a> flownetGraph.**nodes_properties("property", "value")**
+<a href="#node_property" name="node_property">#</a> flownetGraph.**node_properties("property", "value")**
 
 Set-up the specified property for each node in the graph according to the specified value. Like shown in the example above,
 it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
@@ -92,11 +90,11 @@ position of the nodes in the nested selection (like d3).
 ## Links
 
 ```js
-flownetGraph.links_properties("property", "value")
-flownetGraph.links_properties("property", function(d,i){ return "value"})
-flownetGraph.links_properties("property", function(d,i){ return d.value})
+flownetGraph.link_properties("property", "value")
+flownetGraph.link_properties("property", function(d,i){ return "value"})
+flownetGraph.link_properties("property", function(d,i){ return d.value})
 ```
-<a href="#link_property" name="link_property">#</a> flownetGraph.**links_properties("property", "value")**
+<a href="#link_property" name="link_property">#</a> flownetGraph.**link_properties("property", "value")**
 
 Set-up the specified property for each link in the graph according to the specified value. Like shown in the example above,
 it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
@@ -117,11 +115,11 @@ position of the nodes in the nested selection (like d3).
 ## Particules
 
 ```js
-flownetGraph.particule_properties("property", "value")
-flownetGraph.particule_properties("property", function(d,i){ return "value"})
-flownetGraph.particule_properties("property", function(d,i){ return d.value})
+flownetGraph.particles("property", "value")
+flownetGraph.particles("property", function(d,i){ return "value"})
+flownetGraph.particles("property", function(d,i){ return d.value})
 ```
-<a href="#particule_property" name="particule_property">#</a> flownetGraph.**particule_properties("property", "value")**
+<a href="#particule_property" name="particule_property">#</a> flownetGraph.**particles("property", "value")**
 
 Set-up the specified property for each link in the graph according to the specified value. Like shown in the example above,
 it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
@@ -181,7 +179,7 @@ A launcher is used to fire several particules manually, it is based on three ste
 ```js
 launcher = flownetGraph.particule_launcher("id_link")
             .prepare_particule() // Create one new particle
-            .particule_properties("property","value")
+            .particles("property","value")
             .on_start(function(){})
             .on_end(function(){})
             .load_particule()
@@ -196,7 +194,7 @@ Create a particles launcher on the link that possess the specified id. Particles
 
 Create "empty" particles waiting to be set up. Without argument only one "empty" particle will be created, but by passing an array of object to the function this will create several "empty" particles with their respective data bind to them.
 
-<a href="#launcher_particule_properties" name="launcher_particule_properties">#</a> launcher.**particule_properties("property","value")**
+<a href="#launcher_particles" name="launcher_particles">#</a> launcher.**particles("property","value")**
 
 Set up the different properties of the <a>"empty" particule</a> that will be take into account when they will be launched.
 * id: Set an id to the particle, important in order to interact with it with some function.

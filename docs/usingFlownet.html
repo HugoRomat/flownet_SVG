@@ -227,6 +227,17 @@ var flownetGraph = flownet.graph('#view')
 
     .start()
 
+var launcher = flownetGraph.particles_launcher('0')
+    .prepare_particles()
+    .particles('id','particleLauncher')
+    .particles('height',8)
+    .particles('color','darkred')
+    .particles('pattern',[20])
+    .particles('speed',150)
+    .particles('delay',0)
+    .load_particles()
+    .fire_particles()
+
         </div>
     </div>
     <div id="canvasView">
