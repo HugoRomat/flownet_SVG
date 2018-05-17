@@ -219,29 +219,12 @@ var flownetGraph = flownet.graph('#view')
     .particles('size', function(d,i){ return 10})
     .particles('height', function(d,i){ return 2})
 
+    // computationalMethod let you choose how the particles position will be calculated, see the Wiki for more explanation
+    //.particles("computationalMethod", "Speed-Frequency-RelativePattern") //default method of computation
+    .particles('speed', function(d,i){ return 40})
+    .particles("frequency", 1)
+    .particles('pattern', function(d,i){ return [0.0,0.3]})
 
-    //.particles("computationalMethod", "Speed-Frequency-RelativePattern")
-    .particles('speed', function(d,i){ return 40})
-    .particles("frequency", 1)
-    .particles('pattern', function(d,i){ return [0.0,0.3]})
-    /*
-    .particles("computationalMethod", "Speed-Frequency-AbsolutePattern")
-    .particles('speed', function(d,i){ return 40})
-    .particles("frequency", 1)
-    .particles('visual_pattern', function(d,i){ return [10,2,10]})
-    */
-    /*
-    .particles("computationalMethod", "Speed-Spacing-RelativePattern")
-    .particles('speed', function(d,i){ return 40})
-    .particles("spacing", 60)
-    .particles('pattern', function(d,i){ return [0.0,0.3]})
-    */
-    /*
-    .particles("computationalMethod", "Speed-Spacing-AbsolutePattern")
-    .particles('speed', function(d,i){ return 40})
-    .particles("spacing", 60)
-    .particles('visual_pattern', function(d,i){ return [10,2,10]})
-    */
     .start()
 
         </div>

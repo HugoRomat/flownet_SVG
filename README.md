@@ -1,4 +1,4 @@
-# flownet_SVG
+# flownet: SVG version
 
 
 **flownet**  is a JavaScript library for visualizing data using particles flow.
@@ -12,34 +12,34 @@ This is the SVG version of flownet, it exist also a [webgl version.](https://git
 * [Examples]()
 * [Gallery]()
 
-## Example
+## Quick template of a flownet graph
 
-The first example shows a basic template of a flownet_SVG graph using a JSON that contain data used in the graph. First a "flownetGraph" is created with the id:"example" and nodes and links are created according to the data that are bind to them. Then several properties like color, size... are set up for the nodes, link and particles. Finally the particles are set to motion using start().
+The first example shows a basic template of a flownet graph using a JSON that contain data used in the graph. First a "flownet.graph" is created taking into parameter the svg's id in which it will be displayed Next nodes and links are created according to the data that are bind to them using the corresponding nodes()/links() function. Then users set up several properties like color, size... for the nodes, link and particles. Finally the particles are set to motion using start().
 
 ```js
 data = {
-  nodes:[{id:"n0", size:20}, {id:"n1", size:10}],
-  links:[{id:"l0", points:[{x:100, y:100}, {x:200, y:200}, {x:300, y:100}], speed:100, frequency:1 }]
+  nodes:[{id:"node0", size:20}, {id:"node1", size:10}],
+  links:[{id:"link0", source: "n0", target:"n1", speed:100, frequency:1, pattern:[0.0,0.3] }]
 }
-flownetGraph = flownet_SVG.graph("example", SVG)
+flownetGraph = flownet.graph("#SVGid")
     .nodes(data.nodes)
     .links(data.links)
 
-    .nodes_properties("id", function(d,i){ return d.id})
-    .nodes_properties("color", "black")
-    .nodes_properties("size", function(d,i){ return d.size})
+    .node_properties("id", function(d,i){ return d.id})
+    .node_properties("color", "black")
+    .node_properties("size", function(d,i){ return d.size})
 
-    .links_properties("id", function(d,i){ return d.id})
-    .links_properties("points", function(d,i){ return d.points})
-    .links_properties("interpolation", "cardinal")
-    .links_properties("color", "#dddddd")
-    .links_properties("size", 9)
+    .link_properties("id", function(d,i){ return d.id})
+    .link_properties("interpolation", "cardinal")
+    .link_properties("color", "#dddddd")
+    .link_properties("size", 9)
 
-    .particule_properties("color", "black")
-    .particule_properties("height", 4)
-    .particule_properties("speed", function(d,i){ return d.speed})
-    .particule_properties("frequency", function(d,i){ return d.frequency})
-    .particule_properties("pattern", [10])
+    .particles("color", "black")
+    .particles("height", 3)
+    .particles("size", 8)
+    .particles("speed", function(d,i){ return d.speed})
+    .particles("frequency", function(d,i){ return d.frequency})
+    .particles("pattern", function(d,i){ return d.pattern})
 
     .start()
 ```
@@ -47,18 +47,17 @@ flownetGraph = flownet_SVG.graph("example", SVG)
 The second example shows the creation and utilisation of a flownet_SVG particle launcher. First a launcher is created on the links with the id:"l0" then a particle is created and its properties are setting up. Once ready the particle is stock using the load_particule() function and fire when the fire_particule() is invoke.
 
 ```js
-special_Particle = { id:"p0", speed:200, pattern:[20,4,20] }]
+special_Particle = { id:"particle", speed:200, pattern:[20] }]
 }
-launcher = flownetGraph.particule_launcher("l0")
+launcher = flownetGraph.particule_launcher("link0")
+    .prepare_particule()
+    .particule_properties("id", function(d,i){ return d.id})
+    .particule_properties("pattern", function(d,i){ return d.pattern})
+    .particule_properties("speed", function(d,i){ return d.speed})
+    .particule_properties("color", "blue")
+    .particule_properties("height", 6)  
 
-            .prepare_particule()
-            .particule_properties("id", function(d,i){ return d.id})
-            .particule_properties("pattern", function(d,i){ return d.pattern})
-            .particule_properties("speed", function(d,i){ return d.speed})
-            .particule_properties("color", "blue")
-            .particule_properties("height", 6)  
+    .load_particule()
 
-            .load_particule()
-
-            .fire_particule()
+    .fire_particule()
 ```
