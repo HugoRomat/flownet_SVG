@@ -141,7 +141,7 @@ position of the nodes in the nested selection (like d3).
 #### Basic properties
 * color: The color of the particles supported by several color encoding (hsl, rgb...).
 * height: The height of the particle inside the link.
-<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/particle_height/height.png" width="900" height="120">
+<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/particule_height/height.png" width="900" height="120">
 * size: The width of the particles inside the links (used with pattern and override when visual pattern is used).
 * visual_pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element.
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/pattern/pattern.png" width="900" height="120">
