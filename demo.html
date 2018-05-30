@@ -80,7 +80,37 @@
   }
 
   function fire2(){
-    launcher = app.particles_launcher('0')
+    launcher = app.particles_launcher('1')
+    .prepare_particles([{id:'f1',delay:0,speed:50},{id:'f2',delay:2000, speed:250}])
+    .particles('id',function(d,i){return d.id})
+    .particles('height',10)
+    .particles('color','blue')
+    .particles('pattern',[20,3,20])
+    .particles('speed',function(d,i){return d.speed})
+    .particles('delay',function(d,i){return d.delay})
+    .on_start(function(d,i){ console.log(d.id,i);})
+    .on_end(function(d,i){ console.log(d.id,i);})
+    .load_particles()
+    .fire_particles()
+
+    console.log(launcher);
+
+    launcher = app.particles_launcher('2')
+    .prepare_particles([{id:'f1',delay:0,speed:50},{id:'f2',delay:2000, speed:250}])
+    .particles('id',function(d,i){return d.id})
+    .particles('height',10)
+    .particles('color','blue')
+    .particles('pattern',[20,3,20])
+    .particles('speed',function(d,i){return d.speed})
+    .particles('delay',function(d,i){return d.delay})
+    .on_start(function(d,i){ console.log(d.id,i);})
+    .on_end(function(d,i){ console.log(d.id,i);})
+    .load_particles()
+    .fire_particles()
+
+    console.log(launcher);
+
+    launcher = app.particles_launcher('3')
     .prepare_particles([{id:'f1',delay:0,speed:50},{id:'f2',delay:2000, speed:250}])
     .particles('id',function(d,i){return d.id})
     .particles('height',10)

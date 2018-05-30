@@ -9,7 +9,13 @@
 * <a href="#links"> flownetGraph.links( data_Links )</a>
 * <a href="#node_property"> flownetGraph.node_properties( property, value )</a>
 * <a href="#link_property"> flownetGraph.link_properties( property, value )</a>
-* <a href="#particule_property"> flownetGraph.particles( property, value )</a>
+* <a href="#particle_property"> flownetGraph.particles( property, value )</a>
+* <a href="#force_layout"> flownetGraph.force_layout( delay )</a>
+
+### Graph selection
+
+* <a href="#select"> flownetGraph.select( #id )</a>
+* <a href="#selectAll"> flownetGraph.selectAll( fun() )</a>
 
 ### Graph animation
 
@@ -20,29 +26,14 @@
 
 ### Particles launcher
 
-* <a href="#particule_launcher"> flownetGraph.particule_launcher( id_link )</a>
-* <a href="#launcher_prepare_particule"> launcher.prepare_particule( )</a>
+* <a href="#particle_launcher"> flownetGraph.particle_launcher( id_link )</a>
+* <a href="#launcher_prepare_particle"> launcher.prepare_particle( )</a>
 * <a href="#launcher_particles"> launcher.particles( property, value )</a>
 * <a href="#launcher_onStart"> launcher.on_start( function( ){ } )</a>
 * <a href="#launcher_onEnd"> launcher.on_end( function( ){ } )</a>
 * <a href="#launcher_load"> launcher.load( )</a>
 * <a href="#launcher_unload" > launcher.unload( id_particle )</a>
-* <a href="#launcher_fire_particule"> launcher.fire_particule( )</a>
-
-### In coding
-
-* flownetGraph.select(id)
-* flownetGraph.filter(fun)
-* flownetGraph.remove()
-
-
-### Waiting for API
-
-* node_properties("label", function(d, i) {return d.name; })
-* node_properties("label_size", 10)
-* node_properties("label_x", 15)
-* node_properties("label_y", -5)
-* node_properties("label_color", "#FFFFFF")
+* <a href="#launcher_fire_particle"> launcher.fire_particle( )</a>
 
 ## Graph creation
 
@@ -79,13 +70,27 @@ flownetGraph.node_properties("property", function(d,i){ return d.value})
 
 Set-up the specified property for each node in the graph according to the specified value. Like shown in the example above,
 it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
-position of the nodes in the nested selection (like d3).
+position of the nodes in the nested selection (like d3). Node properties also include a label with its own properties.
 
 #### Properties
 * x: The position of the node on the horizontal axis of the canvas ( (0,0) => top left corner).
 * y: The position of the node on the vertical axis of the canvas ( (0,0) => top left corner).
 * color: The color of the node supported by several color encoding (hsl, rgb...)
 * size: The size of the node coresponding to its radius.
+
+#### Label properties
+* text: Text of the label.
+* x: Position of the label, do not include the node position automatically (node position + offset).
+* y: Position of the label, do not include the node position automatically (node position + offset).
+* font: Font that will be used to show the text.
+* size: Size of the text coresponding to font-size.
+* color: Color of the text of the label.
+
+## Layout
+
+<a href="#force_layout" name="force_layout">#</a> flownetGraph.**force_layout("delay")**
+
+Create a custom position for each nodes according to a force layouts, higher is the delay feed to the function, better is the computation of positions.
 
 ## Links
 
@@ -112,14 +117,14 @@ position of the nodes in the nested selection (like d3).
 * color: The color of the particles supported by several color encoding (hsl, rgb...)
 * size: The size of the link.
 
-## Particules
+## particles
 
 ```js
 flownetGraph.particles("property", "value")
 flownetGraph.particles("property", function(d,i){ return "value"})
 flownetGraph.particles("property", function(d,i){ return d.value})
 ```
-<a href="#particule_property" name="particule_property">#</a> flownetGraph.**particles("property", "value")**
+<a href="#particle_property" name="particle_property">#</a> flownetGraph.**particles("property", "value")**
 
 Set-up the specified property for each link in the graph according to the specified value. Like shown in the example above,
 it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
@@ -127,19 +132,38 @@ position of the nodes in the nested selection (like d3).
 
 #### Basic properties
 * color: The color of the particles supported by several color encoding (hsl, rgb...).
-* height: The height of the particule inside the link.
-<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/particule_height/height.png" width="900" height="120">
-
-* pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element.
+* height: The height of the particle inside the link.
+<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/particle_height/height.png" width="900" height="120">
+* size: The width of the particles inside the links (used with pattern and override when visual pattern is used).
+* visual_pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element.
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/pattern/pattern.png" width="900" height="120">
+* pattern: How the paticles will appear on the link, (speed + frequency) or spacing create a segment in which particles can be placed using relative positioning, ie an array fill with foats [0.0 -> 1.0].
 
 #### Motion properties
 * speed: The speed at which particles move, it is expressed in px/s.
 * frequency: Represent the number of pattern of paticles that are fire each seconds. This is used with the speed in order to compute the space between two pattern and so the frequency is concurent with the spacing and automatically update this last using the rules: spacing = speed/frequency.
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/frequency_speed/frequencySpeed.png" width="900" height="250">
-
 * spacing: Represent the space between two patterns of paticles that are fire each seconds. This value is concurent with the frequency and automatically update the frequency value using the rules: frequency = speed/spacing. Contrary to the frequency the spacing is independent of speed.
 <img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/spacing/spacing.png" width="800" height="120">
+
+
+#### "computationalMethod" property
+* Speed-Frequency-RelativePattern (default) OR Speed-Frequency-AbsolutePattern OR Speed-Spacing-RelativePattern OR Speed-Spacing-AbsolutePattern
+
+## Graph Selection
+
+```js
+flownetGraph.select("#id")
+flownetGraph.selectAll(fun())
+```
+<a href="#select" name="select">#</a> flownetGraph.**select("#id")**
+
+Select element in the flownetgraph with the corresponding ID, this create a subgraph and all function of modification of properties called will modify only node/edge/links in this subgraph.
+If several element have the same id, they all wil be in the subgrah created.
+
+<a href="#selectAll" name="selectAll">#</a> flownetGraph.**selectAll(fun())**
+
+Select element in the flownetgraph by using a function that return True or False, this create a subgraph and all function of modification of properties called will modify only node/edge/links in this subgraph. example of function: function(d){ return (d.id === "node_0" || d.id === "link_1" }
 
 ## Graph animation
 
@@ -174,35 +198,35 @@ Reset all the transition in the graph. This does not take into account particles
 
 
 ## Particles launcher
-A launcher is used to fire several particules manually, it is based on three steps: Prepare/Load/Fire that are describe below. It can be load with several particles, each of them having their own properties.
+A launcher is used to fire several particles manually, it is based on three steps: Prepare/Load/Fire that are describe below. It can be load with several particles, each of them having their own properties.
 
 ```js
-launcher = flownetGraph.particule_launcher("id_link")
-            .prepare_particule() // Create one new particle
+launcher = flownetGraph.particle_launcher("id_link")
+            .prepare_particle() // Create one new particle
             .particles("property","value")
             .on_start(function(){})
             .on_end(function(){})
-            .load_particule()
-            .fire_particule()
+            .load_particle()
+            .fire_particle()
 ```
-<a href="#particule_launcher" name="particule_launcher">#</a> flownetGraph.**particule_launcher("id_link")**
+<a href="#particle_launcher" name="particle_launcher">#</a> flownetGraph.**particle_launcher("id_link")**
 Create a particles launcher on the link that possess the specified id. Particles fired by the launcher will follow the link in the same direction as the basic particles.
 
 ### Prepare and set-up properties
 
-<a href="#launcher_prepare_particule" name="launcher_prepare_particule">#</a> launcher.**prepare_particule()**
+<a href="#launcher_prepare_particle" name="launcher_prepare_particle">#</a> launcher.**prepare_particle()**
 
 Create "empty" particles waiting to be set up. Without argument only one "empty" particle will be created, but by passing an array of object to the function this will create several "empty" particles with their respective data bind to them.
 
 <a href="#launcher_particles" name="launcher_particles">#</a> launcher.**particles("property","value")**
 
-Set up the different properties of the <a>"empty" particule</a> that will be take into account when they will be launched.
+Set up the different properties of the <a>"empty" particle</a> that will be take into account when they will be launched.
 * id: Set an id to the particle, important in order to interact with it with some function.
 * pattern: How the paticles will appear on the link, this is used to create groups of particles that can have different lenghts and different space between them. This must be an array of number that contains an odd number of element.
 * speed: The speed at which particles move, it is expressed in px/s.
-* delay: The time that must elapse between the "fire_particule()" invoke and the beginning of the motion of the particle.
+* delay: The time that must elapse between the "fire_particle()" invoke and the beginning of the motion of the particle.
 * color: The color of the particles supported by several color encoding (hsl, rgb...).
-* height: The height of the particule.
+* height: The height of the particle.
 
 <a href="#launcher_onStart" name="launcher_onStart">#</a> launcher.**on_start(function(){})**
 
@@ -216,7 +240,7 @@ Bind a function to the particle that will be invoke when the particle is destroy
 
 <a href="#launcher_load" name="launcher_load">#</a> launcher.**load()**
 
-Load the particles that were being prepared in the launcher, when the "fire_particule()" command is invoke only the particles that are load are shot.
+Load the particles that were being prepared in the launcher, when the "fire_particle()" command is invoke only the particles that are load are shot.
 
 <a href="#launcher_unload" name="launcher_unload">#</a> unloaded_particle = launcher.**unload("id_particle")**
 
@@ -226,6 +250,6 @@ Remove from the launcher the particle that have the specified "id". Return an ob
 
 ### Fire
 
-<a href="#launcher_fire_particule" name="launcher_fire_particule">#</a> launcher.**fire_particule()**
+<a href="#launcher_fire_particle" name="launcher_fire_particle">#</a> launcher.**fire_particle()**
 
-Start the animation of all the particle that were loaded using ".load()". Once invoke all the particles shot are stock until another "fire_particule()" is invoke.
+Start the animation of all the particle that were loaded using ".load()". Once invoke all the particles shot are stock until another "fire_particle()" is invoke.
