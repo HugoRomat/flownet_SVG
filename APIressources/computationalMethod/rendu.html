@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <script src="../../lib/flownet.js"></script>
+</head>
+  <body>
+      <svg id=canvas width=1000 height=500 >
+        <text x="650" y="70" font-family="arial" font-size="16px" fill="black" text-anchor="middle">Frequency:1Hz + Speed:80px/s = 80px between each particle firing</text>
+        <text x="500" y="160" font-family="arial" font-size="16px" fill="black" text-anchor="middle">pattern: [0.0, 0.2, 0.5]</text>
+        <text x="800" y="160" font-family="arial" font-size="16px" fill="black" text-anchor="middle">visual_pattern: [10, 2, 5]</text>
+        <text x="650" y="270" font-family="arial" font-size="16px" fill="black" text-anchor="middle">Spacing:60px + any speed</text>
+        <text x="500" y="360" font-family="arial" font-size="16px" fill="black" text-anchor="middle">pattern: [0.0, 0.2, 0.5]</text>
+        <text x="800" y="360" font-family="arial" font-size="16px" fill="black" text-anchor="middle">visual_pattern: [10, 2, 5]</text>
+      </svg>
+  </body>
+
+	<script>
+
+var graph = {id:"showGraph",
+  nodes:[
+    {x:400 , y:100, color:"black", size:10, id:3},
+    {x:600 , y:100, color:"black", size:10, id:4},
+    {x:700 , y:100, color:"black", size:10, id:5},
+    {x:900 , y:100, color:"black", size:10, id:6},
+    {x:400 , y:300, color:"black", size:10, id:7},
+    {x:600 , y:300, color:"black", size:10, id:8},
+    {x:700 , y:300, color:"black", size:10, id:9},
+    {x:900 , y:300, color:"black", size:10, id:10},
+  ],
+  links:[
+
+    {id:1, source:3, target:4 , interpolation:"linear", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black",heightParticule:3, compu:"Speed-Frequency-RelativePattern",
+    patternParticule:[0.0], frequencyParticule:1, speedParticule:80},
+
+    {id:2, source:5, target:6 , interpolation:"linear", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black",heightParticule:3,compu:"Speed-Frequency-AbsolutePattern",
+    patternParticule:[0.0], frequencyParticule:1, speedParticule:80},
+
+    {id:3, source:7, target:8 , interpolation:"linear", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black",heightParticule:3,compu:"Speed-Spacing-RelativePattern",
+    patternParticule:[0.0], frequencyParticule:1, speedParticule:80},
+
+    {id:4,source:9, target:10 , interpolation:"linear", colorLink:"lightGrey",
+    sizeLink:12, colorParticule:"black",heightParticule:3,compu:"Speed-Spacing-AbsolutePattern",
+    patternParticule:[0.0], frequencyParticule:1, speedParticule:80}
+  ]
+}
+
+
+
+  flownetGraph = flownet.graph('#canvas')
+    //.graph(graph)
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .node_properties('x', function(d, i){  return d.x})
+    .node_properties('y', function(d, i){  return d.y})
+    .node_properties('color', function(d, i){ return d.color})
+    .node_properties('size', function(d, i){  return d.size})
+
+
+    .link_properties("interpolation", function(d,i){ return d.interpolation})
+    .link_properties("color", function(d,i){ return d.colorLink})
+    .link_properties("size", function(d,i){ return d.sizeLink})
+
+
+    .particles("color", function(d,i){ return d.colorParticule})
+    .particles("width", function(d,i){ return d.widthParticule})
+    .particles("height", function(d,i){ return d.heightParticule})
+    .particles("computationalMethod", function(d){ return d.compu})
+    .particles("size", function(d,i){ return 10})
+    .particles("frequency",function(d,i){ return d.frequencyParticule})
+    .particles("pattern", function(d,i){ return [0.0,0.2,0.5]})
+    .particles("visual_pattern", function(d,i){ return [10,2,5]})
+    .particles("speed", function(d,i){ return d.speedParticule})
+    .particles("spacing", 60)
+
+
+	</script>
+
+
+
+</html>

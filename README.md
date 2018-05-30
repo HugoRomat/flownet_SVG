@@ -7,10 +7,10 @@ This is the SVG version of flownet, it exist also a [webgl version.](https://git
 
 ## Resources
 
-* [Wiki]()
+* [Wiki](https://github.com/HugoRomat/flownet_SVG/wiki)
 * [API](https://github.com/HugoRomat/flownet_SVG/blob/master/API.md)
-* [Live Examples]()
-* [Gallery]()
+* [Gallery](http://ilda.saclay.inria.fr/flownet/index.html)
+* [Live example](http://ilda.saclay.inria.fr/flownet/usingFlownet.html)
 
 ## Quick template of a flownet graph
 

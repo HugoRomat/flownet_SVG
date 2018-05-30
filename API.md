@@ -1,5 +1,12 @@
 # flownet: SVG-API
 
+## Ressources
+
+* [Wiki](https://github.com/HugoRomat/flownet_SVG/wiki)
+* [Code](https://github.com/HugoRomat/flownet_SVG)
+* [Gallery](http://ilda.saclay.inria.fr/flownet/index.html)
+* [Live example](http://ilda.saclay.inria.fr/flownet/usingFlownet.html)
+
 ## Summary
 
 ### Graph creation
@@ -19,6 +26,7 @@
 
 ### Graph animation
 
+* <a href="#animation_delay"> flownetGraph.delay(int)</a>
 * <a href="#animation_start"> flownetGraph.start( )</a>
 * <a href="#animation_stop"> flownetGraph.stop( )</a>
 * <a href="#animation_reset"> flownetGraph.reset( )</a>
@@ -100,7 +108,7 @@ flownetGraph.link_properties("property", function(d,i){ return "value"})
 flownetGraph.link_properties("property", function(d,i){ return d.value})
 ```
 <a href="#link_property" name="link_property">#</a> flownetGraph.**link_properties("property", "value")**
-
+animation_delay
 Set-up the specified property for each link in the graph according to the specified value. Like shown in the example above,
 it is possible to pass a constant value or a function taking for parameters: **d** to access data bind to the node, **i** for the
 position of the nodes in the nested selection (like d3).
@@ -169,7 +177,6 @@ Select element in the flownetgraph by using a function that return True or False
 
 ```js
 flownetGraph.delay("value")
-flownetGraph.fps("value")
 flownetGraph.start()
 flownetGraph.stop()
 flownetGraph.reset()
@@ -177,12 +184,6 @@ flownetGraph.reset()
 <a href="#animation_delay" name="animation_delay">#</a> flownetGraph.**delay("value")**
 
 Set a delay to the animation that will be take into account when calling "flownetGraph.start()"
-
-<a href="#animation_fps" name="animation_fps">#</a> flownetGraph.**fps("value")**
-
-Change the fps of the animation in order to ease CPU loading, there are two possible value:
-* "auto": choice by default, let d3.js the control of the animation.
-* Integer: the fps of the animation will be fix at the integer value, for a good fluidity/CPU loading ratio it is recommended to fix it at 40.
 
 <a href="#animation_start" name="animation_start">#</a> flownetGraph.**start()**
 
