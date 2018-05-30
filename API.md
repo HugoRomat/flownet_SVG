@@ -157,7 +157,7 @@ position of the nodes in the nested selection (like d3).
 
 #### "computationalMethod" property
 * Speed-Frequency-RelativePattern (default) OR Speed-Frequency-AbsolutePattern OR Speed-Spacing-RelativePattern OR Speed-Spacing-AbsolutePattern
-<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/computationalMethod/computeMethod.png" width="800" height="500">
+<img src="https://github.com/HugoRomat/flownet_SVG/blob/master/APIressources/computationalMethod/comuteMethod.png" width="800" height="500">
 
 ## Graph Selection
 
