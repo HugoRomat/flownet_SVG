@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8' />
+    <link rel='stylesheet' href='css/style.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <script src='lib/flownet.js'></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<style>
+    html, #canvas {
+      background: #767676;
+    }
+  </style>
+  <body>
+
+      <svg id=canvas class='rightContainer'></svg>
+
+  </body>
+	<script>
+// var graph = {
+//   nodes:[
+//       {color:'black', size:10, id:0},
+//       {color:'black', size:10, id:1},
+//       {color:'black', size:10, id:2},
+//       {color:'black', size:10, id:3}
+//   ],
+//   links:[
+//       { id:0, source:1,target:0},
+//       { id:1, source:1,target:2},
+//       { id:2, source:1,target:3}
+//   ]
+// }
+
+var graph = {
+  nodes:[
+      {color:'black', size:10, id:0},
+      {color:'black', size:10, id:1},
+      {color:'black', size:10, id:2},
+      {color:'black', size:10, id:3},
+      {color:'black', size:10, id:4},
+      {color:'black', size:10, id:5},
+      {color:'black', size:10, id:6},
+      {color:'black', size:10, id:7},
+      {color:'black', size:10, id:8},
+      {color:'black', size:10, id:9},
+      {color:'black', size:10, id:10}
+  ],
+  links:[
+      // { id:0, source:1,target:0},
+      { id:1, source:1,target:2, sp: 6.86, vp: [12], color: '#00e6b6'},
+      { id:2, source:2,target:6, sp: 2, vp: [36.75], color: '#00caff'},
+      { id:3, source:0,target:3, sp: 6.86, vp: [12], color: '#ff00be'},
+      { id:4, source:3,target:7, sp: 2, vp: [12], color: '#00e6b6'},
+      { id:5, source:3,target:4, sp: 6.86, vp: [12], color: '#00caff'},
+      { id:6, source:4,target:5, sp: 2, vp: [12], color: '#ff00be'},
+      { id:7, source:4,target:2, sp: 6.86, vp: [36.75], color: '#00e6b6'},
+      { id:8, source:3,target:8, sp: 2, vp: [36.75], color: '#00caff'},
+      { id:9, source:4,target:9, sp: 6.86, vp: [36.75], color: '#ff00be'},
+      { id:10, source:4,target:10, sp: 2, vp: [36.75], color: '#00e6b6'}
+  ]
+}
+var centerXForce = d3.forceX(500 / 2);
+  var centerYForce = d3.forceY(500 / 2);
+
+var flownetGraph = flownet.graph('#canvas')
+  .nodes(graph.nodes)
+  .links(graph.links)
+  // 
+  // .node_properties('x', function(d, i){  return d.x})
+  // .node_properties('y', function(d, i){  return d.y})
+  
+  .node_properties('color', function(d, i){ return d.color})
+  .node_properties('size', function(d, i){  return 7})
+
+  // .node_properties('label_text', function(d, i){return 'id:'+d.id})
+  // .node_properties('label_x', function(d){ return d.x+12})
+  // .node_properties('label_y', function(d){ return d.y-12})
+  // .node_properties('label_size', 16)
+  // .node_properties('label_font', 'arial')
+  // .node_properties('label_color', 'black')
+
+
+  .link_properties("interpolation", "basis")
+  .link_properties('points', function(d,i){ return []})
+  .link_properties('color', function(d,i){ return '#7b7b7b'})
+  .link_properties('size', function(d,i){ return 12 })
+
+  .particles('color', function(d,i){ return "black"})
+  // .particles('size', function(d,i){ return 10})
+  .particles('height', function(d,i){ return 2})
+
+  // computationalMethod let you choose how the particles position will be calculated, see the Wiki for more explanation
+  //.particles("computationalMethod", "Speed-Frequency-RelativePattern") //default method of computation
+  // .particles('speed', function(d,i){ return 40})
+  // .particles("frequency", 1)
+  // .particles('pattern', function(d,i){ return [0.0,0.3]})
+/////////////////   1 //////////////////
+  .particles('computationalMethod', "Speed-Spacing-AbsolutePattern")
+  .particles('visual_pattern', function(d){ return [12] })
+  .particles('spacing', function(d){ return Number(30) + Number(12) })
+  .particles('speed', function(d,i){ return 12*d.sp; })
+
+
+/////////////////   2 //////////////////
+  .particles('computationalMethod', "Speed-Spacing-AbsolutePattern")
+  .particles('visual_pattern', function(d){ return [12]  })
+  .particles('spacing', function(d){ return Number(30) + Number(12) })
+  .particles('speed', function(d,i){ return 12*d.sp; })
+  .particles('color', function(d,i){ return d.color})
+
+
+  /////////////////   3 //////////////////
+  // .particles('computationalMethod', "Speed-Spacing-AbsolutePattern")
+  // .particles('visual_pattern', function(d){ return d.vp })
+  // .particles('spacing', function(d){ return Number(30) + Number(d.vp[0]) })
+  // .particles('speed', function(d,i){ return 12*d.sp; })
+  // .particles('color', function(d,i){ return d.color})
+
+
+  .start()
+
+  .force_layout("4000")
+  
+
+  flownetGraph.simulation = d3.forceSimulation(graph.nodes)
+    .force("charge", d3.forceManyBody().strength(-100))
+    // .force("link", d3.forceLink))
+    .force("link", d3.forceLink(graph.links).id(function(d) { return d.id; }).strength(0.09))
+    .force("center", d3.forceCenter(500,500))
+    .alpha(1).restart();
+    // .force("link", d3.forceLink(graph.links).id(function(d) { return d.id; }).strength(20))
+
+    // flownetGraph.start()
+
+  // console.log(flownetGraph.simulation, graph)
+
+  // flownetGraph.start()
+  // console.log(flownetGraph.selectAll().edges)
+  setTimeout(function(){
+  //   console.log('GO')
+    flownetGraph.link_properties("points", function(d){
+      for (var i = 0; i < graph.nodes.length; i++) {
+        // console.log(graph.nodes)
+        if ( Number(graph.nodes[i].id) === Number(d.source.id) ) {
+          x1 = graph.nodes[i].x
+          y1 = graph.nodes[i].y
+        }
+        if ( Number(graph.nodes[i].id) === Number(d.target.id) ) {
+          x2 = graph.nodes[i].x
+          y2 = graph.nodes[i].y
+        }
+      }
+      var points = draw_curve(x1, y1, x2, y2, 10);
+      return points[1]
+    })
+  }, 4500)
+  
+
+
+
+  function  get_distance(x1, y1, x2, y2){
+            var a = x1 - x2
+            var b = y1 - y2
+
+            var c = Math.sqrt( a*a + b*b );
+            //console.log(c)
+            return c;
+        }
+  function draw_curve(Ax, Ay, Bx, By,d) {
+            var self = this;
+            //console.log(Ax, Ay, Bx, By)
+            var M = self.get_distance(Ax, Ay, Bx, By) / d;
+            var signe = 1;
+            M *= signe;
+            // side is either 1 or -1 depending on which side you want the curve to be on.
+            // Find midpoint J
+            var Jx = Ax + (Bx - Ax) / 2
+            var Jy = Ay + (By - Ay) / 2
+
+            // We need a and b to find theta, and we need to know the sign of each to make sure that the orientation is correct.
+            var a = Bx - Ax
+            var asign = (a < 0 ? -1 : 1)
+            var b = By - Ay
+            var bsign = (b < 0 ? -1 : 1)
+            var theta = Math.atan(b / a)
+
+            // Find the point that's perpendicular to J on side
+            var costheta = asign * Math.cos(theta)
+            var sintheta = asign * Math.sin(theta)
+
+            // Find c and d
+            var c = M * sintheta
+            var d = M * costheta
+
+            // Use c and d to find Kx and Ky
+            var Kx = Jx - c
+            var Ky = Jy + d
+
+            return [{"x":Ax,"y": Ay}, {"x":Kx, "y":Ky}, {"x":Bx, "y":By}]
+        }
+
+// var launcher = flownetGraph.particles_launcher('0')
+//   .prepare_particles()
+//   .particles('id','particleLauncher')
+//   .particles('height',8)
+//   .particles('color','darkred')
+//   .particles('pattern',[20])
+//   .particles('speed',150)
+//   .particles('delay',0)
+//   .load_particles()
+//   .fire_particles()
+
+</script>
